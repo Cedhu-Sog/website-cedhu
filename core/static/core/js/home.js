@@ -1,150 +1,187 @@
 /* ============================================
-   HERO SLIDER - AUTO Y CON VIDEOS SINCRONIZADOS
-   ============================================ */
-document.addEventListener('DOMContentLoaded', () => {
-  const heroSlides = Array.from(document.querySelectorAll('.hero-slide .slide'));
-  const heroDots = Array.from(document.querySelectorAll('.hero-slide .dot'));
+ HERO SLIDER - AUTO Y CON VIDEOS SINCRONIZADOS 
+============================================ */
+
+document.addEventListener("DOMContentLoaded", () => {
+  const heroSlides = Array.from(
+    document.querySelectorAll(".hero-slide .slide")
+  );
+  const heroDots = Array.from(document.querySelectorAll(".hero-slide .dot"));
+  const toggleBtn = document.getElementById("heroToggle");
+
   let heroIndex = 0;
   let autoplayTimer = null;
-  const AUTOPLAY_DELAY = 6000; // 6 segundos para imágenes
+  let isPaused = false;
+
+  const AUTOPLAY_DELAY = 6000;
 
   if (!heroSlides.length || !heroDots.length) return;
 
+  /* ==========================
+     AUTOPLAY
+  ========================== */
+
   function stopAutoplay() {
-    if (autoplayTimer) clearTimeout(autoplayTimer);
+    clearTimeout(autoplayTimer);
     autoplayTimer = null;
   }
 
+  function startAutoplay() {
+    if (isPaused) return;
+
+    stopAutoplay();
+    autoplayTimer = setTimeout(() => {
+      nextHeroSlide();
+    }, AUTOPLAY_DELAY);
+  }
+
+  function nextHeroSlide() {
+    const next = (heroIndex + 1) % heroSlides.length;
+    showHeroSlide(next);
+  }
+
+  /* ==========================
+     SLIDES
+  ========================== */
+
   function showHeroSlide(n) {
     heroSlides.forEach((slide, i) => {
-      const overlay = slide.querySelector('.overlay');
-      const video = slide.querySelector('video');
+      const overlay = slide.querySelector(".overlay");
+      const video = slide.querySelector("video");
+
+      slide.classList.toggle("active", i === n);
+      if (heroDots[i]) heroDots[i].classList.toggle("active", i === n);
 
       if (i === n) {
-        slide.classList.add('active');
         if (overlay) {
-          overlay.classList.remove('animate');
-          void overlay.offsetWidth; // reflow
-          overlay.classList.add('animate');
+          overlay.classList.remove("animate");
+          void overlay.offsetWidth;
+          overlay.classList.add("animate");
         }
-        if (video) {
+        if (video && !isPaused) {
           video.currentTime = 0;
           video.play().catch(() => {});
         }
       } else {
-        slide.classList.remove('active');
-        if (overlay) overlay.classList.remove('animate');
-        if (video) video.pause();
+        if (overlay) overlay.classList.remove("animate");
+        if (video) {
+          video.pause();
+          video.onended = null;
+        }
       }
-
-      if (heroDots[i]) heroDots[i].classList.toggle('active', i === n);
     });
 
     heroIndex = n;
-    if (!isPaused) startAutoplay();
+
+    const currentVideo = heroSlides[n].querySelector("video");
+
+    if (currentVideo && !isPaused) {
+      currentVideo.onended = () => nextHeroSlide();
+    } else {
+      startAutoplay();
+    }
   }
 
-function startAutoplay() {
-  if (isPaused) return;
+  /* ==========================
+     BOTÓN PLAY / PAUSE
+  ========================== */
 
-  stopAutoplay();
+  toggleBtn.addEventListener("click", () => {
+    isPaused = !isPaused;
 
-  const currentSlide = heroSlides[heroIndex];
-  const video = currentSlide.querySelector('video');
+    const video = heroSlides[heroIndex].querySelector("video");
+    if (video) isPaused ? video.pause() : video.play().catch(() => {});
 
-  if (video) {
-    video.onended = () => {
-      if (!isPaused) {
-        showHeroSlide((heroIndex + 1) % heroSlides.length);
-      }
-    };
-  } else {
-    autoplayTimer = setTimeout(() => {
-      if (!isPaused) {
-        showHeroSlide((heroIndex + 1) % heroSlides.length);
-      }
-    }, AUTOPLAY_DELAY);
-  }
-}
+    toggleBtn.textContent = isPaused ? "▶" : "⏸";
 
+    isPaused ? stopAutoplay() : startAutoplay();
+  });
 
-  // Click en los puntos
+  /* ==========================
+     DOTS
+  ========================== */
+
   heroDots.forEach((dot, i) => {
-    dot.addEventListener('click', () => {
-      showHeroSlide(i);
-    });
+    dot.addEventListener("click", () => showHeroSlide(i));
   });
 
-  // Iniciar desde el primer slide
-  showHeroSlide(0);
+  /* ==========================
+     VISIBILIDAD
+  ========================== */
 
-  // Pausa automática si la pestaña está inactiva
-  document.addEventListener('visibilitychange', () => {
+  document.addEventListener("visibilitychange", () => {
     if (document.hidden) stopAutoplay();
-    else startAutoplay();
+    else if (!isPaused) startAutoplay();
   });
+
+  /* ==========================
+     INIT
+  ========================== */
+
+  showHeroSlide(0);
 });
 
-
-const toggleBtn = document.getElementById('heroToggle');
-let isPaused = false;
+/* ==========================
+   CONTROL DE PAUSA / PLAY
+========================== */
 
 function pauseHero() {
   isPaused = true;
   stopAutoplay();
 
   const currentSlide = heroSlides[heroIndex];
-  const video = currentSlide.querySelector('video');
+  const video = currentSlide.querySelector("video");
+
   if (video) {
-    video.onended = null;
     video.pause();
   }
 
-  toggleBtn.textContent = '▶';
+  toggleBtn.textContent = "▶";
+  toggleBtn.setAttribute("aria-pressed", "true");
 }
-
 
 function playHero() {
   isPaused = false;
 
   const currentSlide = heroSlides[heroIndex];
-  const video = currentSlide.querySelector('video');
-  if (video) video.play().catch(() => {});
+  const video = currentSlide.querySelector("video");
 
-  toggleBtn.textContent = '⏸';
+  if (video) {
+    video.play().catch(() => {});
+  }
+
+  toggleBtn.textContent = "⏸";
+  toggleBtn.setAttribute("aria-pressed", "false");
+
   startAutoplay();
 }
 
-toggleBtn.addEventListener('click', () => {
+toggleBtn.addEventListener("click", () => {
   isPaused ? playHero() : pauseHero();
 });
-
 
 /* ============================================
    BOTONES DE SECCIONES INTERACTIVAS
    ============================================ */
-document.addEventListener('DOMContentLoaded', () => {
-  const buttons = document.querySelectorAll('.hub-buttons button');
-  const boxes = document.querySelectorAll('.contenido-box');
+document.addEventListener("DOMContentLoaded", () => {
+  const buttons = document.querySelectorAll(".hub-buttons button");
+  const boxes = document.querySelectorAll(".contenido-box");
 
   if (!buttons.length || !boxes.length) return;
 
-  buttons.forEach(btn => {
-    btn.addEventListener('click', () => {
+  buttons.forEach((btn) => {
+    btn.addEventListener("click", () => {
       // Quitar "active" de todo
-      buttons.forEach(b => b.classList.remove('active'));
-      boxes.forEach(box => box.classList.remove('active'));
+      buttons.forEach((b) => b.classList.remove("active"));
+      boxes.forEach((box) => box.classList.remove("active"));
 
       // Activar el actual
-      btn.classList.add('active');
-      const target = btn.getAttribute('data-target');
-      document.getElementById(target).classList.add('active');
+      btn.classList.add("active");
+      const target = btn.getAttribute("data-target");
+      document.getElementById(target).classList.add("active");
     });
   });
 });
-
-
-
 
 /* himno */
 
@@ -173,32 +210,31 @@ document.addEventListener('DOMContentLoaded', () => {
 //     });
 // });
 
+document.addEventListener("DOMContentLoaded", () => {
+  const buttons = document.querySelectorAll(".hub-buttons button");
+  const boxes = document.querySelectorAll(".contenido-box");
 
-document.addEventListener('DOMContentLoaded', () => {
-  const buttons = document.querySelectorAll('.hub-buttons button');
-  const boxes = document.querySelectorAll('.contenido-box');
-
-  buttons.forEach(btn => {
-    btn.addEventListener('click', () => {
+  buttons.forEach((btn) => {
+    btn.addEventListener("click", () => {
       // Remover clase active de todos los botones y contenidos
-      buttons.forEach(b => b.classList.remove('active'));
-      boxes.forEach(box => box.classList.remove('active'));
+      buttons.forEach((b) => b.classList.remove("active"));
+      boxes.forEach((box) => box.classList.remove("active"));
 
       // Activar el botón actual y su contenido relacionado
-      btn.classList.add('active');
-      const target = btn.getAttribute('data-target');
-      document.getElementById(target).classList.add('active');
+      btn.classList.add("active");
+      const target = btn.getAttribute("data-target");
+      document.getElementById(target).classList.add("active");
     });
   });
 });
 
-// niveles educativos 
+// niveles educativos
 function toggleInfo(card) {
   const info = card.querySelector(".nivel-info");
   const expanded = card.classList.contains("expanded");
 
   // Cierra todas las demás tarjetas
-  document.querySelectorAll(".nivel-card").forEach(c => {
+  document.querySelectorAll(".nivel-card").forEach((c) => {
     c.classList.remove("expanded");
     c.querySelector(".nivel-info").classList.remove("show");
   });
@@ -243,6 +279,3 @@ document.addEventListener("click", (e) => {
     }
   });
 });
-
-
-

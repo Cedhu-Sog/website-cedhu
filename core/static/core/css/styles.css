@@ -448,6 +448,7 @@ footer {
   /* Borde degradado arriba */
   border-top: 6px solid transparent;
   border-image: linear-gradient(to right, #10B65C, #FFD600) 1;
+  
 }
 
 .footer-container {

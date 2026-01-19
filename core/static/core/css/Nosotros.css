@@ -34,116 +34,67 @@
   * { animation: none !important; transition: none !important; }
 }
 /* =====================================
-   CONOCE CEDHU (HERO)
+   CONOCE CEDHU
 ===================================== */
 
 .conoce-cedhu {
-  position: relative;
+  position: fixed;
+  top: 93px;
+  left: 0;
   width: 100%;
-  min-height: 600px;
+  height: 320px;
   background: url("../img/PANORAMICACDEHU.JPG") no-repeat center/cover;
-  margin: 0 auto 40px;
-  display: flex;
-  align-items: flex-end;   /* TEXTO ABAJO */
-  justify-content: flex-start; 
-  padding: 40px 80px 20px; /* espacio inferior */
+  z-index: -1;
 }
 
-.conoce-cedhu::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 50%; /* controla qué tanto sube el degradado */
-  background: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.8) 0%,   /* muy oscuro abajo */
-    rgba(0, 0, 0, 0.3) 40%,  /* se va aclarando */
-    rgba(0, 0, 0, 0.0) 100%  /* totalmente transparente arriba */
-  );
-  z-index: 1;
-  pointer-events: none;
-}
-
-.conoce-cedhu .hero-content {
-  
-  width: 100%;
-  max-width: 1200px; /* mismo ancho que las tarjetas */
-  margin: 0 auto;    /* centra el contenido */
-  padding: 0 20px;   /* respiro lateral */
-  text-align: left;  /* alineación igual a las tarjetas */
-
-
-  position: relative;
-  z-index: 2;
-}
-
-.conoce-cedhu .hero-content h2 {
-  font-size: clamp(2.5rem, 6vw, 4rem);
-  font-weight: 900;
-  color: #fff;
-  margin-bottom: 20px;
-  text-shadow: none; /* en la imagen NO hay sombra */
-  opacity: 1;
-  transform: none;
-  animation: none; /* si quieres efecto, déjamelo y lo ajusto */
-}
-
-.conoce-cedhu .hero-content p {
-  font-size: clamp(1rem, 2vw, 1.3rem);
-  font-weight: 600;
-  color: #fff;
-  text-transform: uppercase; /* como en la imagen */
-  letter-spacing: 1.5px; /* separa letras */
-  max-width: 600px; /* evita que tome todo el ancho */
-  line-height: 1.6;
-  text-shadow: none;
-  opacity: 1;
-  transform: none;
-  animation: none;
-}
-
-.conoce-cedhu .hero-content p {
-  position: relative;
-  padding-left: 20px;
-}
-
-.conoce-cedhu .hero-content p::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 5px;
-  width: 5px;
-  height: 85%;
-  background: #f7c600; /* amarillo */
-}
-
-/* animación */
-@keyframes fadeSlideUp {
-  0% {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.contenido{
+  margin-top: 300px;
 }
 
 @media (max-width: 768px) {
-  .conoce-cedhu {
-    padding: 28px 16px;
-    min-height: 320px;
-  }
+  .conoce-cedhu { height: 200px; }
+  .contenido { margin-top: 180px; }
 }
 
 @media (max-width: 480px) {
-  .conoce-cedhu {
-    padding: 20px 12px;
-    min-height: 280px;
-  }
+  .conoce-cedhu { top: 80px; height: 200px; }
+  .contenido { margin-top: 180px; }
 }
+
+
+/* ==========================
+   SECCIÓN BIENVENIDA
+============================== */
+
+.bienvenida {
+  margin: 0px;
+  overflow: hidden;
+  text-align: center;
+}
+
+.bienvenida-text {
+  font-size: 1.3em;
+  max-width: 1200px;
+  margin: 0 auto 2rem;
+  line-height: 1.8; /* interlineado */
+  letter-spacing: 0.03em; /* espaciado entre letras */
+}
+
+.bienvenida-link {
+  font-size: 1.3em;
+  display: inline-block;
+  margin-bottom: 2rem;
+  color: #10b65c;
+  text-decoration: none;
+  max-width: 100%;
+  overflow-wrap: break-word;
+  transition: all 0.3s ease;
+}
+
+.bienvenida-link:hover {
+  color: #7ac143;
+}
+
 
 /* =====================================
    SECCIÓN COMUNICACIÓN (HERO INTERNO)

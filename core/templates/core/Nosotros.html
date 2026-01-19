@@ -1,1142 +1,1176 @@
-{% extends 'core/base.html' %} {% load static %} {% block title %}Nosotros -
-CEDHU{% endblock %} {% block content %}
+{% extends 'core/base.html' %} {% load static %} 
 
+{% block title %}Nosotros -
+CEDHU{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'core/css/Nosotros.css' %}" />
 <!-- CONOCE CEDHU -->
 <section class="conoce-cedhu">
-  <div class="hero-content container">
-    <h2>NOSOTROS</h2>
-    <p>
-      Un lugar donde la <span>Pedagogía de la Felicidad</span> transforma vidas.
-      Somos una institución que combina
-      <strong>educación de calidad, valores</strong> y bienestar para formar
-      seres humanos íntegros.
-    </p>
-  </div>
 </section>
 
 <!-- Botón Himno CEDHU flotante con texto dentro -->
 <div class="himno-cedhu">
   <button id="botonMusica">
-    <span>Himno<br>CEDHU</span>
+    <span>Himno<br />CEDHU</span>
     <div class="shine-wrapper">
-          <div class="shine"></div>
+      <div class="shine"></div>
     </div>
   </button>
 
   <audio
     id="musicaFondo"
-    src="{% static 'core/audio/3- HIMNO CEDHU (online-audio-converter.com).mp3' %}">
-  </audio>
+    src="{% static 'core/audio/3- HIMNO CEDHU (online-audio-converter.com).mp3' %}"
+  ></audio>
 </div>
 
+<div class="contenido">
+  <section class="bienvenida">
+    <h2>NOSOTROS</h2>
+    <p class="bienvenida-text">Formamos educandos con valores, felicidad y excelencia académica</p>
 
-<!-- Lema -->
-<section class="section lema-section">
-  <div class="lema-content">
-    <div class="lema-text">
-      <h2>NUESTRO LEMA</h2>
-      <p>
-        El Lema: “<span class="highlight">ORDEN ES BIENESTAR</span>”, se refiere
-        a la condición básica en la vida de todos los seres; cuando nos
-        ordenamos como personas, por resonancia hay un mejor orden como sociedad
-        y se logran todos los objetivos.
-      </p>
-
-      <div class="more-text">
+  </section>
+  <!-- Lema -->
+  <section class="section lema-section">
+    <div class="lema-content">
+      <div class="lema-text">
+        <h2>NUESTRO LEMA</h2>
         <p>
-          El orden es un soporte necesario para lograr que todos los demás
-          aspectos funcionen. Los semicírculos amarillos que se ubican en la
-          parte posterior representan el Sol, Sogamoso conocida como ―Ciudad del
-          Sol y del Acero―. Los círculos rojos sobre la H y la U representan al
-          Ser Humano. Por esto la Institución centra su Razón Social en un Ser
-          como Institución, lo que le da carácter e identidad, como tal, en el
-          enfoque pedagógico propio de su hacer.
+          El Lema: “<span class="highlight">ORDEN ES BIENESTAR</span>”, se
+          refiere a la condición básica en la vida de todos los seres; cuando
+          nos ordenamos como personas, por resonancia hay un mejor orden como
+          sociedad y se logran todos los objetivos.
+        </p>
+
+        <div class="more-text">
+          <p>
+            El orden es un soporte necesario para lograr que todos los demás
+            aspectos funcionen. Los semicírculos amarillos que se ubican en la
+            parte posterior representan el Sol, Sogamoso conocida como ―Ciudad
+            del Sol y del Acero―. Los círculos rojos sobre la H y la U
+            representan al Ser Humano. Por esto la Institución centra su Razón
+            Social en un Ser como Institución, lo que le da carácter e
+            identidad, como tal, en el enfoque pedagógico propio de su hacer.
+          </p>
+        </div>
+
+        <button class="toggle-btn" onclick="toggleMore(this)">Ver más</button>
+      </div>
+
+      <div class="lema-image">
+        <img src="{% static 'core/img/formacion.avif' %}" alt="Lema" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Comunicación -->
+  <section class="section comunicacion">
+    <div class="hero-content">
+      <h2>LA GANANCIA ESTÁ EN COMUNICARNOS</h2>
+      <p>
+        La comunicación es la base de todas las relaciones entre los seres
+        vivos. Entre los seres humanos, es la parte más importante para poder
+        convivir. En una explicación más sencilla, una buena COMUNICACIÓN
+        contiene los siguientes ingredientes
+      </p>
+      <div class="more-details" style="display: none">
+        <p>– Tener la <strong>INTENCIÓN</strong> de comunicar algo.</p>
+        <p>
+          – Poder establecer la conexión con el receptor, es decir, lograr su
+          <strong>ATENCIÓN</strong>.
+        </p>
+        <p>
+          – Cuando el mensaje va en un sentido y retorna se cumple un ciclo de
+          comunicación. Si esta dinámica se mantiene, creamos
+          <strong>AFINIDAD</strong> con esa persona.
+        </p>
+        <p>
+          – Si mantenemos fluida, constante y clara nuestra relación, se genera
+          el
+          <strong>AFECTO</strong>, que es la base del <strong>AMOR</strong>.
+          Cuando este valor está presente, creamos una realidad sólida y bien
+          cimentada, que solo se debilita si faltamos al compromiso de
+          comunicar.
+        </p>
+        <p>
+          – A la hora de comunicar, los Cedhuistas tenemos una gran ventaja: un
+          ingrediente que hace que nuestra comunicación sea diferente:
+          <strong>LA INTEGRIDAD</strong>.
         </p>
       </div>
 
       <button class="toggle-btn" onclick="toggleMore(this)">Ver más</button>
     </div>
+  </section>
 
-    <div class="lema-image">
-      <img src="{% static 'core/img/formacion.avif' %}" alt="Lema" />
-    </div>
-  </div>
-</section>
+  <!-- Bandera + Uniforme -->
+  <section class="section alt bandera-uniforme">
+    <div class="bandera-uniforme-content">
+      <!-- Bloque Bandera -->
+      <div class="bandera-box">
+        <h2>NUESTRA BANDERA</h2>
+        <p>
+          <span style="color: #8a8a8a">Blanco:</span> Paz |
+          <span style="color: #10b65c">Verde:</span> Esperanza |
+          <span style="color: #e60000">Rojo:</span> Valores |
+          <span style="color: #ffd500">Amarillo:</span> Riqueza intelectual
+        </p>
+        <div class="img-wrapper">
+          <img src="{% static 'core/img/banderACEDHU.png' %}" alt="Bandera" />
+        </div>
+      </div>
 
-<!-- Comunicación -->
-<section class="section comunicacion">
-  <div class="hero-content">
-    <h2>LA GANANCIA ESTÁ EN COMUNICARNOS</h2>
-    <p>
-      La comunicación es la base de todas las relaciones entre los seres vivos.
-      Entre los seres humanos, es la parte más importante para poder convivir.
-      En una explicación más sencilla, una buena COMUNICACIÓN contiene los
-      siguientes ingredientes
-    </p>
-    <div class="more-details" style="display: none">
-      <p>– Tener la <strong>INTENCIÓN</strong> de comunicar algo.</p>
-      <p>
-        – Poder establecer la conexión con el receptor, es decir, lograr su
-        <strong>ATENCIÓN</strong>.
-      </p>
-      <p>
-        – Cuando el mensaje va en un sentido y retorna se cumple un ciclo de
-        comunicación. Si esta dinámica se mantiene, creamos
-        <strong>AFINIDAD</strong> con esa persona.
-      </p>
-      <p>
-        – Si mantenemos fluida, constante y clara nuestra relación, se genera el
-        <strong>AFECTO</strong>, que es la base del <strong>AMOR</strong>.
-        Cuando este valor está presente, creamos una realidad sólida y bien
-        cimentada, que solo se debilita si faltamos al compromiso de comunicar.
-      </p>
-      <p>
-        – A la hora de comunicar, los Cedhuistas tenemos una gran ventaja: un
-        ingrediente que hace que nuestra comunicación sea diferente:
-        <strong>LA INTEGRIDAD</strong>.
-      </p>
-    </div>
-
-    <button class="toggle-btn" onclick="toggleMore(this)">Ver más</button>
-  </div>
-</section>
-
-<!-- Bandera + Uniforme -->
-<section class="section alt bandera-uniforme">
-  <div class="bandera-uniforme-content">
-    <!-- Bloque Bandera -->
-    <div class="bandera-box">
-      <h2>NUESTRA BANDERA</h2>
-      <p>
-        <span style="color: #8a8a8a">Blanco:</span> Paz |
-        <span style="color: #10b65c">Verde:</span> Esperanza |
-        <span style="color: #e60000">Rojo:</span> Valores |
-        <span style="color: #ffd500">Amarillo:</span> Riqueza intelectual
-      </p>
-      <div class="img-wrapper">
-        <img src="{% static 'core/img/banderACEDHU.png' %}" alt="Bandera" />
+      <!-- Bloque Uniforme -->
+      <div class="uniforme-box">
+        <h2>NUESTRO UNIFORME</h2>
+        <p>
+          El uniforme Cedhuista representa nuestra identidad institucional,
+          valores y sentido de pertenencia.
+        </p>
+        <div class="img-wrapper">
+          <img
+            src="{% static 'core/img/uniforme_cedhu_mejorada_1152x768.png' %}"
+            alt="Uniforme"
+          />
+        </div>
       </div>
     </div>
-
-    <!-- Bloque Uniforme -->
-    <div class="uniforme-box">
-      <h2>NUESTRO UNIFORME</h2>
-      <p>
-        El uniforme Cedhuista representa nuestra identidad institucional,
-        valores y sentido de pertenencia.
+  </section>
+  <!-- Filosofía -->
+  <section class="section filosofia">
+    <div class="hero-content">
+      <h2>FILOSOFÍA Y MODELO PEDAGÓGICO</h2>
+      <p class="intro-text">
+        El Modelo Pedagógico del CEDHU: LA PEDAGOGÍA DE LA FELICIDAD, se
+        fundamenta en la búsqueda de SER FELICES EN EL PROCESO DE ENSEÑAR Y
+        APRENDER...
       </p>
-      <div class="img-wrapper">
-        <img
-          src="{% static 'core/img/uniforme_cedhu_mejorada_1152x768.png' %}"
-          alt="Uniforme"
-        />
+
+      <div class="more-text">
+        <p>
+          reconociendo a Dios como principio creador de todo lo existente,
+          generando bienestar a todos los seres a partir de la formación de las
+          personas a través de nuestra Cátedra Cedhuista: El fortalecimiento de
+          los valores del SER, en cada uno de nosotros; hacer fácil y sencillo
+          el conocimiento a través de estrategias y prácticas innovadoras.
+          Respetamos el cumplimiento de unas normas básicas: “ORDEN ES
+          BIENESTAR” facilitando la convivencia pacífica e incluyente, así como
+          la aceptación de sí mismo y los demás, con sus virtudes y defectos,
+          como requisito para relacionarnos con todos los seres de este mundo y
+          “LA GANANCIA ESTÁ EN COMUNICARNOS”, si lo hacemos desde el corazón y
+          respetando acuerdos de verdad. Aceptamos que somos parte de una
+          familia y un entorno social con los que interactuamos en doble vía,
+          involucrándonos de forma activa, en los procesos pedagógicos,
+          recibiendo influencias, con posibilidad de generar cambios benéficos.
+        </p>
+      </div>
+
+      <button class="toggle-btn" onclick="toggleMore(this)">Ver más</button>
+    </div>
+  </section>
+
+  <!-- Misión & Visión -->
+  <section class="section alt">
+    <div class="mision-vision">
+      <div class="box">
+        <h2>MISIÓN</h2>
+        <p>
+          En el CEDHU trabajamos para lograr la formación integral de la
+          Comunidad Cedhuista, por medio de una educación orientada a la
+          vivencia de la Felicidad a través del fortalecimiento de Valores del
+          SER, la innovación y la creatividad; en beneficio de su entorno
+          familiar, social, cultural, espiritual y económico.
+        </p>
+      </div>
+      <div class="box">
+        <h2>VISIÓN</h2>
+        <p>
+          El CEDHU será líder a nivel nacional aplicando la Pedagogía de la
+          Felicidad como modelo de formación, con educandos y egresados
+          innovadores, conscientes de sus principios y valores, trascendentes y
+          creativos en su vida para generar Bienestar.
+        </p>
       </div>
     </div>
-  </div>
-</section>
-<!-- Filosofía -->
-<section class="section filosofia">
-  <div class="hero-content">
-    <h2>FILOSOFÍA Y MODELO PEDAGÓGICO</h2>
-    <p class="intro-text">
-      El Modelo Pedagógico del CEDHU: LA PEDAGOGÍA DE LA FELICIDAD, se
-      fundamenta en la búsqueda de SER FELICES EN EL PROCESO DE ENSEÑAR Y
-      APRENDER...
-    </p>
+  </section>
 
-    <div class="more-text">
-      <p>
-        reconociendo a Dios como principio creador de todo lo existente,
-        generando bienestar a todos los seres a partir de la formación de las
-        personas a través de nuestra Cátedra Cedhuista: El fortalecimiento de
-        los valores del SER, en cada uno de nosotros; hacer fácil y sencillo el
-        conocimiento a través de estrategias y prácticas innovadoras. Respetamos
-        el cumplimiento de unas normas básicas: “ORDEN ES BIENESTAR” facilitando
-        la convivencia pacífica e incluyente, así como la aceptación de sí mismo
-        y los demás, con sus virtudes y defectos, como requisito para
-        relacionarnos con todos los seres de este mundo y “LA GANANCIA ESTÁ EN
-        COMUNICARNOS”, si lo hacemos desde el corazón y respetando acuerdos de
-        verdad. Aceptamos que somos parte de una familia y un entorno social con
-        los que interactuamos en doble vía, involucrándonos de forma activa, en
-        los procesos pedagógicos, recibiendo influencias, con posibilidad de
-        generar cambios benéficos.
-      </p>
-    </div>
-
-    <button class="toggle-btn" onclick="toggleMore(this)">Ver más</button>
-  </div>
-</section>
-
-<!-- Misión & Visión -->
-<section class="section alt">
-  <div class="mision-vision">
-    <div class="box">
-      <h2>MISIÓN</h2>
-      <p>
-        En el CEDHU trabajamos para lograr la formación integral de la Comunidad
-        Cedhuista, por medio de una educación orientada a la vivencia de la
-        Felicidad a través del fortalecimiento de Valores del SER, la innovación
-        y la creatividad; en beneficio de su entorno familiar, social, cultural,
-        espiritual y económico.
-      </p>
-    </div>
-    <div class="box">
-      <h2>VISIÓN</h2>
-      <p>
-        El CEDHU será líder a nivel nacional aplicando la Pedagogía de la
-        Felicidad como modelo de formación, con educandos y egresados
-        innovadores, conscientes de sus principios y valores, trascendentes y
-        creativos en su vida para generar Bienestar.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- ==========================
+  <!-- ==========================
      SECCIÓN NUESTROS PRINCIPIOS
-============================== -->
-<section class="principios-section">
-  <h2>NUESTROS PRINCIPIOS</h2>
-  <p>
-    Los principios están entendidos como aceptaciones y reconocimientos
-    universales que se establecen y que rigen la convivencia:
-  </p>
-
-  <div class="principios-container">
-    <!-- Tarjeta 1 -->
-    <div class="principio-card" onclick="togglePrincipio(this)">
-      <div class="principio-content">
-        <h3>1. Reconocimiento a Dios</h3>
-        <div class="principio-info">
-          <p>
-            Reconocimiento a Dios como inicio y fin de todas las cosas. Él guía
-            la misión educativa y protege a los integrantes de la comunidad
-            Cedhuista.
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Tarjeta 2 -->
-    <div class="principio-card" onclick="togglePrincipio(this)">
-      <div class="principio-content">
-        <h3>2. Respeto al Derecho a la Vida</h3>
-        <div class="principio-info">
-          <p>
-            Reconociendo a cada ser humano como único y diferente, practicando
-            no enfadarse, no juzgar, no criticar; comprendiendo y siendo
-            compasivo con los seres vivos del entorno.
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Tarjeta 3 -->
-    <div class="principio-card" onclick="togglePrincipio(this)">
-      <div class="principio-content">
-        <h3>3. Capacidad de Raciocinio</h3>
-        <div class="principio-info">
-          <p>
-            Reconocimiento a la capacidad de raciocinio para diferenciar entre
-            lo bueno y lo malo y actuar en consecuencia.
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Tarjeta 4 -->
-    <div class="principio-card" onclick="togglePrincipio(this)">
-      <div class="principio-content">
-        <h3>4. Prosperidad y Gratitud</h3>
-        <div class="principio-info">
-          <p>
-            El principio de prosperidad y gratitud se activa cuando reconocemos
-            y bendecimos lo que tenemos; para recibir, la primera acción es dar.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- línea del tiempo -->
-<section class="timeline">
-  <h2>HISTORIA CEDHU</h2>
-
-  <div class="timeline-wrapper">
-    <div class="timeline-line"></div>
-
-    <div class="timeline-item active" data-year="1988">1988</div>
-    <div class="mobile-description"></div>
-
-    <div class="timeline-item" data-year="1996">1996</div>
-    <div class="mobile-description"></div>
-
-    <div class="timeline-item" data-year="2001">2001</div>
-    <div class="mobile-description"></div>
-
-    <div class="timeline-item" data-year="2003">2003</div>
-    <div class="mobile-description"></div>
-
-    <div class="timeline-item" data-year="2005">2005</div>
-    <div class="mobile-description"></div>
-
-    <div class="timeline-item" data-year="2007">2007</div>
-    <div class="mobile-description"></div>
-
-    <div class="timeline-item" data-year="2019">2019</div>
-    <div class="mobile-description"></div>
-
-    <div class="timeline-item" data-year="actualidad">Actualidad</div>
-    <div class="mobile-description"></div>
-  </div>
-
-  <div class="timeline-content">
-    <p id="timeline-text">
-      A la fecha, el <strong>CEDHU</strong> se identifica en la región, como una
-      institución pionera, vanguardista y de calidad, reconocida por la riqueza
-      en su servicio y por la Calidad Humana de sus integrantes.
+  ============================== -->
+  <section class="principios-section">
+    <h2>NUESTROS PRINCIPIOS</h2>
+    <p>
+      Los principios están entendidos como aceptaciones y reconocimientos
+      universales que se establecen y que rigen la convivencia:
     </p>
-  </div>
-</section>
 
-<!-- Espacios -->
-<section class="section">
-  <h2>NUESTROS ESPACIOS</h2>
-  <div class="video-container">
-    <video controls preload="metadata">
-      <source
-        src="{% static 'core/videos/EpaciosCedhu99.mp4' %}"
-        type="video/mp4"
-      />
-      Tu navegador no soporta la reproducción de video.
-    </video>
+    <div class="principios-container">
+      <!-- Tarjeta 1 -->
+      <div class="principio-card" onclick="togglePrincipio(this)">
+        <div class="principio-content">
+          <h3>1. Reconocimiento a Dios</h3>
+          <div class="principio-info">
+            <p>
+              Reconocimiento a Dios como inicio y fin de todas las cosas. Él
+              guía la misión educativa y protege a los integrantes de la
+              comunidad Cedhuista.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tarjeta 2 -->
+      <div class="principio-card" onclick="togglePrincipio(this)">
+        <div class="principio-content">
+          <h3>2. Respeto al Derecho a la Vida</h3>
+          <div class="principio-info">
+            <p>
+              Reconociendo a cada ser humano como único y diferente, practicando
+              no enfadarse, no juzgar, no criticar; comprendiendo y siendo
+              compasivo con los seres vivos del entorno.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tarjeta 3 -->
+      <div class="principio-card" onclick="togglePrincipio(this)">
+        <div class="principio-content">
+          <h3>3. Capacidad de Raciocinio</h3>
+          <div class="principio-info">
+            <p>
+              Reconocimiento a la capacidad de raciocinio para diferenciar entre
+              lo bueno y lo malo y actuar en consecuencia.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tarjeta 4 -->
+      <div class="principio-card" onclick="togglePrincipio(this)">
+        <div class="principio-content">
+          <h3>4. Prosperidad y Gratitud</h3>
+          <div class="principio-info">
+            <p>
+              El principio de prosperidad y gratitud se activa cuando
+              reconocemos y bendecimos lo que tenemos; para recibir, la primera
+              acción es dar.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- línea del tiempo -->
+  <section class="timeline">
+    <h2>HISTORIA CEDHU</h2>
+
+    <div class="timeline-wrapper">
+      <div class="timeline-line"></div>
+
+      <div class="timeline-item active" data-year="1988">1988</div>
+      <div class="mobile-description"></div>
+
+      <div class="timeline-item" data-year="1996">1996</div>
+      <div class="mobile-description"></div>
+
+      <div class="timeline-item" data-year="2001">2001</div>
+      <div class="mobile-description"></div>
+
+      <div class="timeline-item" data-year="2003">2003</div>
+      <div class="mobile-description"></div>
+
+      <div class="timeline-item" data-year="2005">2005</div>
+      <div class="mobile-description"></div>
+
+      <div class="timeline-item" data-year="2007">2007</div>
+      <div class="mobile-description"></div>
+
+      <div class="timeline-item" data-year="2019">2019</div>
+      <div class="mobile-description"></div>
+
+      <div class="timeline-item" data-year="actualidad">Actualidad</div>
+      <div class="mobile-description"></div>
+    </div>
+
+    <div class="timeline-content">
+      <p id="timeline-text">
+        A la fecha, el <strong>CEDHU</strong> se identifica en la región, como
+        una institución pionera, vanguardista y de calidad, reconocida por la
+        riqueza en su servicio y por la Calidad Humana de sus integrantes.
+      </p>
+    </div>
+  </section>
+
+  <!-- Espacios -->
+  <section class="section">
+    <h2>NUESTROS ESPACIOS</h2>
+    <div class="video-container">
+      <video controls preload="metadata">
+        <source
+          src="{% static 'core/videos/EpaciosCedhu99.mp4' %}"
+          type="video/mp4"
+        />
+        Tu navegador no soporta la reproducción de video.
+      </video>
+    </div>
+
+    <p class="video-description">
+      En esta sección te invitamos a recorrer nuestros espacios educativos,
+      diseñados para el aprendizaje, la creatividad y la convivencia. Un entorno
+      donde cada rincón inspira el desarrollo integral de nuestros educandos.
+    </p>
+  </section>
+
+  <!-- Modal para lightbox -->
+  <div id="lightbox" class="lightbox hide">
+    <div class="lightbox-content">
+      {% comment %} <span class="close-btn" id="closeLightbox">&times;</span> {%endcomment %}
+      <h3 id="lightbox-title"></h3>
+      <img id="lightbox-img" src="" alt="" />
+    </div>
   </div>
 
-  <p class="video-description">
-    En esta sección te invitamos a recorrer nuestros espacios educativos,
-    diseñados para el aprendizaje, la creatividad y la convivencia. Un entorno
-    donde cada rincón inspira el desarrollo integral de nuestros educandos.
-  </p>
-</section>
+  <section class="section alt">
+    <h2>ESTRUCTURA ORGANIZACIONAL</h2>
+    <img
+      src="{% static 'core/img/estructura.png' %}"
+      alt="Organigrama Colegio CEDHU"
+    />
 
-<!-- Modal para lightbox -->
-<div id="lightbox" class="lightbox hide">
-  <div class="lightbox-content">
-    {% comment %} <span class="close-btn" id="closeLightbox">&times;</span> {% endcomment %}
-    <h3 id="lightbox-title"></h3>
-    <img id="lightbox-img" src="" alt="" />
-  </div>
+    <!-- DIRECTIVAS -->
+    <div class="accordion">
+      <button class="accordion-btn" type="button">DIRECTIVAS CEDHU</button>
+      <div class="accordion-content">
+        <div class="staff">
+          <!-- Tarjeta 1 -->
+          <div class="staff-card" tabindex="0">
+            <div class="staff-card-inner">
+              <div class="staff-card-front">
+                <img
+                  src="{% static 'core/img/juancarlos.avif' %}"
+                  alt="Director General"
+                />
+                <h4>DR. JUAN CARLOS RUIZ</h4>
+                <p>Director General</p>
+              </div>
+              <div class="staff-card-back">
+                <p>
+                  Líder visionario que impulsa innovación y bienestar con su
+                  “Metodología de la Felicidad”, transformando el desarrollo
+                  humano en la organización.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tarjeta 2 -->
+          <div class="staff-card" tabindex="0">
+            <div class="staff-card-inner">
+              <div class="staff-card-front">
+                <img
+                  src="{% static 'core/img/doñacelia.avif' %}"
+                  alt="Administradora"
+                />
+                <h4>SR. CELIA ELENA FAJARDO GARAVITO</h4>
+                <p>Administradora del CEDHU</p>
+              </div>
+              <div class="staff-card-back">
+                <p>
+                  Administradora del CEDHU. Lidera procesos administrativos
+                  eficientes que fortalecen la institución y fomentan la
+                  excelencia académica, el desarrollo integral y la colaboración
+                  entre toda la comunidad educativa.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 🔹 Tarjeta nueva -->
+          <div class="staff-card" tabindex="0">
+            <div class="staff-card-inner">
+              <div class="staff-card-front">
+                <img
+                  src="{% static 'core/img/rectora.avif' %}"
+                  alt="Nuevo Directivo"
+                />
+                <h4>RECT. NANCY CABRERA BRAVO</h4>
+                <p>Rectora del CEDHU</p>
+              </div>
+              <div class="staff-card-back">
+                <p>
+                  Su gestión se enfocará en fortalecer la calidad académica,
+                  fomentar un ambiente inclusivo y actualizar los procesos
+                  pedagógicos y tecnológicos para preparar a los estudiantes
+                  ante los retos del futuro..
+                </p>
+              </div>
+            </div>
+          </div>
+          <!-- 🔹 Fin tarjeta nueva -->
+        </div>
+      </div>
+    </div>
+
+    <!-- COORDINADORES -->
+    <div class="accordion">
+      <button class="accordion-btn" type="button">
+        COORDINADORES ACADÉMICOS Y PSICOORIENTADORA
+      </button>
+      <div class="accordion-content">
+        <div class="staff">
+          <!-- Tarjeta 1 -->
+          <div class="staff-card" tabindex="0">
+            <div class="staff-card-inner">
+              <div class="staff-card-front">
+                <img
+                  src="{% static 'core/img/gladys.avif' %}"
+                  alt="Coordinador"
+                />
+                <h4>Gladys Yadira Africano</h4>
+                <p>COORDINADORA COMPORTAMENTAL</p>
+              </div>
+              <div class="staff-card-back">
+                <p>COORDINADORA ACADEMICA BACHILLERATO</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tarjeta 2 -->
+          <div class="staff-card" tabindex="0">
+            <div class="staff-card-inner">
+              <div class="staff-card-front">
+                <img
+                  src="{% static 'core/img/nancy_liliana.avif' %}"
+                  alt="Coordinador Secundaria"
+                />
+                <h4>Nancy Liliana Camargo</h4>
+                <p>COORDINADORA DE CALIDAD</p>
+              </div>
+              <div class="staff-card-back">
+                <p>
+                  COORDINADORA ACADEMICA PRIMARIA COORDINADORA ACADEMICA
+                  PREESCOLAR.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 🔹 Tarjeta nueva 3 -->
+          <div class="staff-card" tabindex="0">
+            <div class="staff-card-inner">
+              <div class="staff-card-front">
+                <img
+                  src="{% static 'core/img/erika.avif' %}"
+                  alt="Psicoorientadora."
+                />
+                <h4>Erika Liliana Montes Cadena</h4>
+                <p></p>
+              </div>
+              <div class="staff-card-back">
+                <p>PSICOORIENTADORA.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 🔹 Tarjeta nueva 4 -->
+          <div class="staff-card" tabindex="0">
+            <div class="staff-card-inner">
+              <div class="staff-card-front">
+                <img
+                  src="{% static 'core/img/donhugo.avif' %}"
+                  alt="Coordinador 3"
+                />
+                <h4>Hugo Ernesto Ruiz Fajardo</h4>
+                <p></p>
+              </div>
+              <div class="staff-card-back">
+                <p>COORDINADOR DE SEGURIDAD.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DOCENTES -->
+    <div class="accordion">
+      <button class="accordion-btn" type="button">DOCENTES</button>
+      <div class="accordion-content">
+        <div class="staff">
+          <div class="staff-card" tabindex="0">
+            <div class="staff-card-inner">
+              <div class="staff-card-front">
+                <img
+                  src="{% static 'core/img/Vellcy.avif' %}"
+                  alt="Docente 1"
+                />
+                <h4>Vellcy Vargas Ayala</h4>
+                <p>parvulos</p>
+              </div>
+              <div class="staff-card-back">
+                <p>Experiencia, estudios y breve descripción.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="staff-card" tabindex="0">
+            <div class="staff-card-inner">
+              <div class="staff-card-front">
+                <img src="{% static 'core/img/Laura.avif' %}" alt="Docente 2" />
+                <h4>Laura Stefania Barrera Perez</h4>
+                <p>Pre jardin</p>
+              </div>
+              <div class="staff-card-back">
+                <p>Experiencia, estudios y breve descripción.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="staff-card" tabindex="0">
+            <div class="staff-card-inner">
+              <div class="staff-card-front">
+                <img
+                  src="{% static 'core/img/LauraGuatavita.avif' %}"
+                  alt="Docente 2"
+                />
+                <h4>Laura Guatavita</h4>
+                <p>Jardin</p>
+              </div>
+              <div class="staff-card-back">
+                <p>Experiencia, estudios y breve descripción.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="staff-card" tabindex="0">
+            <div class="staff-card-inner">
+              <div class="staff-card-front">
+                <img
+                  src="{% static 'core/img/eliana.avif' %}"
+                  alt="Docente 2"
+                />
+                <h4>Eliana Alejandra Morales Correa</h4>
+                <p>Transicion</p>
+              </div>
+              <div class="staff-card-back">
+                <p>Experiencia, estudios y breve descripción.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="staff-card" tabindex="0">
+            <div class="staff-card-inner">
+              <div class="staff-card-front">
+                <img src="{% static 'core/img/angy.avif' %}" alt="Docente 2" />
+                <h4>Angy Ximena Aparicio Forero</h4>
+                <p>Primero</p>
+              </div>
+              <div class="staff-card-back">
+                <p>Experiencia, estudios y breve descripción.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="staff-card" tabindex="0">
+            <div class="staff-card-inner">
+              <div class="staff-card-front">
+                <img src="{% static 'core/img/alba.avif' %}" alt="Docente 2" />
+                <h4>Alba Rocio Salcedo Cepeda</h4>
+                <p>Primero</p>
+              </div>
+              <div class="staff-card-back">
+                <p>Experiencia, estudios y breve descripción.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="staff-card" tabindex="0">
+            <div class="staff-card-inner">
+              <div class="staff-card-front">
+                <img src="{% static 'core/img/elexa.avif' %}" alt="Docente 2" />
+                <h4>Alexa Yannet Centina Aguirre</h4>
+                <p>segundo</p>
+              </div>
+              <div class="staff-card-back">
+                <p>Experiencia, estudios y breve descripción.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="staff-card" tabindex="0">
+            <div class="staff-card-inner">
+              <div class="staff-card-front">
+                <img src="{% static 'core/img/liz.avif' %}" alt="Docente 2" />
+                <h4>Liz Yelitza Barrera Alarcon</h4>
+                <p>segundo</p>
+              </div>
+              <div class="staff-card-back">
+                <p>Experiencia, estudios y breve descripción.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="staff-card" tabindex="0">
+            <div class="staff-card-inner">
+              <div class="staff-card-front">
+                <img
+                  src="{% static 'core/img/yasmin.avif' %}"
+                  alt="Docente 2"
+                />
+                <h4>Yasmin Gonzalez Lumbaque</h4>
+                <p>Tercero</p>
+              </div>
+              <div class="staff-card-back">
+                <p>Experiencia, estudios y breve descripción.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="staff-card" tabindex="0">
+            <div class="staff-card-inner">
+              <div class="staff-card-front">
+                <img
+                  src="{% static 'core/img/esmeralda.avif' %}"
+                  alt="Docente 2"
+                />
+                <h4>Ana Esmeralda Diaz Ibañez</h4>
+                <p>Tercero</p>
+              </div>
+              <div class="staff-card-back">
+                <p>Experiencia, estudios y breve descripción.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="staff-card" tabindex="0">
+            <div class="staff-card-inner">
+              <div class="staff-card-front">
+                <img
+                  src="{% static 'core/img/nicolas.png' %}"
+                  alt="Docente 2"
+                />
+                <h4>Nicolas Andres Vargas Cogollos</h4>
+                <p>Tercero</p>
+              </div>
+              <div class="staff-card-back">
+                <p>Experiencia, estudios y breve descripción.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="staff-card" tabindex="0">
+            <div class="staff-card-inner">
+              <div class="staff-card-front">
+                <img src="{% static 'core/img/maria.avif' %}" alt="Docente 2" />
+                <h4>Maria Paulina Leal Moreno</h4>
+                <p>Tercero</p>
+              </div>
+              <div class="staff-card-back">
+                <p>Experiencia, estudios y breve descripción.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="staff-card" tabindex="0">
+            <div class="staff-card-inner">
+              <div class="staff-card-front">
+                <img src="{% static 'core/img/johan.avif' %}" alt="Docente 2" />
+                <h4>Johan sneider Sanchez torres</h4>
+                <p>Cuarto</p>
+              </div>
+              <div class="staff-card-back">
+                <p>Experiencia, estudios y breve descripción.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="staff-card" tabindex="0">
+            <div class="staff-card-inner">
+              <div class="staff-card-front">
+                <img src="{% static 'core/img/jenny.avif' %}" alt="Docente 2" />
+                <h4>Jenny Astrid Moreno Dominguez</h4>
+                <p>Qinto</p>
+              </div>
+              <div class="staff-card-back">
+                <p>Experiencia, estudios y breve descripción.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="staff-card" tabindex="0">
+            <div class="staff-card-inner">
+              <div class="staff-card-front">
+                <img
+                  src="{% static 'core/img/esperanza.avif' %}"
+                  alt="Docente 2"
+                />
+                <h4>Esperanza Peña Rodriguez</h4>
+                <p>Qinto</p>
+              </div>
+              <div class="staff-card-back">
+                <p>Experiencia, estudios y breve descripción.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="staff-card" tabindex="0">
+            <div class="staff-card-inner">
+              <div class="staff-card-front">
+                <img
+                  src="{% static 'core/img/Fabiana.avif' %}"
+                  alt="Docente 2"
+                />
+                <h4>Fabiana Esperanza Pizza Gutierreez</h4>
+                <p>Sexto</p>
+              </div>
+              <div class="staff-card-back">
+                <p>Experiencia, estudios y breve descripción.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="staff-card" tabindex="0">
+            <div class="staff-card-inner">
+              <div class="staff-card-front">
+                <img
+                  src="{% static 'core/img/dianapaola.avif' %}"
+                  alt="Docente 2"
+                />
+                <h4>Diana Paola Torres Jimenez</h4>
+                <p>Septimo</p>
+              </div>
+              <div class="staff-card-back">
+                <p>Experiencia, estudios y breve descripción.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="staff-card" tabindex="0">
+            <div class="staff-card-inner">
+              <div class="staff-card-front">
+                <img
+                  src="{% static 'core/img/fernando.avif' %}"
+                  alt="Docente 2"
+                />
+                <h4>Diego Fernando Fernandez Lopez</h4>
+                <p>Septimo</p>
+              </div>
+              <div class="staff-card-back">
+                <p>Experiencia, estudios y breve descripción.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="staff-card" tabindex="0">
+            <div class="staff-card-inner">
+              <div class="staff-card-front">
+                <img
+                  src="{% static 'core/img/alejandra.avif' %}"
+                  alt="Docente 2"
+                />
+                <h4>Angie Alejandra Moreno Catolico</h4>
+                <p>Septimo</p>
+              </div>
+              <div class="staff-card-back">
+                <p>Experiencia, estudios y breve descripción.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="staff-card" tabindex="0">
+            <div class="staff-card-inner">
+              <div class="staff-card-front">
+                <img src="{% static 'core/img/LINA.avif' %}" alt="Docente 2" />
+                <h4>Lina Marcela Vargas Caicedo</h4>
+                <p>Octavo</p>
+              </div>
+              <div class="staff-card-back">
+                <p>Experiencia, estudios y breve descripción.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="staff-card" tabindex="0">
+            <div class="staff-card-inner">
+              <div class="staff-card-front">
+                <img
+                  src="{% static 'core/img/yeisonfernando.avif' %}"
+                  alt="Docente 2"
+                />
+                <h4>Yeison Fernando Diaz</h4>
+                <p>Octavo</p>
+              </div>
+              <div class="staff-card-back">
+                <p>Experiencia, estudios y breve descripción.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="staff-card" tabindex="0">
+            <div class="staff-card-inner">
+              <div class="staff-card-front">
+                <img
+                  src="{% static 'core/img/monica.avif' %}"
+                  alt="Docente 2"
+                />
+                <h4>Monica Viviana Ayala Acevedo</h4>
+                <p>Octavo</p>
+              </div>
+              <div class="staff-card-back">
+                <p>Experiencia, estudios y breve descripción.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="staff-card" tabindex="0">
+            <div class="staff-card-inner">
+              <div class="staff-card-front">
+                <img
+                  src="{% static 'core/img/diagofernando.avif' %}"
+                  alt="Docente 2"
+                />
+                <h4>Diego Fernando Soler Barrera</h4>
+                <p>Noveno</p>
+              </div>
+              <div class="staff-card-back">
+                <p>Experiencia, estudios y breve descripción.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="staff-card" tabindex="0">
+            <div class="staff-card-inner">
+              <div class="staff-card-front">
+                <img
+                  src="{% static 'core/img/ferneyorlando.avif' %}"
+                  alt="Docente 2"
+                />
+                <h4>Ferney Orlando Gonzalez Reyes</h4>
+                <p>Noveno</p>
+              </div>
+              <div class="staff-card-back">
+                <p>Experiencia, estudios y breve descripción.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="staff-card" tabindex="0">
+            <div class="staff-card-inner">
+              <div class="staff-card-front">
+                <img
+                  src="{% static 'core/img/camila.avif' %}"
+                  alt="Docente 2"
+                />
+                <h4>Camila Andrea Solano Tobos</h4>
+                <p>Noveno</p>
+              </div>
+              <div class="staff-card-back">
+                <p>Experiencia, estudios y breve descripción.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="staff-card" tabindex="0">
+            <div class="staff-card-inner">
+              <div class="staff-card-front">
+                <img
+                  src="{% static 'core/img/diegoalexander.avif' %}"
+                  alt="Docente 2"
+                />
+                <h4>Diego Alexander Bernal</h4>
+                <p>Decimo</p>
+              </div>
+              <div class="staff-card-back">
+                <p>Experiencia, estudios y breve descripción.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="staff-card" tabindex="0">
+            <div class="staff-card-inner">
+              <div class="staff-card-front">
+                <img
+                  src="{% static 'core/img/franciscojavier.avif' %}"
+                  alt="Docente 2"
+                />
+                <h4>Francisco Javier Galvis García</h4>
+                <p>Decimo</p>
+              </div>
+              <div class="staff-card-back">
+                <p>Experiencia, estudios y breve descripción.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="staff-card" tabindex="0">
+            <div class="staff-card-inner">
+              <div class="staff-card-front">
+                <img
+                  src="{% static 'core/img/sebastiandavid.avif' %}"
+                  alt="Docente 2"
+                />
+                <h4>Sebastian David Cuta Espinel</h4>
+                <p>Decimo</p>
+              </div>
+              <div class="staff-card-back">
+                <p>Experiencia, estudios y breve descripción.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="staff-card" tabindex="0">
+            <div class="staff-card-inner">
+              <div class="staff-card-front">
+                <img src="{% static 'core/img/huber.avif' %}" alt="Docente 2" />
+                <h4>Huber Leandro Suarez Acosta</h4>
+                <p>Once</p>
+              </div>
+              <div class="staff-card-back">
+                <p>Experiencia, estudios y breve descripción.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="staff-card" tabindex="0">
+            <div class="staff-card-inner">
+              <div class="staff-card-front">
+                <img
+                  src="{% static 'core/img/lidabeatriz.avif' %}"
+                  alt="Docente 2"
+                />
+                <h4>Lida Beatriz Salamanca</h4>
+                <p>Once</p>
+              </div>
+              <div class="staff-card-back">
+                <p>Experiencia, estudios y breve descripción.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="staff-card" tabindex="0">
+            <div class="staff-card-inner">
+              <div class="staff-card-front">
+                <img
+                  src="{% static 'core/img/nydialiseth.avif' %}"
+                  alt="Docente 2"
+                />
+                <h4>Nydia Liseth Gomez Albarracin</h4>
+                <p>Once</p>
+              </div>
+              <div class="staff-card-back">
+                <p>Experiencia, estudios y breve descripción.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="staff-card" tabindex="0">
+            <div class="staff-card-inner">
+              <div class="staff-card-front">
+                <img
+                  src="{% static 'core/img/jairoalberto.avif' %}"
+                  alt="Docente 2"
+                />
+                <h4>Jairo Alberto Sandoval Rios</h4>
+                <p>Docente musica</p>
+              </div>
+              <div class="staff-card-back">
+                <p>Experiencia, estudios y breve descripción.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="staff-card" tabindex="0">
+            <div class="staff-card-inner">
+              <div class="staff-card-front">
+                <img src="{% static 'core/img/padre.avif' %}" alt="Docente 2" />
+                <h4>Willian Chaparro Silva</h4>
+                <p>Docente Religion</p>
+              </div>
+              <div class="staff-card-back">
+                <p>Experiencia, estudios y breve descripción.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="staff-card" tabindex="0">
+            <div class="staff-card-inner">
+              <div class="staff-card-front">
+                <img
+                  src="{% static 'core/img/yanethrosso.avif' %}"
+                  alt="Docente 2"
+                />
+                <h4>Yaneth Rosso Bello</h4>
+                <p>Docente</p>
+              </div>
+              <div class="staff-card-back">
+                <p>Experiencia, estudios y breve descripción.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="staff-card" tabindex="0">
+            <div class="staff-card-inner">
+              <div class="staff-card-front">
+                <img
+                  src="{% static 'core/img/diegofernando.avif' %}"
+                  alt="Docente 2"
+                />
+                <h4>Diego Fernando Salcedo Ortega</h4>
+                <p>Docente</p>
+              </div>
+              <div class="staff-card-back">
+                <p>Experiencia, estudios y breve descripción.</p>
+              </div>
+            </div>
+          </div>
+          <!-- ... más docentes según necesites -->
+        </div>
+      </div>
+    </div>
+
+    <!--administrativos -->
+    <div class="accordion">
+      <button class="accordion-btn" type="button">ADMINISTRATIVOS</button>
+      <div class="accordion-content">
+        <div class="staff">
+          <div class="staff-card" tabindex="0">
+            <div class="staff-card-inner">
+              <div class="staff-card-front">
+                <img
+                  src="{% static 'core/img/TESORERA.png' %}"
+                  alt="Docente 2"
+                />
+                <h4>Luz Mary Barrera Gil</h4>
+                <p>Tesorera</p>
+              </div>
+              <div class="staff-card-back">
+                <p>Experiencia, estudios y breve descripción.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="staff-card" tabindex="0">
+            <div class="staff-card-inner">
+              <div class="staff-card-front">
+                <img
+                  src="{% static 'core/img/contadora.png' %}"
+                  alt="Docente 2"
+                />
+                <h4>Paola Ochoa Aguilar</h4>
+                <p>Contadora</p>
+              </div>
+              <div class="staff-card-back">
+                <p>Experiencia, estudios y breve descripción.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="staff-card" tabindex="0">
+            <div class="staff-card-inner">
+              <div class="staff-card-front">
+                <img
+                  src="{% static 'core/img/Auxiliarcontable.png' %}"
+                  alt="Docente 2"
+                />
+                <h4>Yina Paola Coy Fonseca</h4>
+                <p>Auxuliar Contable</p>
+              </div>
+              <div class="staff-card-back">
+                <p>Experiencia, estudios y breve descripción.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="staff-card" tabindex="0">
+            <div class="staff-card-inner">
+              <div class="staff-card-front">
+                <img
+                  src="{% static 'core/img/fabiola.png' %}"
+                  alt="Docente 2"
+                />
+                <h4>Fabiola Vargas Echavarria</h4>
+                <p>Enfermera</p>
+              </div>
+              <div class="staff-card-back">
+                <p>Experiencia, estudios y breve descripción.</p>
+              </div>
+            </div>
+          </div>
+          <!-- ... más docentes según necesites -->
+        </div>
+      </div>
+    </div>
+
+    <!--administrativos -->
+    <div class="accordion">
+      <button class="accordion-btn" type="button">SERVICIOS GENERALES</button>
+      <div class="accordion-content">
+        <div class="staff">
+          <div class="staff-card" tabindex="0">
+            <div class="staff-card-inner">
+              <div class="staff-card-front">
+                <img src="{% static 'core/img/estela.png' %}" alt="Docente 2" />
+                <h4>Estela Alarcon</h4>
+                <p></p>
+              </div>
+              <div class="staff-card-back">
+                <p>Experiencia, estudios y breve descripción.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="staff-card" tabindex="0">
+            <div class="staff-card-inner">
+              <div class="staff-card-front">
+                <img src="{% static 'core/img/maria.png' %}" alt="Docente 2" />
+                <h4>Maria Eugenia</h4>
+                <p></p>
+              </div>
+              <div class="staff-card-back">
+                <p>Experiencia, estudios y breve descripción.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="staff-card" tabindex="0">
+            <div class="staff-card-inner">
+              <div class="staff-card-front">
+                <img
+                  src="{% static 'core/img/jorgefabiio.png' %}"
+                  alt="Docente 2"
+                />
+                <h4>SJorge Fabio Rusinque</h4>
+                <p></p>
+              </div>
+              <div class="staff-card-back">
+                <p>Experiencia, estudios y breve descripción.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="staff-card" tabindex="0">
+            <div class="staff-card-inner">
+              <div class="staff-card-front">
+                <img
+                  src="{% static 'core/img/donluis.png' %}"
+                  alt="Docente 2"
+                />
+                <h4>Luis Carlos Rodriguez</h4>
+                <p></p>
+              </div>
+              <div class="staff-card-back">
+                <p>Experiencia, estudios y breve descripción.</p>
+              </div>
+            </div>
+          </div>
+          <!-- ... más docentes según necesites -->
+        </div>
+      </div>
+    </div>
+  </section>
 </div>
-
-<section class="section alt">
-  <h2>ESTRUCTURA ORGANIZACIONAL</h2>
-  <img
-    src="{% static 'core/img/estructura.png' %}"
-    alt="Organigrama Colegio CEDHU"
-  />
-
-  <!-- DIRECTIVAS -->
-  <div class="accordion">
-    <button class="accordion-btn" type="button">DIRECTIVAS CEDHU</button>
-    <div class="accordion-content">
-      <div class="staff">
-        <!-- Tarjeta 1 -->
-        <div class="staff-card" tabindex="0">
-          <div class="staff-card-inner">
-            <div class="staff-card-front">
-              <img
-                src="{% static 'core/img/juancarlos.avif' %}"
-                alt="Director General"
-              />
-              <h4>DR. JUAN CARLOS RUIZ</h4>
-              <p>Director General</p>
-            </div>
-            <div class="staff-card-back">
-              <p>
-                Líder visionario que impulsa innovación y bienestar con su
-                “Metodología de la Felicidad”, transformando el desarrollo
-                humano en la organización.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Tarjeta 2 -->
-        <div class="staff-card" tabindex="0">
-          <div class="staff-card-inner">
-            <div class="staff-card-front">
-              <img
-                src="{% static 'core/img/doñacelia.avif' %}"
-                alt="Administradora"
-              />
-              <h4>SR. CELIA ELENA FAJARDO GARAVITO</h4>
-              <p>Administradora del CEDHU</p>
-            </div>
-            <div class="staff-card-back">
-              <p>
-                Administradora del CEDHU. Lidera procesos administrativos
-                eficientes que fortalecen la institución y fomentan la
-                excelencia académica, el desarrollo integral y la colaboración
-                entre toda la comunidad educativa.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- 🔹 Tarjeta nueva -->
-        <div class="staff-card" tabindex="0">
-          <div class="staff-card-inner">
-            <div class="staff-card-front">
-              <img
-                src="{% static 'core/img/rectora.avif' %}"
-                alt="Nuevo Directivo"
-              />
-              <h4>RECT. NANCY CABRERA BRAVO</h4>
-              <p>Rectora del CEDHU</p>
-            </div>
-            <div class="staff-card-back">
-              <p>
-                Su gestión se enfocará en fortalecer la calidad académica,
-                fomentar un ambiente inclusivo y actualizar los procesos
-                pedagógicos y tecnológicos para preparar a los estudiantes ante
-                los retos del futuro..
-              </p>
-            </div>
-          </div>
-        </div>
-        <!-- 🔹 Fin tarjeta nueva -->
-      </div>
-    </div>
-  </div>
-
-  <!-- COORDINADORES -->
-  <div class="accordion">
-    <button class="accordion-btn" type="button">
-      COORDINADORES ACADÉMICOS Y PSICOORIENTADORA
-    </button>
-    <div class="accordion-content">
-      <div class="staff">
-        <!-- Tarjeta 1 -->
-        <div class="staff-card" tabindex="0">
-          <div class="staff-card-inner">
-            <div class="staff-card-front">
-              <img
-                src="{% static 'core/img/gladys.avif' %}"
-                alt="Coordinador"
-              />
-              <h4>Gladys Yadira Africano</h4>
-              <p>COORDINADORA COMPORTAMENTAL</p>
-            </div>
-            <div class="staff-card-back">
-              <p>COORDINADORA ACADEMICA BACHILLERATO</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Tarjeta 2 -->
-        <div class="staff-card" tabindex="0">
-          <div class="staff-card-inner">
-            <div class="staff-card-front">
-              <img
-                src="{% static 'core/img/nancy_liliana.avif' %}"
-                alt="Coordinador Secundaria"
-              />
-              <h4>Nancy Liliana Camargo</h4>
-              <p>COORDINADORA DE CALIDAD</p>
-            </div>
-            <div class="staff-card-back">
-              <p>
-                COORDINADORA ACADEMICA PRIMARIA COORDINADORA ACADEMICA
-                PREESCOLAR.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- 🔹 Tarjeta nueva 3 -->
-        <div class="staff-card" tabindex="0">
-          <div class="staff-card-inner">
-            <div class="staff-card-front">
-              <img
-                src="{% static 'core/img/erika.avif' %}"
-                alt="Psicoorientadora."
-              />
-              <h4>Erika Liliana Montes Cadena</h4>
-              <p></p>
-            </div>
-            <div class="staff-card-back">
-              <p>PSICOORIENTADORA.</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- 🔹 Tarjeta nueva 4 -->
-        <div class="staff-card" tabindex="0">
-          <div class="staff-card-inner">
-            <div class="staff-card-front">
-              <img
-                src="{% static 'core/img/donhugo.avif' %}"
-                alt="Coordinador 3"
-              />
-              <h4>Hugo Ernesto Ruiz Fajardo</h4>
-              <p></p>
-            </div>
-            <div class="staff-card-back">
-              <p>COORDINADOR DE SEGURIDAD.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- DOCENTES -->
-  <div class="accordion">
-    <button class="accordion-btn" type="button">DOCENTES</button>
-    <div class="accordion-content">
-      <div class="staff">
-        <div class="staff-card" tabindex="0">
-          <div class="staff-card-inner">
-            <div class="staff-card-front">
-              <img src="{% static 'core/img/Vellcy.avif' %}" alt="Docente 1" />
-              <h4>Vellcy Vargas Ayala</h4>
-              <p>parvulos</p>
-            </div>
-            <div class="staff-card-back">
-              <p>Experiencia, estudios y breve descripción.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="staff-card" tabindex="0">
-          <div class="staff-card-inner">
-            <div class="staff-card-front">
-              <img src="{% static 'core/img/Laura.avif' %}" alt="Docente 2" />
-              <h4>Laura Stefania Barrera Perez</h4>
-              <p>Pre jardin</p>
-            </div>
-            <div class="staff-card-back">
-              <p>Experiencia, estudios y breve descripción.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="staff-card" tabindex="0">
-          <div class="staff-card-inner">
-            <div class="staff-card-front">
-              <img
-                src="{% static 'core/img/LauraGuatavita.avif' %}"
-                alt="Docente 2"
-              />
-              <h4>Laura Guatavita</h4>
-              <p>Jardin</p>
-            </div>
-            <div class="staff-card-back">
-              <p>Experiencia, estudios y breve descripción.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="staff-card" tabindex="0">
-          <div class="staff-card-inner">
-            <div class="staff-card-front">
-              <img src="{% static 'core/img/eliana.avif' %}" alt="Docente 2" />
-              <h4>Eliana Alejandra Morales Correa</h4>
-              <p>Transicion</p>
-            </div>
-            <div class="staff-card-back">
-              <p>Experiencia, estudios y breve descripción.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="staff-card" tabindex="0">
-          <div class="staff-card-inner">
-            <div class="staff-card-front">
-              <img src="{% static 'core/img/angy.avif' %}" alt="Docente 2" />
-              <h4>Angy Ximena Aparicio Forero</h4>
-              <p>Primero</p>
-            </div>
-            <div class="staff-card-back">
-              <p>Experiencia, estudios y breve descripción.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="staff-card" tabindex="0">
-          <div class="staff-card-inner">
-            <div class="staff-card-front">
-              <img src="{% static 'core/img/alba.avif' %}" alt="Docente 2" />
-              <h4>Alba Rocio Salcedo Cepeda</h4>
-              <p>Primero</p>
-            </div>
-            <div class="staff-card-back">
-              <p>Experiencia, estudios y breve descripción.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="staff-card" tabindex="0">
-          <div class="staff-card-inner">
-            <div class="staff-card-front">
-              <img src="{% static 'core/img/elexa.avif' %}" alt="Docente 2" />
-              <h4>Alexa Yannet Centina Aguirre</h4>
-              <p>segundo</p>
-            </div>
-            <div class="staff-card-back">
-              <p>Experiencia, estudios y breve descripción.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="staff-card" tabindex="0">
-          <div class="staff-card-inner">
-            <div class="staff-card-front">
-              <img src="{% static 'core/img/liz.avif' %}" alt="Docente 2" />
-              <h4>Liz Yelitza Barrera Alarcon</h4>
-              <p>segundo</p>
-            </div>
-            <div class="staff-card-back">
-              <p>Experiencia, estudios y breve descripción.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="staff-card" tabindex="0">
-          <div class="staff-card-inner">
-            <div class="staff-card-front">
-              <img src="{% static 'core/img/yasmin.avif' %}" alt="Docente 2" />
-              <h4>Yasmin Gonzalez Lumbaque</h4>
-              <p>Tercero</p>
-            </div>
-            <div class="staff-card-back">
-              <p>Experiencia, estudios y breve descripción.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="staff-card" tabindex="0">
-          <div class="staff-card-inner">
-            <div class="staff-card-front">
-              <img
-                src="{% static 'core/img/esmeralda.avif' %}"
-                alt="Docente 2"
-              />
-              <h4>Ana Esmeralda Diaz Ibañez</h4>
-              <p>Tercero</p>
-            </div>
-            <div class="staff-card-back">
-              <p>Experiencia, estudios y breve descripción.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="staff-card" tabindex="0">
-          <div class="staff-card-inner">
-            <div class="staff-card-front">
-              <img src="{% static 'core/img/nicolas.png' %}" alt="Docente 2" />
-              <h4>Nicolas Andres Vargas Cogollos</h4>
-              <p>Tercero</p>
-            </div>
-            <div class="staff-card-back">
-              <p>Experiencia, estudios y breve descripción.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="staff-card" tabindex="0">
-          <div class="staff-card-inner">
-            <div class="staff-card-front">
-              <img src="{% static 'core/img/maria.avif' %}" alt="Docente 2" />
-              <h4>Maria Paulina Leal Moreno</h4>
-              <p>Tercero</p>
-            </div>
-            <div class="staff-card-back">
-              <p>Experiencia, estudios y breve descripción.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="staff-card" tabindex="0">
-          <div class="staff-card-inner">
-            <div class="staff-card-front">
-              <img src="{% static 'core/img/johan.avif' %}" alt="Docente 2" />
-              <h4>Johan sneider Sanchez torres</h4>
-              <p>Cuarto</p>
-            </div>
-            <div class="staff-card-back">
-              <p>Experiencia, estudios y breve descripción.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="staff-card" tabindex="0">
-          <div class="staff-card-inner">
-            <div class="staff-card-front">
-              <img src="{% static 'core/img/jenny.avif' %}" alt="Docente 2" />
-              <h4>Jenny Astrid Moreno Dominguez</h4>
-              <p>Qinto</p>
-            </div>
-            <div class="staff-card-back">
-              <p>Experiencia, estudios y breve descripción.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="staff-card" tabindex="0">
-          <div class="staff-card-inner">
-            <div class="staff-card-front">
-              <img
-                src="{% static 'core/img/esperanza.avif' %}"
-                alt="Docente 2"
-              />
-              <h4>Esperanza Peña Rodriguez</h4>
-              <p>Qinto</p>
-            </div>
-            <div class="staff-card-back">
-              <p>Experiencia, estudios y breve descripción.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="staff-card" tabindex="0">
-          <div class="staff-card-inner">
-            <div class="staff-card-front">
-              <img src="{% static 'core/img/Fabiana.avif' %}" alt="Docente 2" />
-              <h4>Fabiana Esperanza Pizza Gutierreez</h4>
-              <p>Sexto</p>
-            </div>
-            <div class="staff-card-back">
-              <p>Experiencia, estudios y breve descripción.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="staff-card" tabindex="0">
-          <div class="staff-card-inner">
-            <div class="staff-card-front">
-              <img
-                src="{% static 'core/img/dianapaola.avif' %}"
-                alt="Docente 2"
-              />
-              <h4>Diana Paola Torres Jimenez</h4>
-              <p>Septimo</p>
-            </div>
-            <div class="staff-card-back">
-              <p>Experiencia, estudios y breve descripción.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="staff-card" tabindex="0">
-          <div class="staff-card-inner">
-            <div class="staff-card-front">
-              <img
-                src="{% static 'core/img/fernando.avif' %}"
-                alt="Docente 2"
-              />
-              <h4>Diego Fernando Fernandez Lopez</h4>
-              <p>Septimo</p>
-            </div>
-            <div class="staff-card-back">
-              <p>Experiencia, estudios y breve descripción.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="staff-card" tabindex="0">
-          <div class="staff-card-inner">
-            <div class="staff-card-front">
-              <img
-                src="{% static 'core/img/alejandra.avif' %}"
-                alt="Docente 2"
-              />
-              <h4>Angie Alejandra Moreno Catolico</h4>
-              <p>Septimo</p>
-            </div>
-            <div class="staff-card-back">
-              <p>Experiencia, estudios y breve descripción.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="staff-card" tabindex="0">
-          <div class="staff-card-inner">
-            <div class="staff-card-front">
-              <img src="{% static 'core/img/LINA.avif' %}" alt="Docente 2" />
-              <h4>Lina Marcela Vargas Caicedo</h4>
-              <p>Octavo</p>
-            </div>
-            <div class="staff-card-back">
-              <p>Experiencia, estudios y breve descripción.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="staff-card" tabindex="0">
-          <div class="staff-card-inner">
-            <div class="staff-card-front">
-              <img
-                src="{% static 'core/img/yeisonfernando.avif' %}"
-                alt="Docente 2"
-              />
-              <h4>Yeison Fernando Diaz</h4>
-              <p>Octavo</p>
-            </div>
-            <div class="staff-card-back">
-              <p>Experiencia, estudios y breve descripción.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="staff-card" tabindex="0">
-          <div class="staff-card-inner">
-            <div class="staff-card-front">
-              <img src="{% static 'core/img/monica.avif' %}" alt="Docente 2" />
-              <h4>Monica Viviana Ayala Acevedo</h4>
-              <p>Octavo</p>
-            </div>
-            <div class="staff-card-back">
-              <p>Experiencia, estudios y breve descripción.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="staff-card" tabindex="0">
-          <div class="staff-card-inner">
-            <div class="staff-card-front">
-              <img
-                src="{% static 'core/img/diagofernando.avif' %}"
-                alt="Docente 2"
-              />
-              <h4>Diego Fernando Soler Barrera</h4>
-              <p>Noveno</p>
-            </div>
-            <div class="staff-card-back">
-              <p>Experiencia, estudios y breve descripción.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="staff-card" tabindex="0">
-          <div class="staff-card-inner">
-            <div class="staff-card-front">
-              <img
-                src="{% static 'core/img/ferneyorlando.avif' %}"
-                alt="Docente 2"
-              />
-              <h4>Ferney Orlando Gonzalez Reyes</h4>
-              <p>Noveno</p>
-            </div>
-            <div class="staff-card-back">
-              <p>Experiencia, estudios y breve descripción.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="staff-card" tabindex="0">
-          <div class="staff-card-inner">
-            <div class="staff-card-front">
-              <img src="{% static 'core/img/camila.avif' %}" alt="Docente 2" />
-              <h4>Camila Andrea Solano Tobos</h4>
-              <p>Noveno</p>
-            </div>
-            <div class="staff-card-back">
-              <p>Experiencia, estudios y breve descripción.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="staff-card" tabindex="0">
-          <div class="staff-card-inner">
-            <div class="staff-card-front">
-              <img
-                src="{% static 'core/img/diegoalexander.avif' %}"
-                alt="Docente 2"
-              />
-              <h4>Diego Alexander Bernal</h4>
-              <p>Decimo</p>
-            </div>
-            <div class="staff-card-back">
-              <p>Experiencia, estudios y breve descripción.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="staff-card" tabindex="0">
-          <div class="staff-card-inner">
-            <div class="staff-card-front">
-              <img
-                src="{% static 'core/img/franciscojavier.avif' %}"
-                alt="Docente 2"
-              />
-              <h4>Francisco Javier Galvis García</h4>
-              <p>Decimo</p>
-            </div>
-            <div class="staff-card-back">
-              <p>Experiencia, estudios y breve descripción.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="staff-card" tabindex="0">
-          <div class="staff-card-inner">
-            <div class="staff-card-front">
-              <img
-                src="{% static 'core/img/sebastiandavid.avif' %}"
-                alt="Docente 2"
-              />
-              <h4>Sebastian David Cuta Espinel</h4>
-              <p>Decimo</p>
-            </div>
-            <div class="staff-card-back">
-              <p>Experiencia, estudios y breve descripción.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="staff-card" tabindex="0">
-          <div class="staff-card-inner">
-            <div class="staff-card-front">
-              <img src="{% static 'core/img/huber.avif' %}" alt="Docente 2" />
-              <h4>Huber Leandro Suarez Acosta</h4>
-              <p>Once</p>
-            </div>
-            <div class="staff-card-back">
-              <p>Experiencia, estudios y breve descripción.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="staff-card" tabindex="0">
-          <div class="staff-card-inner">
-            <div class="staff-card-front">
-              <img
-                src="{% static 'core/img/lidabeatriz.avif' %}"
-                alt="Docente 2"
-              />
-              <h4>Lida Beatriz Salamanca</h4>
-              <p>Once</p>
-            </div>
-            <div class="staff-card-back">
-              <p>Experiencia, estudios y breve descripción.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="staff-card" tabindex="0">
-          <div class="staff-card-inner">
-            <div class="staff-card-front">
-              <img
-                src="{% static 'core/img/nydialiseth.avif' %}"
-                alt="Docente 2"
-              />
-              <h4>Nydia Liseth Gomez Albarracin</h4>
-              <p>Once</p>
-            </div>
-            <div class="staff-card-back">
-              <p>Experiencia, estudios y breve descripción.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="staff-card" tabindex="0">
-          <div class="staff-card-inner">
-            <div class="staff-card-front">
-              <img
-                src="{% static 'core/img/jairoalberto.avif' %}"
-                alt="Docente 2"
-              />
-              <h4>Jairo Alberto Sandoval Rios</h4>
-              <p>Docente musica</p>
-            </div>
-            <div class="staff-card-back">
-              <p>Experiencia, estudios y breve descripción.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="staff-card" tabindex="0">
-          <div class="staff-card-inner">
-            <div class="staff-card-front">
-              <img src="{% static 'core/img/padre.avif' %}" alt="Docente 2" />
-              <h4>Willian Chaparro Silva</h4>
-              <p>Docente Religion</p>
-            </div>
-            <div class="staff-card-back">
-              <p>Experiencia, estudios y breve descripción.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="staff-card" tabindex="0">
-          <div class="staff-card-inner">
-            <div class="staff-card-front">
-              <img
-                src="{% static 'core/img/yanethrosso.avif' %}"
-                alt="Docente 2"
-              />
-              <h4>Yaneth Rosso Bello</h4>
-              <p>Docente</p>
-            </div>
-            <div class="staff-card-back">
-              <p>Experiencia, estudios y breve descripción.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="staff-card" tabindex="0">
-          <div class="staff-card-inner">
-            <div class="staff-card-front">
-              <img
-                src="{% static 'core/img/diegofernando.avif' %}"
-                alt="Docente 2"
-              />
-              <h4>Diego Fernando Salcedo Ortega</h4>
-              <p>Docente</p>
-            </div>
-            <div class="staff-card-back">
-              <p>Experiencia, estudios y breve descripción.</p>
-            </div>
-          </div>
-        </div>
-        <!-- ... más docentes según necesites -->
-      </div>
-    </div>
-  </div>
-
-  <!--administrativos -->
-  <div class="accordion">
-    <button class="accordion-btn" type="button">ADMINISTRATIVOS</button>
-    <div class="accordion-content">
-      <div class="staff">
-        <div class="staff-card" tabindex="0">
-          <div class="staff-card-inner">
-            <div class="staff-card-front">
-              <img src="{% static 'core/img/TESORERA.png' %}" alt="Docente 2" />
-              <h4>Luz Mary Barrera Gil</h4>
-              <p>Tesorera</p>
-            </div>
-            <div class="staff-card-back">
-              <p>Experiencia, estudios y breve descripción.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="staff-card" tabindex="0">
-          <div class="staff-card-inner">
-            <div class="staff-card-front">
-              <img
-                src="{% static 'core/img/contadora.png' %}"
-                alt="Docente 2"
-              />
-              <h4>Paola Ochoa Aguilar</h4>
-              <p>Contadora</p>
-            </div>
-            <div class="staff-card-back">
-              <p>Experiencia, estudios y breve descripción.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="staff-card" tabindex="0">
-          <div class="staff-card-inner">
-            <div class="staff-card-front">
-              <img
-                src="{% static 'core/img/Auxiliarcontable.png' %}"
-                alt="Docente 2"
-              />
-              <h4>Yina Paola Coy Fonseca</h4>
-              <p>Auxuliar Contable</p>
-            </div>
-            <div class="staff-card-back">
-              <p>Experiencia, estudios y breve descripción.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="staff-card" tabindex="0">
-          <div class="staff-card-inner">
-            <div class="staff-card-front">
-              <img src="{% static 'core/img/fabiola.png' %}" alt="Docente 2" />
-              <h4>Fabiola Vargas Echavarria</h4>
-              <p>Enfermera</p>
-            </div>
-            <div class="staff-card-back">
-              <p>Experiencia, estudios y breve descripción.</p>
-            </div>
-          </div>
-        </div>
-        <!-- ... más docentes según necesites -->
-      </div>
-    </div>
-  </div>
-
-  <!--administrativos -->
-  <div class="accordion">
-    <button class="accordion-btn" type="button">SERVICIOS GENERALES</button>
-    <div class="accordion-content">
-      <div class="staff">
-        <div class="staff-card" tabindex="0">
-          <div class="staff-card-inner">
-            <div class="staff-card-front">
-              <img src="{% static 'core/img/estela.png' %}" alt="Docente 2" />
-              <h4>Estela Alarcon</h4>
-              <p></p>
-            </div>
-            <div class="staff-card-back">
-              <p>Experiencia, estudios y breve descripción.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="staff-card" tabindex="0">
-          <div class="staff-card-inner">
-            <div class="staff-card-front">
-              <img src="{% static 'core/img/maria.png' %}" alt="Docente 2" />
-              <h4>Maria Eugenia</h4>
-              <p></p>
-            </div>
-            <div class="staff-card-back">
-              <p>Experiencia, estudios y breve descripción.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="staff-card" tabindex="0">
-          <div class="staff-card-inner">
-            <div class="staff-card-front">
-              <img
-                src="{% static 'core/img/jorgefabiio.png' %}"
-                alt="Docente 2"
-              />
-              <h4>SJorge Fabio Rusinque</h4>
-              <p></p>
-            </div>
-            <div class="staff-card-back">
-              <p>Experiencia, estudios y breve descripción.</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="staff-card" tabindex="0">
-          <div class="staff-card-inner">
-            <div class="staff-card-front">
-              <img src="{% static 'core/img/donluis.png' %}" alt="Docente 2" />
-              <h4>Luis Carlos Rodriguez</h4>
-              <p></p>
-            </div>
-            <div class="staff-card-back">
-              <p>Experiencia, estudios y breve descripción.</p>
-            </div>
-          </div>
-        </div>
-        <!-- ... más docentes según necesites -->
-      </div>
-    </div>
-  </div>
-</section>
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {

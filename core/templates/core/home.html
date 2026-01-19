@@ -1,11 +1,14 @@
 {% extends 'core/base.html' %} {% load static %} {% block title %}Inicio -
 CEDHU{% endblock %} {% block content %}
+<div class="flow-invitation"></div>
 <!-- Hero estilo Harvard (sin header y sin flechas) -->
 <section class="hero-slide">
-
   <!-- SLIDE 2 AGREGAR UNA IMAGEN POR CUESTIÓN DE SEO-->
   <div class="slide active">
-    <img src="{% static 'core/img/Banner-Cedhu-Destacado.png' %}" alt="primer puesto prueba saber cedhu 2025" />
+    <img
+      src="{% static 'core/img/Banner-Cedhu-Destacado.png' %}"
+      alt="primer puesto prueba saber cedhu 2025"
+    />
     <div class="overlay">
       <h2 class="subtitle"><span></span></h2>
       <h1 class="title"></h1>
@@ -28,10 +31,10 @@ CEDHU{% endblock %} {% block content %}
       {% endcomment %}
     </div>
   </div>
-  
 
   <!-- SLIDE 3 -->
-  {% comment %} <div class="slide">
+  {% comment %}
+  <div class="slide">
     <video autoplay muted playsinline disablepictureinpicture>
       <source
         src="{% static 'core/videos/videoiniciocarrusel.mp4' %}"
@@ -43,25 +46,27 @@ CEDHU{% endblock %} {% block content %}
         ELIGE TU <span>FUTURO,</span><br />ELIGE <strong>CEDHU</strong>
       </h1>
     </div>
-  </div> {% endcomment %}
+  </div>
+  {% endcomment %}
 
   <!-- PUNTOS -->
   <div class="indicators">
     <span class="dot active"></span>
     <span class="dot"></span>
-    <span class="dot"></span>
   </div>
-  <button class="hero-control"
-        id="heroToggle"
-        aria-label="Pausar animación"
-        aria-pressed="false">
-  ⏸
-</button>
+  <button
+    class="hero-control"
+    id="heroToggle"
+    aria-label="Pausar animación"
+    aria-pressed="false"
+  >
+    ⏸
+  </button>
 </section>
-<div class="flow-invitation"></div>
+
 <div class="contenido">
   <!-- Sección Bienvenida -->
-  <section id="bienvenida" class="reveal">
+  <section class="reveal bienvenida">
     <div>
       <h2>BIENVENIDOS AL CEDHU</h2>
       <p class="bienvenida-text">

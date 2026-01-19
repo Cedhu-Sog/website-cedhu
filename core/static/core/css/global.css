@@ -84,8 +84,8 @@ button, .btn {
 .contenido {
   position: relative;          /* CLAVE */
   background: #e8f7ef;
-  padding: 120px 0px 60px;    /* espacio para el SVG */
-  overflow: visible;
+  padding: 40px 0px 60px;    /* espacio para el SVG */
+  overflow: hidden;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   z-index: 9;
@@ -95,11 +95,11 @@ button, .btn {
 .contenido::before {
   content: "";
   position: absolute;
-  top: 0;
+  top: -40px;
   left: 0;
 
   width: 100%;
-  height: 220px;
+  height: 250px;
 
   background-image: url("/static/core/img/background-home.svg");
   background-repeat: no-repeat;
@@ -109,7 +109,7 @@ button, .btn {
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
 
-  z-index: 11;
+  z-index: 8;
 }
 
 .contenido > * {
@@ -121,7 +121,7 @@ button, .btn {
 /* Encuadre de acuerdo al viewport */
 @media (max-width: 768px) {
   .contenido {
-    padding-top: 90px;
+    padding-top: 20px;
   }
 
   .contenido::before {
