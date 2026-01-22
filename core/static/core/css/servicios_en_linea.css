@@ -117,7 +117,7 @@
 /* animación */
 @keyframes fadeSlideUp {
   0% {
-    opacity: 0;
+    opacity: 0.01;
     transform: translateY(30px);
   }
   100% {

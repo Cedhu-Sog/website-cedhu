@@ -572,7 +572,7 @@
 /* Info desplegable */
 .principio-info {
   max-height: 0;
-  opacity: 0;
+  opacity: 0.01;
   overflow: hidden;
   transition: all 0.4s ease;
   background: var(--color-light);
@@ -698,7 +698,7 @@
 }
 
 .fade-out {
-  opacity: 0;
+  opacity: 0.01;
 }
 
 /* Responsivo */
@@ -1092,7 +1092,7 @@
     transparent 0%
   );
   transform: skewX(-20deg);
-  opacity: 0;
+  opacity: 0.01;
   transition: all 0.6s ease;
 }
 
@@ -1107,7 +1107,7 @@
     border-radius: 50%;
     border: 2px solid #10B65C; 
     pointer-events: none; 
-    opacity: 0; 
+    opacity: 0.01; 
     transform: scale(2);
 }
 
@@ -1166,7 +1166,7 @@
   transform: skewX(-20deg);
   transition: all 0.6s ease;
   pointer-events: none;
-  opacity: 0;
+  opacity: 0.01;
   z-index: 1; /* Debajo del texto pero encima del fondo */
   border-radius: 50%; /* Se adapta al borde circular del botón */
 }
@@ -1193,7 +1193,7 @@
 
 /* Estado inicial: invisible y desplazado hacia abajo */
 .animado-inicio {
-  opacity: 0;
+  opacity: 0.01;
   transform: translateY(30px);
 }
 
