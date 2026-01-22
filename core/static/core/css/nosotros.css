@@ -1,28 +1,4 @@
-/* =====================================
-   VARIABLES GLOBALES
-   (No se tocan nav ni footer)
-===================================== */
 
-:root {
-  --color-primary: #161d19;
-  --color-primary-dark: #10B65C;
-  --color-accent: #10B65C;
-  --color-accent-strong: #000000;
-  --color-text: #000000;
-  --color-light: #FFFFFF;
-  --color-muted: #929292;
-
-  --shadow-soft: 0 6px 18px rgba(0,0,0,0.08);
-  --shadow-card: 0 12px 28px rgba(0,0,0,0.10);
-  --shadow-strong: 0 12px 32px rgba(0,0,0,0.12);
-  --shadow-hover: 0 10px 25px rgba(0,0,0,0.15);
-
-  --transition-base: all .35s ease;
-  --radius-sm: 10px;
-  --radius-md: 14px;
-  --radius-lg: 18px;
-  --radius-xl: 20px;
-}
 /* Accesibilidad básica */
 :focus-visible {
   outline: 3px solid var(--color-accent);

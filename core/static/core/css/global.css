@@ -1,4 +1,29 @@
 /* ---------------------------------------------------
+   VARIABLES GLOBALES
+--------------------------------------------------- */
+
+:root {
+  --color-primary: #161d19;
+  --color-primary-dark: #10B65C;
+  --color-accent: #10B65C;
+  --color-accent-strong: #000000;
+  --color-text: #000000;
+  --color-light: #FFFFFF;
+  --color-muted: #929292;
+
+  --shadow-soft: 0 6px 18px rgba(0,0,0,0.08);
+  --shadow-card: 0 12px 28px rgba(0,0,0,0.10);
+  --shadow-strong: 0 12px 32px rgba(0,0,0,0.12);
+  --shadow-hover: 0 10px 25px rgba(0,0,0,0.15);
+
+  --transition-base: all .35s ease;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
+  --radius-xl: 20px;
+}
+
+/* ---------------------------------------------------
    FUENTES
 --------------------------------------------------- */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap');
@@ -95,11 +120,11 @@ button, .btn {
 .contenido::before {
   content: "";
   position: absolute;
-  top: -40px;
+  top: -180px;
   left: 0;
 
   width: 100%;
-  height: 250px;
+  height: 100%;
 
   background-image: url("/static/core/img/background-home.svg");
   background-repeat: no-repeat;
@@ -121,12 +146,7 @@ button, .btn {
 /* Encuadre de acuerdo al viewport */
 @media (max-width: 768px) {
   .contenido {
-    padding-top: 20px;
-  }
-
-  .contenido::before {
-    height: 140px;
-    background-size: 130% auto;
+    padding-top: 2px;
   }
 }
 

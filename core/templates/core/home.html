@@ -272,7 +272,7 @@ CEDHU{% endblock %} {% block content %}
   </section>
   {% endcomment %}
 
-  <!-- Sección Ubicación (Mantener) -->
+  <!-- Sección Ubicación -->
   <section class="ubicacion">
     <h2>¿DÓNDE ESTAMOS UBICADOS?</h2>
     <div class="container-ubicación">
@@ -287,20 +287,19 @@ CEDHU{% endblock %} {% block content %}
           referrerpolicy="no-referrer-when-downgrade"
         ></iframe>
       </div>
-      <div class="mapa-responsive streetview">
-        <div class="map-overlay">
+      <div class="mapa-responsive"> <!-- Colocar la clase streetview -->
+        {% comment %} <div class="map-overlay">
           <span
             data-desktop="Haz doble clic para explorar Street View"
             data-mobile="Mantén presionado para explorar Street View"
           ></span>
-        </div>
+        </div> {% endcomment %}
+
         <iframe
           src="https://www.google.com/maps/embed?pb=!4v1755708493503!6m8!1m7!1saSQjlOZeDjmZ0HaFBSwViA!2m2!1d5.727254717227505!2d-72.91765621114655!3f30.646103925190662!4f5.536479257674657!5f0.4000000000000002"
-          allowfullscreen
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"
-        >
-        </iframe>
+        ></iframe>
       </div>
     </div>
   </section>

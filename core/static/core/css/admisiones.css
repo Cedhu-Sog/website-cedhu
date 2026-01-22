@@ -4,16 +4,7 @@
    ===================================================== */
 
 /* ---------- Variables base (puedes alinearlas al global) ---------- */
-:root {
-  --color-primary: #10b65c;
-  --color-primary-dark: #0e9e51;
-  --color-bg-light: #f5fbf8;
-  --color-text: #2c2c2c;
-  --color-muted: #6b7280;
-  --radius-lg: 24px;
-  --radius-md: 16px;
-  --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.08);
-}
+
 
 /* ---------- Reset ligero ---------- */
 .admisiones {

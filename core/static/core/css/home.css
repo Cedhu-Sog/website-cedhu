@@ -6,7 +6,7 @@
   width: 100%;
   height: 85vh;
   overflow: hidden;
-  margin-bottom: 60px;
+  margin-bottom: 90px;
   animation: none !important;
   opacity: 1 !important;
   transform: none !important;
@@ -227,7 +227,7 @@
   left: 0;
   width: 100%;
   height: 60px;
-  background: #a9f3cb;
+  background: #b1d6c2;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   z-index: 3;
@@ -806,6 +806,7 @@
 .btn-cta.secundario {
   border: 2px solid rgba(255, 255, 255, 0.8);
   color: #ffffff;
+  
   background: transparent;
 }
 
@@ -1020,12 +1021,6 @@
   font-weight: 600;
 }
 
-/* Mostrar texto solo al pasar el puntero */
-.streetview:hover .map-overlay span {
-  opacity: 1;
-  transform: translateY(0);
-}
-
 .map-overlay span::before {
   content: attr(data-desktop);
 }
@@ -1035,6 +1030,13 @@
   .map-overlay span::before {
     content: attr(data-mobile);
   }
+}
+
+
+/* Mostrar texto solo al pasar el puntero */
+.streetview:hover .map-overlay span {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* Bloqueo de interacción */
@@ -1052,11 +1054,7 @@
   pointer-events: none;
 }
 
-@media (max-width: 768px) {
-  .container-ubicación {
-    grid-template-columns: 1fr;
-  }
-}
+
 
 /* =====================================
    ESPACIO ENTRE SECCIONES

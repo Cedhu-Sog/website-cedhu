@@ -246,6 +246,8 @@ function toggleInfo(card) {
   }
 }
 
+
+
 document.querySelectorAll(".streetview").forEach((map) => {
   /* DESKTOP: doble clic */
   map.addEventListener("dblclick", (e) => {
@@ -279,3 +281,4 @@ document.addEventListener("click", (e) => {
     }
   });
 });
+

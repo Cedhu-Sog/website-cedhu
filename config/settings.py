@@ -4,12 +4,14 @@ import os
 
 load_dotenv()
 
+# Modo de depuración. Se desactiva cuando entra a producción
+DEBUG = os.environ.get('DEBUG', 'True').lower() == 'true'
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
-# Modo de depuración. Desactivar en producción.
-DEBUG = os.environ.get("DEBUG", "False") == "True"
+
 
 
 # Hosts permitidos para servir el proyecto.
@@ -26,6 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_browser_reload',
     'core',
 ]
 
@@ -40,6 +43,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_browser_reload.middleware.BrowserReloadMiddleware',
 ]
 
 
@@ -101,4 +105,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 LOGIN_URL = '/login/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 

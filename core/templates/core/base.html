@@ -33,12 +33,12 @@
   <a href="https://identity.santillanaconnect.com/login/..." target="_blank">
     <img src="{% static 'core/img/santillana.png' %}" alt="Santillana">
   </a>
-  <a href="https://www.instruimos.com/Instruimos_Plataforma/index.htm" target="_blank">
+  {% comment %} <a href="https://www.instruimos.com/Instruimos_Plataforma/index.htm" target="_blank">
     <img src="{% static 'core/img/Instruimos.avif' %}" alt="Instruimos">
   </a>
   <a href="https://identity.edicionesnorma.com/login/..." target="_blank">
     <img src="{% static 'core/img/Norma.png' %}" alt="Norma">
-  </a>
+  </a> {% endcomment %}
 </div>
   <!-- HEADER -->
   <header>
@@ -76,9 +76,9 @@
          class="nav-link {% if request.resolver_match.url_name == 'servicios_en_linea' %}active{% endif %}" 
          role="menuitem">Servicios en línea</a>
 
-      {% comment %} <a href="{% url 'admisiones' %}" 
+      <a href="{% url 'admisiones' %}" 
          class="nav-link {% if request.resolver_match.url_name == 'admisiones' %}active{% endif %}" 
-         role="menuitem">Admisiones</a> {% endcomment %}
+         role="menuitem">Admisiones</a>
 
 
       {% comment %} <a href="{% url 'login' %}" 
@@ -101,16 +101,16 @@
       <img src="{% static 'core/img/santillana.png' %}" alt="Santillana">
     </a>
 
-    <a href="https://www.instruimos.com/Instruimos_Plataforma/index.htm" 
+    {% comment %} <a href="https://www.instruimos.com/Instruimos_Plataforma/index.htm" 
        class="nav-link" target="_blank" rel="noopener">
       <img src="{% static 'core/img/Instruimos.avif' %}" alt="Instruimos">
     </a>
   </div>
-  {% comment %} <a href="https://identity.edicionesnorma.com/login/?client_id=neds_client_norma_colombia_pro..." 
+  <a href="https://identity.edicionesnorma.com/login/?client_id=neds_client_norma_colombia_pro..." 
        class="nav-link" target="_blank" rel="noopener">
       
-    </a>
-</nav> {% endcomment %}
+    </a> {% endcomment %}
+</nav> 
 
   </header>
 
@@ -241,6 +241,7 @@
 
   <!-- JS global-->
   <script src="{% static 'core/js/base.js' %}"></script>
+  <script src="{% static 'django_browser_reload/reload.js' %}"></script>
   {% block extra_js %}{% endblock %}
 </body>
 </html>
