@@ -9,7 +9,7 @@
 
 <link rel="stylesheet" href="{% static 'core/css/admisiones.css' %}" />
 
-<main class="admisiones contenido">
+<main class="admisiones">
 
   <!-- HERO / ENCABEZADO -->
   <section class="admisiones-hero ">
@@ -137,13 +137,15 @@
       <h2>REQUISITOS</h2>
       <div class="requisitos-grid">
         <div class="requisito">
-          <a href="#" class="animate fade-up">
-            <h3>Descargar documento oficial requerimientos aspirantes admitidos</h3>
+          <a  href="{% static 'core/docs/MATRICULAS_ASPIRANTES_ADMITIDOS_2026.pdf' %}" target="blank" class="animate fade-up">
+            <img src="{% static 'core/img/pdf-ico.svg' %}" alt="ïcono de PDF">
+            <h3>Ver requerimientos aspirantes admitidos</h3>
           </a>
         </div>
         <div class="requisito">
-          <a href="#" class="animate fade-up">
-            <h3>Descargar documento oficial requerimientos educandos antiguos</h3>
+          <a  href="{% static 'core/docs/MATRICULAS_EDUCANDOS_ANTIGUOS_2026.pdf' %}" target="blank" class="animate fade-up">
+            <img src="{% static 'core/img/pdf-ico.svg' %}" alt="ïcono de PDF">
+            <h3>Ver requerimientos educandos antiguos</h3>
           </a>
         </div>
       </div>
@@ -151,19 +153,20 @@
         <h3>Documentos para matrículas</h3>
         <div class="descarga-documento">
           <img src="{% static 'core/img/pdf-ico.svg' %}" alt="ïcono de PDF">
-          <a href="#">Descargar Formato pagaré y autorización</a>
+          <p>Formato pagaré y autorización</p>
+          <a href="{% static 'core/docs/PAGARE_Y_AUTORIZACION.pdf' %}" class="btn-secondary" target="blank">Descargar</a>
         </div>
         <div class="descarga-documento">
           <img src="{% static 'core/img/pdf-ico.svg' %}" alt="ïcono de PDF">
-          <a href="#">Descargar Contrato prestación servicios educativos</a>
+          <p>Contrato prestación servicios educativos</p>
+          <a href="{% static 'core/docs/CONTRATO_PRESTACION_SERVICIOS_EDUCATIVOS_2026.pdf' %}" class="btn-secondary" target="blank">Descargar</a>
         </div>
       </div>
-      
     </div>
   </section>
 
   <!-- CRONOGRAMA O FECHAS -->
-  <section class="admisiones-fechas">
+  {% comment %} <section class="admisiones-fechas">
     <div class="container">
       <h2>Fechas Importantes</h2>
       <div class="fechas-grid">
@@ -207,7 +210,7 @@
         </article>
       </div>
     </div>
-  </section>
+  </section> {% endcomment %}
 
   <!-- LLAMADO A LA ACCIÓN -->
   <section class="admisiones-cta">
