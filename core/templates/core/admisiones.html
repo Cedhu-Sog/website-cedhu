@@ -7,59 +7,125 @@
 
 {% block content %}
 
-<main class="admisiones">
+<link rel="stylesheet" href="{% static 'core/css/admisiones.css' %}" />
+
+<main class="admisiones contenido">
 
   <!-- HERO / ENCABEZADO -->
   <section class="admisiones-hero ">
     <div class="container">
-      <h1 class="animate fade-up">Admisiones CEDHU</h1>
+      <h2 class="animate fade-up">CONOZCAMOS EL PROCESO</br>ADMISIONES 2026</h2>
       <p class="animate fade-up delay-1">
-        Abrimos las puertas a nuevas familias que creen en una educación con valores,
+        Abrimos las puertas a nuevas familias que creen en una formación con valores,
         innovación y acompañamiento integral.
       </p>
       <a href="#proceso" class="btn-primary animate zoom-in delay-2">Conoce el proceso</a>
     </div>
   </section>
 
-  <!-- BIENVENIDA -->
-  <section class="admisiones-bienvenida">
+  <!-- CUPOS DISPONIBLES -->
+  <section class="admisiones-cupos">
     <div class="container">
-      <h2>Bienvenidos al CEDHU</h2>
+      <h2>CUPOS DISPONIBLES</h2>
+      <h3>EDADES REQUERIDAS</h3>
       <p>
-        En el CEDHU acompañamos a cada educando en su proceso formativo,
-        fortaleciendo sus habilidades académicas, sociales y emocionales.
+        Años cumplidos o por cumplir hasta abril 30.
       </p>
+      <div class="proceso-grid">
+        <article class="paso animate fade-up delay-1">
+          <h3>PREESCOLAR</h3>
+          <p>
+            <strong>Párvulos</strong> 2 años</br>
+            <strong>Prejardín</strong> 3 años</br>
+            <strong>Jardín</strong> 4 años</br>
+            <strong>Transición</strong> 5 años</br>
+          </p>
+        </article>
+
+        <article class="paso animate fade-up delay-2">
+          <h3>PRIMARIA</h3>
+          <p>
+            <strong>Primero</strong> 6 años</br>
+            <strong>Segundo</strong> 7 años</br>
+            <strong>Tercero</strong> 8 años</br>
+            <strong>Cuarto</strong> 9 años</br>
+            <strong>Quinto</strong> 10 años</br>
+          </p>
+        </article>
+
+        <article class="paso animate fade-up delay-3">
+          <h3>BACHILLERATO</h3>
+          <p>
+            <strong>Sexto</strong> 11 años</br>
+            <strong>Séptimo</strong> 12 años</br>
+            <strong>Octavo</strong> 13 años</br>
+            Para los demás grados no se abre proceso de admisión 2026</br>
+            <strong>NO HAY CUPOS DISPONIBLES</strong>
+          </p>
+        </article>
+      </div>
+      <span>
+        El Cedhu se reserva el derecho de admisión.</br>
+        El proceso estará sujeto a disponibilidad de cupos.
+      </span>
     </div>
   </section>
 
   <!-- PROCESO DE ADMISIONES -->
   <section id="proceso" class="admisiones-proceso">
     <div class="container">
-      <h2>Proceso de Admisión</h2>
+      <h2>PROCESO DE ADMISIÓN</h2>
 
       <div class="proceso-grid">
         <article class="paso animate fade-up delay-1">
           <span class="paso-numero">1</span>
-          <h3>Solicitud de Información</h3>
-          <p>Las familias interesadas pueden contactarnos o diligenciar el formulario de admisión.</p>
+          <h3>Consultar previamente</h3>
+            <ul>
+              <li>Manual de convivencia</li>
+              <li>Uniformes</li>
+              <li>Costos educativos</li>
+              <li>Listas de útiles</li>
+              <li>Requisitos admisión</li>
+            </ul>
         </article>
 
         <article class="paso animate fade-up delay-2">
           <span class="paso-numero">2</span>
-          <h3>Entrevista</h3>
-          <p>Se realiza una entrevista con el educando y su familia.</p>
+          <h3>Visitar el Cedhu</h3>
+          <p>
+            Padres y aspirante</br>
+            </br>
+            Atención</br>
+            Viernes de 2:00 a 5:00 p.m.
+          </p>
         </article>
 
         <article class="paso animate fade-up delay-3">
           <span class="paso-numero">3</span>
-          <h3>Evaluación</h3>
-          <p>Valoramos aspectos académicos y socioemocionales.</p>
+          <h3>Diligenciar Preinscripción</h3>
+          <p>Ingresar al link <a href="https://cedhu.q10.com/Preinscripcion" target="blank">https://cedhu.q10.com/Preinscripcion</a></p>
         </article>
 
-        <article class="paso animate fade-up delay-4">
+        <article class="paso animate fade-up delay-1">
           <span class="paso-numero">4</span>
-          <h3>Resultado</h3>
-          <p>Informamos el resultado y los pasos para formalizar la matrícula.</p>
+          <h3>Adquirir formulario en tesorería Cedhu</h3>
+          <p>Entregarlo Diligenciado  en Orientación  Escolar con los documentos requeridos en Carpeta Plástica (Tamaño Oficio)</p>
+        </article>
+
+        <article class="paso animate fade-up delay-2">
+          <span class="paso-numero">5</span>
+          <h3>Presentar prueba</h3>
+          <p>Primaria y Bachillerato presentar prueba académica</br> </br>
+            Preescolar presentar prueba lecto-escritura expresión oral desarrollo motor
+          </p>
+        </article>
+
+        <article class="paso animate fade-up delay-3">
+          <span class="paso-numero">6</span>
+          <h3>Entrevista</h3>
+          <p>
+            Padres y Aspirante: Establecer  Acuerdos  y Compromisos
+          </p>
         </article>
       </div>
     </div>
@@ -68,14 +134,31 @@
   <!-- REQUISITOS -->
   <section class="admisiones-requisitos">
     <div class="container">
-      <h2>Requisitos</h2>
-
-      <ul class="lista-requisitos animate fade-up">
-        <li>Formulario de admisión diligenciado</li>
-        <li>Registro civil o documento de identidad</li>
-        <li>Boletines del último año cursado</li>
-        <li>Paz y salvo del colegio anterior</li>
-      </ul>
+      <h2>REQUISITOS</h2>
+      <div class="requisitos-grid">
+        <div class="requisito">
+          <a href="#" class="animate fade-up">
+            <h3>Descargar documento oficial requerimientos aspirantes admitidos</h3>
+          </a>
+        </div>
+        <div class="requisito">
+          <a href="#" class="animate fade-up">
+            <h3>Descargar documento oficial requerimientos educandos antiguos</h3>
+          </a>
+        </div>
+      </div>
+      <div class="documentos-matricula">
+        <h3>Documentos para matrículas</h3>
+        <div class="descarga-documento">
+          <img src="{% static 'core/img/pdf-ico.svg' %}" alt="ïcono de PDF">
+          <a href="#">Descargar Formato pagaré y autorización</a>
+        </div>
+        <div class="descarga-documento">
+          <img src="{% static 'core/img/pdf-ico.svg' %}" alt="ïcono de PDF">
+          <a href="#">Descargar Contrato prestación servicios educativos</a>
+        </div>
+      </div>
+      
     </div>
   </section>
 
@@ -83,20 +166,57 @@
   <section class="admisiones-fechas">
     <div class="container">
       <h2>Fechas Importantes</h2>
-      <p>
-        Las admisiones están abiertas durante el año, sujetas a disponibilidad de cupos.
-      </p>
+      <div class="fechas-grid">
+        <article class="fecha animate fade-up delay-1">
+          <span class="paso-numero">1</span>
+          <h3>Inscripciones</h3>
+          <p>
+            Adquirir formulario en tesorería Cedhu</br>
+            </br>
+            Fecha límite</br>
+            Octubre 31
+          </p>
+        </article>
+        <article class="fecha animate fade-up delay-2">
+          <span class="paso-numero">2</span>
+          <h3>Pruebas Académicas</h3>
+          <p>
+            Noviembre 7</br>
+            </br>
+            Horario:</br>
+            2:00  a  4:30 p.m
+          </p>
+        </article>
+        <article class="fecha animate fade-up delay-3">
+          <span class="paso-numero">3</span>
+          <h3>Entrevistas</h3>
+          <p>
+            Noviembre</br>
+            10 al 14</br>
+            </br>
+            Según horario asignado
+          </p>
+        </article>
+        <article class="fecha animate fade-up delay-4">
+          <span class="paso-numero">4</span>
+          <h3>Matrículas</h3>
+          <p>
+            Diciembre</br>
+            1 al 15
+          </p>
+        </article>
+      </div>
     </div>
   </section>
 
   <!-- LLAMADO A LA ACCIÓN -->
   <section class="admisiones-cta">
     <div class="container">
-      <h2>¿Deseas más información?</h2>
+      <h2>¿Deseas conocer el listado de útiles escolares?</h2>
       <p>
-        Nuestro equipo estará encantado de acompañarte en el proceso.
+        Da clic en Ver Útiles Escolares para conocer lo necesario para empezar clases.
       </p>
-      <a href="/contacto" class="btn-secondary">Contáctanos</a>
+      <a href="{% url 'utiles-escolares' %}" class="btn-secondary">Ver Útiles Escolares</a>
     </div>
   </section>
 

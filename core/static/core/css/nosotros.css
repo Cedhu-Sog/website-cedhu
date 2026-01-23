@@ -285,9 +285,8 @@
 
 .section h2 {
   font-size: clamp(1.6rem, 4vw, 2.6rem);
-  font-weight: 700;
   margin-bottom: 16px;
-  color: var(--color-primary);
+  color: #000;
   text-transform: uppercase;
   position: relative;
   display: inline-block;
@@ -318,10 +317,9 @@
    LEMA SECTION
 ===================================== */
 .lema-section {
-  background: linear-gradient(135deg, #FFF9CC 0%, var(--color-accent) 100%);
+  background: linear-gradient(135deg, #c4e0ad 50%, var(--color-accent) 100%);
   padding: 30px 15px;
   border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-soft);
 }
 .lema-content {
   display: flex;
@@ -332,20 +330,20 @@
 }
 .lema-text { flex: 1; min-width: 240px; }
 .lema-text h2 {
-  font-size: clamp(1.4rem, 2.5vw, 1.8rem);
-  font-weight: 800;
-  color: var(--color-primary);
+  font-size: 2rem;
+  margin-bottom: 1.2em;
+  font-weight: 700;
+  color: #000;
   margin-bottom: 10px;
   letter-spacing: .5px;
   text-transform: uppercase;
 }
-.lema-text p { font-size: 1rem; line-height: 1.5; color: var(--color-text); }
-.lema-text .highlight { color: var(--color-primary); font-weight: 900; font-size: 1.05rem; }
+.lema-text p { line-height: 1.5; color: var(--color-text); }
+.lema-text .highlight { color: #000; font-size: 1.05rem; }
 .lema-image { flex: 1; min-width: 240px; text-align: center; }
 .lema-image img {
   max-width: 80%;
   border-radius: 12px;
-  box-shadow: var(--shadow-card);
   transition: var(--transition-base);
 }
 .lema-image img:hover { transform: scale(1.03); }
@@ -495,7 +493,7 @@
    SECCIÓN NUESTROS PRINCIPIOS
 ============================== */
 .principios-section {
-  background: linear-gradient(135deg, #10B65C, #eaf0b2);
+  background: linear-gradient(135deg, #c4e0ad 50%, var(--color-accent) 100%);
   max-width: 1200px;
   margin: 0 auto 80px;
   padding: 80px 20px;

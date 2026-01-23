@@ -44,6 +44,9 @@ def about(request):
 def contact(request):
     return render(request, 'core/contact.html')
 
+def utiles_escolares_view(request):
+    return render(request, 'core/utiles_escolares.html')
+
 def logout_view(request):
     logout(request)
     return redirect('home')

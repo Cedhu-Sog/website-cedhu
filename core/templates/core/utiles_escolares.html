@@ -1,0 +1,68 @@
+{% extends 'core/base.html' %} {% block title %}Útiles Escolares - CEDHU{%endblock %} 
+{% load static %} {% block content %}
+
+<link rel="stylesheet" href="{% static 'core/css/utiles.css' %}" />
+<div class="contenido">
+  <section class="utiles-descarga">
+    <div class="container">
+      <h2>Listado de Útiles Escolares</h2>
+      <p>Descargue los documentos oficiales según el nivel educativo:</p>
+
+      <div class="utiles-cards">
+        <a
+          href="{% static 'core/docs/LISTAS_UTILES_Y_TEXTOS_PREESCOLAR_2026.pdf' %}"
+          class="card-util"
+          target="_blank"
+        >
+          <img src="{% static 'core/img/pdf-ico.svg' %}" alt="ïcono de PDF" />
+          <h3>Preescolar</h3>
+          <p>Descargar PDF</p>
+        </a>
+
+        <a
+          href="{% static 'core/docs/LISTAS_DE_TEXTOS_Y_UTILES_PRIMARIA_Y_BACHILLERATO_2026.pdf' %}"
+          class="card-util"
+          target="_blank"
+        >
+          <img src="{% static 'core/img/pdf-ico.svg' %}" alt="ïcono de PDF" />
+          <h3>Primaria y Bachillerato</h3>
+          <p>Descargar PDF</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="tramite-textos">
+    <div class="textos">
+      <h2>Link adquisición de textos editorial Santillana</h2>
+      <p>Instructivo para registrarse en UNOi editorial Santillana</p>
+      <iframe
+        width="560"
+        height="315"
+        src="https://www.youtube.com/embed/-8ZTQd-LGRM?si=bMsCCAT_1aMbBS0c"
+        title="YouTube video player"
+        frameborder="0"
+        allow="
+          accelerometer;
+          autoplay;
+          clipboard-write;
+          encrypted-media;
+          gyroscope;
+          picture-in-picture;
+          web-share;
+        "
+        referrerpolicy="strict-origin-when-cross-origin"
+        allowfullscreen
+      ></iframe>
+      <a
+        href="https://payment.uno-internacional.com/co/unoi/welcome"
+        class="btn-secondary"
+        target="blank"
+      >
+        Realizar tramite
+      </a>
+    </div>
+  </section>
+</div>
+
+{% endblock %}

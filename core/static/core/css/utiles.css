@@ -1,0 +1,116 @@
+.contenido{
+  border-radius: 0;
+}
+
+.utiles-descarga {
+  padding: 4rem 1rem;
+  text-align: center;
+}
+
+.utiles-descarga h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.utiles-descarga p {
+  margin-bottom: 2.5rem;
+}
+
+.utiles-cards {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.card-util {
+  background-color: white;
+  width: 260px;
+  padding: 2rem 1.5rem;
+  border-radius: 10px;
+  text-decoration: none;
+  color: #222;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+}
+
+.card-util h3 {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+.card-util p {
+  color: #004aad;
+  font-weight: bold;
+}
+
+.card-util:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+}
+
+.card-util img {
+  width: 48px;
+  margin-bottom: 1rem;
+}
+
+.tramite-textos {
+  padding: 4rem 1rem;
+  text-align: center;
+}
+
+.textos {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+
+.textos h2 {
+  font-size: 2rem;
+  margin-bottom: 0;
+}
+
+.textos p {
+  margin: 0;
+}
+
+iframe {
+  border-radius: var(--radius-md);
+  width: min(100%, 600px);
+}
+
+/* =====================================================
+   BOTONES
+   ===================================================== */
+.btn-primary,
+.btn-secondary {
+  display: inline-block;
+  padding: 0.85rem 2rem;
+  border-radius: 999px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.btn-primary {
+  background: var(--color-primary);
+  color: #fff;
+  box-shadow: 0 10px 25px rgba(16, 182, 92, 0.35);
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 35px rgba(16, 182, 92, 0.45);
+}
+
+.btn-secondary {
+  background: #ffffff;
+  color: var(--color-primary-dark);
+  border: 2px solid var(--color-primary);
+}
+
+.btn-secondary:hover {
+  transform: translateY(-3px);
+}

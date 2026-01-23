@@ -19,8 +19,13 @@
 
 /* ---------- Contenedor ---------- */
 .admisiones .container {
-  width: min(1100px, 90%);
+  width: min(1200px, 90%);
   margin-inline: auto;
+}
+
+.contenido{
+  border-radius: 0;
+  padding-top: 0;
 }
 
 /* =====================================================
@@ -36,7 +41,7 @@
   text-align: center;
 }
 
-.admisiones-hero h1 {
+.admisiones-hero h2 {
   font-size: clamp(2.2rem, 4vw, 3rem);
   margin-bottom: 1rem;
   color: var(--color-primary-dark);
@@ -45,7 +50,7 @@
 .admisiones-hero p {
   max-width: 720px;
   margin: 0 auto 2rem;
-  color: var(--color-muted);
+  color: #000;
   font-size: 1.05rem;
 }
 
@@ -84,22 +89,40 @@
 }
 
 /* =====================================================
-   BIENVENIDA
+   CUPOS DISPONIBLES
    ===================================================== */
-.admisiones-bienvenida {
+.admisiones-cupos {
   padding: 4.5rem 0;
-  text-align: center;
+  display: flex;
+  align-items: center;
 }
 
-.admisiones-bienvenida h2 {
+.admisiones-cupos h2 {
   font-size: 2rem;
+}
+
+.admisiones-cupos h3 {
+  font-size: 1.5rem;
+}
+
+.admisiones-cupos h2,
+.admisiones-cupos h3,
+.admisiones-cupos p {
+  text-align: center;
   margin-bottom: 1rem;
 }
 
-.admisiones-bienvenida p {
+.admisiones-cupos p {
   max-width: 720px;
-  margin: auto;
-  color: var(--color-muted);
+  color: #000;
+}
+
+.admisiones-cupos span {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  color: #000;
+  text-align: center;
 }
 
 /* =====================================================
@@ -111,14 +134,13 @@
 }
 
 .admisiones-proceso h2 {
-  text-align: center;
   font-size: 2.1rem;
   margin-bottom: 3rem;
 }
 
 .proceso-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 2rem;
 }
 
@@ -155,7 +177,7 @@
 
 .paso p {
   font-size: 0.95rem;
-  color: var(--color-muted);
+  color: #000;
 }
 
 /* =====================================================
@@ -214,7 +236,7 @@
 }
 
 .admisiones-fechas p {
-  color: var(--color-muted);
+  color: #000;
 }
 
 /* =====================================================
@@ -233,7 +255,7 @@
 .admisiones-cta p {
   max-width: 600px;
   margin: 0 auto 2rem;
-  color: var(--color-muted);
+  color: #000;
 }
 
 /* =====================================================
@@ -248,7 +270,7 @@
     font-size: 1rem;
   }
 
-  .admisiones-bienvenida,
+  .admisiones-cupos,
   .admisiones-requisitos,
   .admisiones-cta {
     padding: 3.5rem 0;
