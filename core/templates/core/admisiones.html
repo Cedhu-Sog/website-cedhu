@@ -9,7 +9,7 @@
 
 <link rel="stylesheet" href="{% static 'core/css/admisiones.css' %}" />
 
-<main class="admisiones">
+<main class="admisiones contenido">
 
   <!-- HERO / ENCABEZADO -->
   <section class="admisiones-hero ">
@@ -64,10 +64,10 @@
           </p>
         </article>
       </div>
-      <span>
+      <p style="text-align:center; margin-top:2rem; font-size:.9rem;">
         El Cedhu se reserva el derecho de admisión.</br>
         El proceso estará sujeto a disponibilidad de cupos.
-      </span>
+      </p>
     </div>
   </section>
 
@@ -165,52 +165,47 @@
     </div>
   </section>
 
-  <!-- CRONOGRAMA O FECHAS -->
-  {% comment %} <section class="admisiones-fechas">
+  <!-- FECHAS IMPORTANTES -->
+  <section class="admisiones-fechas">
     <div class="container">
       <h2>Fechas Importantes</h2>
+
       <div class="fechas-grid">
         <article class="fecha animate fade-up delay-1">
           <span class="paso-numero">1</span>
           <h3>Inscripciones</h3>
-          <p>
-            Adquirir formulario en tesorería Cedhu</br>
-            </br>
-            Fecha límite</br>
-            Octubre 31
-          </p>
+          <p>Adquirir formulario en tesorería Cedhu</p>
+          <p class="fecha-dato"><strong>Fecha límite:</strong> Octubre 31</p>
         </article>
+
         <article class="fecha animate fade-up delay-2">
           <span class="paso-numero">2</span>
           <h3>Pruebas Académicas</h3>
-          <p>
-            Noviembre 7</br>
-            </br>
-            Horario:</br>
-            2:00  a  4:30 p.m
-          </p>
+          <p>Presentar en instalaciones Cedhu</p>
+          <p class="fecha-dato"><strong>Fecha:</strong> Noviembre 7</p>
+          <p class="fecha-dato"><strong>Horario:</strong> 2:00 a 4:30 p.m</p>
         </article>
+
         <article class="fecha animate fade-up delay-3">
           <span class="paso-numero">3</span>
           <h3>Entrevistas</h3>
-          <p>
-            Noviembre</br>
-            10 al 14</br>
-            </br>
-            Según horario asignado
-          </p>
+          <p>Asistir padres con educando</p>
+          <p class="fecha-dato"><strong>Fechas:</strong> Noviembre 10 al 14</p>
+          <p class="fecha-dato">Según horario asignado</p>
         </article>
+
         <article class="fecha animate fade-up delay-4">
           <span class="paso-numero">4</span>
           <h3>Matrículas</h3>
-          <p>
-            Diciembre</br>
-            1 al 15
-          </p>
+          <p>Asistir padres con educando</p>
+          <p class="fecha-dato"><strong>Fechas:</strong> Diciembre 1 al 15</p>
         </article>
       </div>
+      <p style="text-align:center; margin-top:2rem; font-size:.9rem;">
+        * Las fechas pueden estar sujetas a cambios según disponibilidad institucional.
+      </p>
     </div>
-  </section> {% endcomment %}
+  </section>
 
   <!-- LLAMADO A LA ACCIÓN -->
   <section class="admisiones-cta">

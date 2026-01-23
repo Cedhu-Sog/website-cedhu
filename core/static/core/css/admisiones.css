@@ -3,7 +3,6 @@
    Archivo: Admisiones.css
    ===================================================== */
 
-/* ---------- Variables base (puedes alinearlas al global) ---------- */
 
 /* ---------- Reset ligero ---------- */
 .admisiones {
@@ -125,6 +124,10 @@
   text-align: center;
 }
 
+.admisiones-cupos .paso {
+  background: linear-gradient(135deg, #ffffff, #f6f9ff);
+}
+
 /* =====================================================
    PROCESO
    ===================================================== */
@@ -170,6 +173,26 @@
   margin: 0 auto 1rem;
 }
 
+.paso ul {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 1rem;
+}
+
+.paso li {
+  position: relative;
+  padding-left: 1.5rem;
+  text-align: left;
+}
+
+.paso li::before {
+  content: "✔";
+  position: absolute;
+  left: 0;
+  color: var(--color-primary);
+  font-weight: bold;
+}
+
 .paso h3 {
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
@@ -183,6 +206,38 @@
 /* =====================================================
    REQUISITOS
    ===================================================== */
+
+.requisitos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.requisito {
+  background: #fff;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  padding: 2.5rem 2rem;
+  text-align: center;
+  transition: transform .25s ease;
+}
+
+.requisito:hover {
+  transform: translateY(-6px);
+}
+
+.requisito a {
+  text-decoration: none;
+  color: var(--color-text);
+  display: block;
+}
+
+.requisito img {
+  width: 64px;
+  margin-bottom: 1rem;
+}
+
 .admisiones-requisitos {
   padding: 4.5rem 0;
 }
@@ -193,29 +248,43 @@
   margin-bottom: 2.5rem;
 }
 
-.lista-requisitos {
-  max-width: 650px;
-  margin: auto;
-  padding: 2.5rem;
-  background: #fff;
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-soft);
-  list-style: none;
+.documentos-matricula {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
 }
 
-.lista-requisitos li {
-  padding-left: 2rem;
-  position: relative;
+.documentos-matricula h3 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.descarga-documento {
+  width: min(100%, 700px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background: #fff;
+  padding: 1rem 1.5rem;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
   margin-bottom: 1rem;
 }
 
-.lista-requisitos li::before {
-  content: "✔";
-  position: absolute;
-  left: 0;
-  color: var(--color-primary);
-  font-weight: 700;
+.descarga-documento img {
+  width: 42px;
 }
+
+.descarga-documento p {
+  flex: 1;
+  margin: 0;
+  color: #000;
+}
+
 
 /* =====================================================
    FECHAS
@@ -239,6 +308,37 @@
   color: #000;
 }
 
+.fechas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 2.5rem;
+}
+
+.fecha {
+  background: #fff;
+  border-radius: var(--radius-lg);
+  padding: 2rem 1.5rem;
+  box-shadow: var(--shadow-soft);
+  text-align: center;
+  transition: transform .25s ease;
+}
+
+.fecha:hover {
+  transform: translateY(-6px);
+}
+
+.fecha h3 {
+  margin-bottom: .5rem;
+}
+
+.fecha-dato {
+  font-size: .95rem;
+  margin: .3rem 0;
+  color: #000;
+}
+
+
 /* =====================================================
    CTA
    ===================================================== */
@@ -258,6 +358,8 @@
   color: #000;
 }
 
+
+
 /* =====================================================
    RESPONSIVE
    ===================================================== */
@@ -276,6 +378,18 @@
     padding: 3.5rem 0;
   }
 }
+
+@media (max-width: 600px) {
+  .proceso-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .descarga-documento {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
 
 /* =====================================================
    ANIMACIONES SCROLL – ADMISIONES
