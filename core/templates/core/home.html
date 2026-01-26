@@ -245,30 +245,27 @@ CEDHU{% endblock %} {% block content %}
     </div>
   </section>
 
-  <!-- Sección CTA -->
-  {% comment %}
-  <section class="cta-institucional">
-    <div class="cta-contenido">
-      <h2>¿QUIERES HACER PARTE DEL CEDHU?</h2>
-      <p>
-        Conoce nuestro proceso de admisión y acompáñanos en la formación
-        integral de tu hijo.
-      </p>
+  <!-- Sección noticias -->
+<section class="news-section">
+  <h2>NOTICIAS</h2>
 
-      <div class="cta-botones">
-        <a href="{% url 'Admisiones' %}" class="btn-cta principal">
-          Proceso de admisión
-        </a>
-        <!--
-        <a href="{% url 'Contacto' %}" class="btn-cta secundario">
-          Contáctanos
-        </a>
-        -->
-        <a href="#" class="btn-cta secundario"> Contáctanos </a>
-      </div>
-    </div>
-  </section>
-  {% endcomment %}
+  <div class="news-grid">
+    <article class="news-card">
+      <img src="{% static 'core/img/Inicio-de-clase.png' %}" alt="Noticia 1" onclick="openModal(this)">
+    </article>
+
+    {% comment %} <article class="news-card">
+      <img src="{% static 'core/img/noticia2.jpg' %}" alt="Noticia 2" onclick="openModal(this)">
+    </article>
+
+    <article class="news-card">
+      <img src="{% static 'core/img/noticia3.jpg' %}" alt="Noticia 3" onclick="openModal(this)">
+    </article> {% endcomment %}
+  </div>
+</section>
+
+
+
 
   <!-- Sección Ubicación -->
   <section class="ubicacion">
@@ -303,49 +300,17 @@ CEDHU{% endblock %} {% block content %}
   </section>
 </div>
 
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    // ============================================
-    // BARRA DE PROGRESO DE LECTURA - CEDHU
-    // ============================================
-    function updateReadingProgress() {
-      const winScroll = document.documentElement.scrollTop;
-      const height =
-        document.documentElement.scrollHeight -
-        document.documentElement.clientHeight;
-      const scrolled = (winScroll / height) * 100;
+<!-- Modal -->
+<div id="imgModal" class="modal" onclick="closeModal()">
+  <span class="close">&times;</span>
+  <img class="modal-content" id="modalImg">
+</div>
 
-      let progressBar = document.getElementById("reading-progress");
-      if (!progressBar) {
-        progressBar = document.createElement("div");
-        progressBar.id = "reading-progress";
-        document.body.prepend(progressBar);
-      }
-      progressBar.style.width = scrolled + "%";
-    }
-
-    // Crear estilos para la barra
-    const style = document.createElement("style");
-    style.textContent = `
-    #reading-progress {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 3px;
-      background: linear-gradient(90deg, #10B65C 0%, #FFE600 100%);
-      z-index: 9999;
-      transition: width 0.15s ease-out;
-      box-shadow: 0 2px 4px rgba(14, 168, 82, 0.25);
-    }
-  `;
-    document.head.appendChild(style);
-
-    // Escucha el scroll
-    window.addEventListener("scroll", updateReadingProgress);
-  });
-</script>
 
 <!-- Scripts -->
+{% block extra_js %}
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="{% static 'core/js/home.js' %}?v=3"></script>
+{% endblock %}
+
 {% endblock %}
