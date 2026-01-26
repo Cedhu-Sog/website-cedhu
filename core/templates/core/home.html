@@ -80,6 +80,25 @@ CEDHU{% endblock %} {% block content %}
     </div>
   </section>
 
+      <!-- Sección noticias -->
+  <section class="news-section">
+    <h2>NOTICIAS CEDHU</h2>
+
+    <div class="news-grid">
+      <article class="news-card">
+        <img src="{% static 'core/img/Inicio-de-clase.png' %}" alt="Noticia 1" onclick="openModal(this)">
+      </article>
+
+      {% comment %} <article class="news-card">
+        <img src="{% static 'core/img/noticia2.jpg' %}" alt="Noticia 2" onclick="openModal(this)">
+      </article>
+
+      <article class="news-card">
+        <img src="{% static 'core/img/noticia3.jpg' %}" alt="Noticia 3" onclick="openModal(this)">
+      </article> {% endcomment %}
+    </div>
+  </section>
+
   <!-- ==========================
      SECCIÓN NIVELES EDUCATIVOS
   ============================== -->
@@ -245,24 +264,7 @@ CEDHU{% endblock %} {% block content %}
     </div>
   </section>
 
-  <!-- Sección noticias -->
-<section class="news-section">
-  <h2>NOTICIAS</h2>
 
-  <div class="news-grid">
-    <article class="news-card">
-      <img src="{% static 'core/img/Inicio-de-clase.png' %}" alt="Noticia 1" onclick="openModal(this)">
-    </article>
-
-    {% comment %} <article class="news-card">
-      <img src="{% static 'core/img/noticia2.jpg' %}" alt="Noticia 2" onclick="openModal(this)">
-    </article>
-
-    <article class="news-card">
-      <img src="{% static 'core/img/noticia3.jpg' %}" alt="Noticia 3" onclick="openModal(this)">
-    </article> {% endcomment %}
-  </div>
-</section>
 
 
 
