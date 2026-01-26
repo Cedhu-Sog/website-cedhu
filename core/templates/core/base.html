@@ -32,85 +32,73 @@
   <a href="https://identity.santillanaconnect.com/login/..." target="_blank">
     <img src="{% static 'core/img/santillana.png' %}" alt="Santillana">
   </a>
-  {% comment %} <a href="https://www.instruimos.com/Instruimos_Plataforma/index.htm" target="_blank">
-    <img src="{% static 'core/img/Instruimos.avif' %}" alt="Instruimos">
-  </a>
-  <a href="https://identity.edicionesnorma.com/login/..." target="_blank">
-    <img src="{% static 'core/img/Norma.png' %}" alt="Norma">
-  </a> {% endcomment %}
+  
 </div>
   <!-- HEADER -->
   <header>
-   <nav class="navbar" aria-label="Navegación principal">
-  <div class="navbar-left">
+    <nav class="navbar" aria-label="Navegación principal">
+      <div class="navbar-left">
+          <!-- Logo -->
+          <a href="{% url 'home' %}" class="logo" aria-label="Ir al inicio">
+            <img src="{% static 'core/img/logocedhu.avif' %}" alt="Logo Colegio CEDHU">
+          </a>
 
-    <!-- Logo -->
-    <a href="{% url 'home' %}" class="logo" aria-label="Ir al inicio">
-      <img src="{% static 'core/img/logocedhu.avif' %}" alt="Logo Colegio CEDHU">
-    </a>
+          <!-- Botón hamburguesa (visible en móvil) -->
+          <button id="hamburger" class="hamburger" aria-label="Menú">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
 
-    <!-- Botón hamburguesa (visible en móvil) -->
-    <button id="hamburger" class="hamburger" aria-label="Menú">
-      <span></span>
-      <span></span>
-      <span></span>
-    </button>
+          <!-- Links de navegación -->
+          <div class="nav-menu" id="navMenu" role="menu">
 
-    <!-- Links de navegación -->
-    <div class="nav-menu" id="navMenu" role="menu">
+            <a href="{% url 'home' %}" 
+              class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}" 
+              role="menuitem">Inicio</a>
 
-      <a href="{% url 'home' %}" 
-         class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}" 
-         role="menuitem">Inicio</a>
+            <a href="{% url 'nosotros' %}" 
+              class="nav-link {% if request.resolver_match.url_name == 'nosotros' %}active{% endif %}" 
+              role="menuitem">Nosotros ▾</a>
 
-      <a href="{% url 'nosotros' %}" 
-         class="nav-link {% if request.resolver_match.url_name == 'nosotros' %}active{% endif %}" 
-         role="menuitem">Nosotros</a>
+            <div class="dropdown-menu">
+              <a href="{% url 'historia' %}" class="dropdown-link">Historia</a>
+              {% comment %} <a href="{% url 'simbolos' %}" class="dropdown-link">Símbolos</a> {% endcomment %}
+            </div>
 
-      <a href="{% url 'oferta_educativa' %}" 
-         class="nav-link {% if request.resolver_match.url_name == 'oferta_educativa' %}active{% endif %}" 
-         role="menuitem">Oferta Educativa</a>
+            <a href="{% url 'oferta_educativa' %}" 
+              class="nav-link {% if request.resolver_match.url_name == 'oferta_educativa' %}active{% endif %}" 
+              role="menuitem">Oferta Educativa</a>
 
-      <a href="{% url 'servicios_en_linea' %}" 
-         class="nav-link {% if request.resolver_match.url_name == 'servicios_en_linea' %}active{% endif %}" 
-         role="menuitem">Servicios en línea</a>
+            <a href="{% url 'servicios_en_linea' %}" 
+              class="nav-link {% if request.resolver_match.url_name == 'servicios_en_linea' %}active{% endif %}" 
+              role="menuitem">Servicios en línea</a>
 
-      <a href="{% url 'admisiones' %}" 
-         class="nav-link {% if request.resolver_match.url_name == 'admisiones' %}active{% endif %}" 
-         role="menuitem">Admisiones</a>
+            <a href="{% url 'admisiones' %}" 
+              class="nav-link {% if request.resolver_match.url_name == 'admisiones' %}active{% endif %}" 
+              role="menuitem">Admisiones</a>
 
 
-      {% comment %} <a href="{% url 'login' %}" 
-         class="nav-link {% if request.resolver_match.url_name == 'login' %}active{% endif %}" 
-         role="menuitem"></a> {% endcomment %}
+            {% comment %} <a href="{% url 'login' %}" 
+              class="nav-link {% if request.resolver_match.url_name == 'login' %}active{% endif %}" 
+              role="menuitem"></a> {% endcomment %}
 
-      
+            
 
-    </div>
-  </div>
-  <!-- Links plataformas -->
-  <div class="navbar-right" aria-label="Plataformas aliadas">
-    <a href="https://site2.q10.com/login?ReturnUrl=%2F&aplentId=04dd32ac-1f6a-46d0-b388-df88d12b739d" 
-       class="nav-link" target="_blank" rel="noopener">
-      <img src="{% static 'core/img/Q10.png' %}" alt="Q10">
-    </a>
+      </div>
+      <!-- Links plataformas -->
+      <div class="navbar-right" aria-label="Plataformas aliadas">
+        <a href="https://site2.q10.com/login?ReturnUrl=%2F&aplentId=04dd32ac-1f6a-46d0-b388-df88d12b739d" 
+          class="nav-link" target="_blank" rel="noopener">
+          <img src="{% static 'core/img/Q10.png' %}" alt="Q10">
+        </a>
 
-    <a href="https://identity.santillanaconnect.com/login/?client_id=neds_client_compartir_colombia_pro..." 
-       class="nav-link" target="_blank" rel="noopener">
-      <img src="{% static 'core/img/santillana.png' %}" alt="Santillana">
-    </a>
-
-    {% comment %} <a href="https://www.instruimos.com/Instruimos_Plataforma/index.htm" 
-       class="nav-link" target="_blank" rel="noopener">
-      <img src="{% static 'core/img/Instruimos.avif' %}" alt="Instruimos">
-    </a>
-  </div>
-  <a href="https://identity.edicionesnorma.com/login/?client_id=neds_client_norma_colombia_pro..." 
-       class="nav-link" target="_blank" rel="noopener">
-      
-    </a> {% endcomment %}
-</nav> 
-
+        <a href="https://identity.santillanaconnect.com/login/?client_id=neds_client_compartir_colombia_pro..." 
+          class="nav-link" target="_blank" rel="noopener">
+          <img src="{% static 'core/img/santillana.png' %}" alt="Santillana">
+        </a>
+      </div>
+    </nav> 
   </header>
 
   <!-- CONTENIDO -->

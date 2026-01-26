@@ -29,6 +29,9 @@ def login_view(request):
 def nosotros_view(request):
     return render(request, 'core/nosotros.html')
 
+def historia_view(request):
+    return render(request, 'core/historia.html')
+
 def admisiones_view(request):
     return render(request, 'core/admisiones.html')
 

@@ -1,0 +1,59 @@
+{% extends 'core/base.html' %} {% block title %}Historia - CEDHU{% endblock %}
+{%load static %} {% block content %}
+
+<link rel="stylesheet" href="{% static 'core/css/historia.css' %}" />
+
+<!-- línea del tiempo -->
+<section class="timeline">
+  <h2>HISTORIA CEDHU</h2>
+
+  <p>
+    La historia del Centro de Desarrollo Humano – CEDHU se fundamenta en un
+    proyecto pedagógico orientado al crecimiento integral de la persona, la
+    formación en valores y la búsqueda permanente de la excelencia académica. A
+    lo largo de su trayectoria, la institución ha consolidado una propuesta
+    educativa innovadora, adaptándose a los cambios sociales y tecnológicos, y
+    manteniendo como eje central el desarrollo humano, la calidad educativa y el
+    compromiso con la formación de ciudadanos íntegros y felices.
+  </p>
+
+  <div class="timeline-wrapper">
+    <div class="timeline-line"></div>
+
+    <div class="timeline-item active" data-year="1988">1988</div>
+    <div class="mobile-description"></div>
+
+    <div class="timeline-item" data-year="1996">1996</div>
+    <div class="mobile-description"></div>
+
+    <div class="timeline-item" data-year="2001">2001</div>
+    <div class="mobile-description"></div>
+
+    <div class="timeline-item" data-year="2003">2003</div>
+    <div class="mobile-description"></div>
+
+    <div class="timeline-item" data-year="2005">2005</div>
+    <div class="mobile-description"></div>
+
+    <div class="timeline-item" data-year="2007">2007</div>
+    <div class="mobile-description"></div>
+
+    <div class="timeline-item" data-year="2019">2019</div>
+    <div class="mobile-description"></div>
+
+    <div class="timeline-item" data-year="actualidad">Hoy</div>
+    <div class="mobile-description"></div>
+  </div>
+
+  <div class="timeline-content">
+    <p id="timeline-text">
+      En febrero de 1988, MARTHA HELENA GAITÁN GARCÍA fundó en Sogamoso el
+      JARDÍN MATERNO INFANTIL TRIBILÍN. Con un equipo excepcional, inició el
+      proceso de adaptación y construcción de aprendizajes para 20 Tribilines.
+    </p>
+  </div>
+</section>
+
+{% endblock %} {% block extra_js %}
+<script src="{% static 'core/js/historia.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,219 @@
+/* ================================
+   LÍNEA DE TIEMPO MODERNA CEDHU
+================================ */
+.timeline {
+  text-align: center;
+  padding: 60px 20px;
+  position: relative;
+}
+
+.timeline h2 {
+  color: #000;
+  margin-bottom: 50px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+}
+
+.timeline p {
+  text-align: justify;
+}
+
+/* CONTENEDOR DE LOS AÑOS */
+.timeline-wrapper {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1000px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* LÍNEA CENTRAL */
+.timeline-line {
+  position: absolute;
+  top: 50%;
+  left: 5%;
+  right: 5%;
+  height: 4px;
+  background: linear-gradient(90deg, #10b65c, #c1f3d2);
+  z-index: 0;
+  transform: translateY(-50%);
+  border-radius: 10px;
+}
+
+/* CADA PUNTO / AÑO */
+.timeline-item {
+  position: relative;
+  z-index: 2;
+  background: #fff;
+  border: 3px solid #10b65c;
+  border-radius: 50%;
+  color: #000;
+  font-weight: 700;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.4s ease;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.timeline-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 15px rgba(16, 182, 92, 0.5);
+}
+
+.timeline-item.active {
+  background: #10b65c;
+  color: #fff;
+  transform: scale(1.1);
+  box-shadow: 0 0 20px rgba(16, 182, 92, 0.7);
+}
+
+/* TEXTO DESCRIPTIVO */
+.timeline-content {
+  margin-top: 60px;
+  padding: 30px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #fff, #e8ffe9);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+  max-width: 850px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: justify;
+  color: #000;
+  font-size: 1.05rem;
+  transition: all 0.4s ease;
+}
+
+/* Animación al cambiar texto */
+#timeline-text {
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+.fade-out {
+  opacity: 0.01;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .timeline-wrapper {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  @media (max-width: 768px) {
+    .timeline-line {
+      z-index: 0; /* Mantiene la línea detrás */
+    }
+    .mobile-description {
+      position: relative;
+      z-index: 2; /* Hace que el texto esté encima */
+      background: #fff;
+      border: 1px solid #10b65c;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+  }
+
+  .timeline-line {
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, #10b65c, #c1f3d2);
+    transform: translateX(-50%);
+  }
+
+  .timeline-item {
+    width: 70px;
+    height: 70px;
+  }
+}
+
+/* === Ajuste exclusivo para móviles (no altera el diseño desktop) === */
+@media (max-width: 768px) {
+  .timeline-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    position: relative;
+  }
+
+  .timeline-line {
+    position: absolute;
+    left: 50%;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(180deg, #c1f3d2, #10b65c);
+    transform: translateX(-50%);
+  }
+
+  .timeline-item {
+    position: relative;
+    z-index: 2;
+    background: #fff;
+    border: 2px solid #10b65c;
+    border-radius: 50%;
+    width: 65px;
+    height: 65px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+    font-weight: bold;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .timeline-item.active {
+    background: #10b65c;
+    color: #fff;
+    box-shadow: 0 0 10px #10b65c;
+  }
+
+  .mobile-description {
+    display: none;
+    background: #fff;
+    color: #000;
+    border-radius: 12px;
+    margin-top: 8px;
+    padding: 12px 15px;
+    width: 85%;
+    max-width: 400px;
+    text-align: justify;
+    line-height: 1.5;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.3s ease;
+  }
+
+  .timeline-item.active + .mobile-description {
+    display: block;
+  }
+
+  .timeline-content {
+    display: none; /* Oculta el cuadro grande en móvil */
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-5px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+.timeline h2::before,
+.timeline h2::after {
+  content: none !important;
+}

@@ -1,13 +1,9 @@
-{% extends 'core/base.html' %} {% load static %} 
-
-{% block title %}Nosotros -
-CEDHU{% endblock %}
-
-{% block content %}
+{% extends 'core/base.html' %} {% load static %} {% block title %}Nosotros -
+CEDHU{% endblock %} {% block content %}
 <link rel="stylesheet" href="{% static 'core/css/nosotros.css' %}" />
-<!-- CONOCE CEDHU -->
-<section class="conoce-cedhu">
-</section>
+
+<!-- IMAGEN ENCABEZADO -->
+<section class="conoce-cedhu"></section>
 
 <!-- Botón Himno CEDHU flotante con texto dentro -->
 <div class="himno-cedhu">
@@ -27,8 +23,36 @@ CEDHU{% endblock %}
 <div class="contenido">
   <section class="bienvenida">
     <h2>NOSOTROS</h2>
-    <p class="bienvenida-text">Formamos educandos con valores, felicidad y excelencia académica</p>
-
+    <div class="bienvenida-text">
+      <p>
+        El Centro de Desarrollo Humano (CEDHU) se encuentra en la ciudad de
+        Sogamoso, en el departamento de Boyacá. Es una institución de carácter
+        privado, calendario A, que ofrece los niveles de Preescolar, Educación
+        Básica Primaria, Básica Secundaria y Media, en modalidad académico con
+        profundización en valores, sistemas, robótica e inglés, con jornada
+        única y orientación católica.
+      </p>
+      <p>
+        Como institución educativa de orientación católica, el CEDHU fundamenta
+        su quehacer pedagógico en la formación integral del ser humano,
+        promoviendo el desarrollo de competencias académicas, personales y
+        sociales, desde su modelo pedagógico denominado “Pedagogía de la
+        Felicidad”.
+      </p>
+      <p>
+        En alianza permanente con las familias, el CEDHU fortalece los valores
+        del ser, la convivencia armónica y el pensamiento crítico de los
+        educandos, acompañando el desarrollo de sus capacidades para la
+        construcción responsable de su proyecto de vida.
+      </p>
+      <p>
+        El CEDHU hace parte del sistema educativo colombiano y se rige por los
+        lineamientos del Ministerio de Educación Nacional, su Proyecto Educativo
+        Institucional y la normatividad vigente, promoviendo una cultura
+        institucional basada en la calidad académica, la dignidad humana y la
+        formación integral de la comunidad Cedhuista.
+      </p>
+    </div>
   </section>
   <!-- Lema -->
   <section class="section lema-section">
@@ -262,46 +286,6 @@ CEDHU{% endblock %}
     </div>
   </section>
 
-  <!-- línea del tiempo -->
-  <section class="timeline">
-    <h2>HISTORIA CEDHU</h2>
-
-    <div class="timeline-wrapper">
-      <div class="timeline-line"></div>
-
-      <div class="timeline-item active" data-year="1988">1988</div>
-      <div class="mobile-description"></div>
-
-      <div class="timeline-item" data-year="1996">1996</div>
-      <div class="mobile-description"></div>
-
-      <div class="timeline-item" data-year="2001">2001</div>
-      <div class="mobile-description"></div>
-
-      <div class="timeline-item" data-year="2003">2003</div>
-      <div class="mobile-description"></div>
-
-      <div class="timeline-item" data-year="2005">2005</div>
-      <div class="mobile-description"></div>
-
-      <div class="timeline-item" data-year="2007">2007</div>
-      <div class="mobile-description"></div>
-
-      <div class="timeline-item" data-year="2019">2019</div>
-      <div class="mobile-description"></div>
-
-      <div class="timeline-item" data-year="actualidad">Actualidad</div>
-      <div class="mobile-description"></div>
-    </div>
-
-    <div class="timeline-content">
-      <p id="timeline-text">
-        A la fecha, el <strong>CEDHU</strong> se identifica en la región, como
-        una institución pionera, vanguardista y de calidad, reconocida por la
-        riqueza en su servicio y por la Calidad Humana de sus integrantes.
-      </p>
-    </div>
-  </section>
 
   <!-- Espacios -->
   <section class="section">
@@ -326,7 +310,8 @@ CEDHU{% endblock %}
   <!-- Modal para lightbox -->
   <div id="lightbox" class="lightbox hide">
     <div class="lightbox-content">
-      {% comment %} <span class="close-btn" id="closeLightbox">&times;</span> {%endcomment %}
+      {% comment %}
+      <span class="close-btn" id="closeLightbox">&times;</span> {%endcomment %}
       <h3 id="lightbox-title"></h3>
       <img id="lightbox-img" src="" alt="" />
     </div>

@@ -6,7 +6,7 @@ CEDHU{% endblock %} {% block content %}
   <!-- SLIDE 2 AGREGAR UNA IMAGEN POR CUESTIÓN DE SEO-->
   <div class="slide active">
     <img
-      src="{% static 'core/img/Banner-Cedhu-Destacado.png' %}"
+      src="{% static 'core/img/Banner-Cedhu-Destacado-1.jpg' %}"
       alt="primer puesto prueba saber cedhu 2025"
     />
     <div class="overlay">
@@ -17,12 +17,10 @@ CEDHU{% endblock %} {% block content %}
 
   <!-- SLIDE 1 CON VIDEO -->
   <div class="slide">
-    <video autoplay muted playsinline disablepictureinpicture>
-      <source
-        src="{% static 'core/videos/Presentacioncedhu.mp4' %}"
-        type="video/mp4"
-      />
-    </video>
+      <img
+      src="{% static 'core/img/Banner-Cedhu-Destacado-2.jpg' %}"
+      alt="primer puesto prueba saber cedhu 2025"
+    />
     <div class="overlay">
       {% comment %}
       <h2 class="subtitle">
@@ -33,27 +31,27 @@ CEDHU{% endblock %} {% block content %}
   </div>
 
   <!-- SLIDE 3 -->
-  {% comment %}
+
   <div class="slide">
     <video autoplay muted playsinline disablepictureinpicture>
       <source
-        src="{% static 'core/videos/videoiniciocarrusel.mp4' %}"
+        src="{% static 'core/videos/Presentacioncedhu.mp4' %}"
         type="video/mp4"
       />
-    </video>
     <div class="overlay">
       <h1 class="subtitle">
         ELIGE TU <span>FUTURO,</span><br />ELIGE <strong>CEDHU</strong>
       </h1>
     </div>
   </div>
-  {% endcomment %}
 
   <!-- PUNTOS -->
   <div class="indicators">
     <span class="dot active"></span>
     <span class="dot"></span>
+    <span class="dot"></span>
   </div>
+
   <button
     class="hero-control"
     id="heroToggle"
