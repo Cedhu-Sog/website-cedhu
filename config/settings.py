@@ -14,6 +14,8 @@ DEBUG = os.environ.get("DEBUG", "False") == "True"
 
 # Hosts permitidos para servir el proyecto.
 ALLOWED_HOSTS = [
+    'www.cedhu.edu.co',
+    'cedhu.edu.co',
     '.railway.app',
     '127.0.0.1', 
     'localhost'
