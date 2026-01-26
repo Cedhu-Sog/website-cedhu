@@ -28,6 +28,10 @@ header {
 
 
 /* Navbar principal */
+.header {
+  width: 100%;
+}
+
 .navbar {
   display: flex;
   justify-content: space-between;
@@ -36,6 +40,7 @@ header {
   flex-wrap: nowrap;      /* evita que se bajen los elementos */
   max-width: 1400px;      /* limitar ancho máximo */
   margin: 0 auto;         /* centrar el navbar */
+  padding: 0 24px;        /* respiración en pantallas pequeñas */
   width: 100%;            /* ocupar todo el ancho disponible hasta max-width */
 }
 
@@ -259,7 +264,7 @@ header {
   }
 
   /* opcional: limitar el ancho del contenido para que no se estire demasiado */
-  header .navbar {
+  .navbar {
     max-width: 1400px;
     margin: 0 auto;
   }
