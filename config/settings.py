@@ -8,18 +8,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
-# Modo de depuración. Desactivar en producción.
-DEBUG = os.environ.get("DEBUG", "False") == "True"
-
-
-# Hosts permitidos para servir el proyecto.
-ALLOWED_HOSTS = [
-    'www.cedhu.edu.co',
-    'cedhu.edu.co',
-    'website-cedhu-production.up.railway.app',
-    '127.0.0.1', 
-    'localhost'
-]
+DEBUG = True
+ALLOWED_HOSTS = ['*']
 
 CSRF_TRUSTED_ORIGINS = [
     'https://website-cedhu-production.up.railway.app',
