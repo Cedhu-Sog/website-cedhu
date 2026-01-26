@@ -16,9 +16,15 @@ DEBUG = os.environ.get("DEBUG", "False") == "True"
 ALLOWED_HOSTS = [
     'www.cedhu.edu.co',
     'cedhu.edu.co',
-    '.railway.app',
+    'website-cedhu-production.up.railway.app',
     '127.0.0.1', 
     'localhost'
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://website-cedhu-production.up.railway.app',
+    'https://www.cedhu.edu.co',
+    'https://cedhu.edu.co',
 ]
 
 INSTALLED_APPS = [
