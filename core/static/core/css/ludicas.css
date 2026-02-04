@@ -1,0 +1,131 @@
+
+
+
+/* CONTENEDOR GENERAL */
+.ludicas-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem;
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+/* ENCABEZADO */
+.ludicas-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    animation: slideDown 0.9s ease;
+}
+
+.ludicas-header h1 {
+    font-size: 2.2rem;
+    color: #0a3d62;
+    margin-bottom: 0.8rem;
+}
+
+.ludicas-header p {
+    font-size: 1.05rem;
+    color: #555;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* IMAGEN */
+.ludicas-image {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3rem;
+    animation: fadeIn 1.2s ease;
+}
+
+.ludicas-image img {
+    width: 100%;
+    max-width: 900px;
+    border-radius: 16px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+    object-fit: cover;
+}
+
+/* GRID DE TARJETAS */
+.ludicas-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+}
+
+/* TARJETAS */
+.ludica-card {
+    background: #ffffff;
+    padding: 2rem 1.8rem;
+    border-radius: 18px;
+    text-decoration: none;
+    color: inherit;
+    max-width: 520px;
+    margin: 0 auto;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeUp 0.9s ease;
+}
+
+.ludica-card h2 {
+    color: #0a3d62;
+    font-size: 1.4rem;
+    margin-bottom: 0.6rem;
+}
+
+.ludica-card p {
+    font-size: 0.95rem;
+    color: #666;
+}
+
+/* HOVER */
+.ludica-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 14px 35px rgba(0, 0, 0, 0.15);
+}
+
+/* ANIMACIONES */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* RESPONSIVE */
+@media (max-width: 992px) {
+    .ludicas-header h1 {
+        font-size: 1.8rem;
+    }
+
+    .ludicas-grid {
+        grid-template-columns: 1fr; /* 1 columna */
+    }
+
+    .ludica-card {
+        padding: 1.6rem;
+    }
+}

@@ -12,6 +12,7 @@ urlpatterns = [
     path('oferta-educativa/', views.oferta_educativa_view, name='oferta_educativa'),
     path('servicios-en-linea/', views.servicios_en_linea_view, name='servicios_en_linea'),
     path('utiles-escolares/', views.utiles_escolares_view, name='utiles-escolares'),
+    path('ludicas/', views.ludicas_view, name='ludicas'),
 
     path('about/', views.about, name='about'),
     path('contact/', views.contact, name='contact'),

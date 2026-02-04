@@ -692,6 +692,11 @@
   align-items: center;
 }
 
+.imagen-horizonte img {
+  width: 100%;
+  height: 20px;
+}
+
 /* ==========================
    SECCIÓN NUESTROS PRINCIPIOS
 ============================== */
