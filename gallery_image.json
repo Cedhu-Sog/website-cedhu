@@ -1,0 +1,1 @@
+[{"model": "core.galleryimage", "pk": 1, "fields": {"contenido": 1, "image": "gallery/prueba.jpg", "descripcion": "Imagen prueba", "orden": 1}}]
