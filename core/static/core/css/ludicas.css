@@ -71,11 +71,17 @@
     color: #0a3d62;
     font-size: 1.4rem;
     margin-bottom: 0.6rem;
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: break-word;
 }
 
 .ludica-card p {
     font-size: 0.95rem;
     color: #666;
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: break-word;
 }
 
 /* HOVER */
