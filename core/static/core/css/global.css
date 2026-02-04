@@ -90,6 +90,8 @@ a {
   white-space: nowrap;
   display: inline-block;
   transition: 0.3s ease, color 0.3s ease;
+  word-break: break-word; /* o break-all */
+  overflow-wrap: break-word;
 }
 
 /* Para imágenes */
