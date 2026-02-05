@@ -208,3 +208,50 @@ def detalle_evento(request, evento_id):
     except Evento.DoesNotExist:
         messages.error(request, 'El evento solicitado no existe.')
         return redirect('home')
+
+
+# metodo de oago para matriculas
+from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+from .forms import PagoMatriculaForm
+from .models import PagoMatricula
+import stripe
+from django.conf import settings
+
+stripe.api_key = settings.STRIPE_SECRET_KEY
+
+@csrf_exempt
+def procesar_pago(request):
+    if request.method == 'POST':
+        form = PagoMatriculaForm(request.POST)
+        if form.is_valid():
+            token = request.POST.get('stripeToken')
+            monto_cents = int(form.cleaned_data['monto'] * 100)  # Stripe usa centavos
+
+            try:
+                charge = stripe.Charge.create(
+                    amount=monto_cents,
+                    currency='usd',
+                    description='Pago de matrícula',
+                    source=token,
+                    receipt_email=form.cleaned_data['email_padre']
+                )
+                # Guardar en la BD
+                pago = PagoMatricula.objects.create(
+                    id_alumno=form.cleaned_data['id_alumno'],
+                    nombre_padre=form.cleaned_data['nombre_padre'],
+                    email_padre=form.cleaned_data['email_padre'],
+                    monto=form.cleaned_data['monto'],
+                    banco=form.cleaned_data['banco'],
+                    metodo_pago=form.cleaned_data['metodo_pago'],
+                    estado_pago='completado',
+                    referencia_pago=charge.id
+                )
+                return JsonResponse({'mensaje': 'Pago realizado con éxito'})
+            except stripe.error.StripeError as e:
+                return JsonResponse({'error': str(e)}, status=400)
+        else:
+            return JsonResponse({'error': 'Formulario inválido'}, status=400)
+    else:
+        return JsonResponse({'error': 'Método no permitido'}, status=405)
