@@ -46,6 +46,7 @@
   .contenido {
     margin-top: 180px;
   }
+
 }
 
 /* ==========================
@@ -461,7 +462,6 @@
   color: var(--color-text);
 }
 .section img {
-  max-width: 100%;
   border-radius: 16px;
   margin: 28px auto 0;
   display: block;
@@ -692,11 +692,30 @@
   align-items: center;
 }
 
-.imagen-horizonte img {
-  width: 100%;
-  height: 20px;
+.imagen-horizonte {
+  width: 80%;
+  height: 500px;
+  object-fit: cover;
+  border-radius: 16px;
+  margin: 30px 0;
 }
 
+@media (max-width: 768px) {
+  .imagen-horizonte {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .imagen-horizonte {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+  }
+}
 /* ==========================
    SECCIÓN NUESTROS PRINCIPIOS
 ============================== */
@@ -859,8 +878,8 @@
   font-weight: bold;
 }
 
-.section.alt img {
-  max-width: 800px;
+.organigrama {
+  max-width: 500px;
   width: 100%;
   height: auto;
   margin: 0 auto 2rem auto;
