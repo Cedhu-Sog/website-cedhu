@@ -45,13 +45,18 @@ header {
 }
 
 /* Contenedores izquierdo y derecho */
-.navbar-left,
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  flex: 1;
+}
+
 .navbar-right {
   display: flex;
   align-items: center;
   gap: 16px;
-  flex-wrap: nowrap;      /* no permitir que se rompan elementos */
-  min-width: 0;           /* evita estiramiento en flex */
+   margin-left: auto;
 }
 
 /* Logo */
@@ -68,7 +73,6 @@ header {
 .nav-menu {
   display: flex;
   align-items: center;
-  margin-left: 80px;
   gap: 40px;
   flex-wrap: nowrap;      /* mantener todos los links en una sola fila */
   max-height: none;
