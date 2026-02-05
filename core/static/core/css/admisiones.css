@@ -204,6 +204,101 @@
 }
 
 /* =====================================================
+   PAGO DE MATRÍCULA – ADMISIONES
+   ===================================================== */
+
+.admisiones-pago {
+  padding: 4.5rem 0;
+  background: var(--color-bg-light);
+}
+
+/* Tarjeta principal */
+.pago-card {
+  max-width: 720px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  padding: 3rem 2.5rem;
+}
+
+.pago-card h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: var(--color-primary-dark);
+  font-size: 2rem;
+}
+
+/* Grid del formulario */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.2rem;
+}
+
+/* Inputs y select */
+#admisiones-pago input,
+#admisiones-pago select,
+.pago-card input,
+.pago-card select {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border-radius: 12px;
+  border: 1.5px solid #e2e8f0;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.95rem;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.pago-card input:focus,
+.pago-card select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(16, 182, 92, 0.15);
+}
+
+/* Stripe card */
+.stripe-card {
+  margin-top: 1.8rem;
+  padding: 1rem;
+  border-radius: 12px;
+  border: 1.5px solid #e2e8f0;
+  background: #fff;
+}
+
+/* Botón */
+.btn-pago {
+  width: 100%;
+  margin-top: 2.2rem;
+  text-align: center;
+  font-size: 1rem;
+}
+
+/* Resultado del pago */
+.payment-result {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-weight: 500;
+  color: var(--color-primary-dark);
+}
+
+/* Error visual opcional */
+.payment-result.error {
+  color: #c53030;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .pago-card {
+    padding: 2.2rem 1.5rem;
+  }
+
+  .pago-card h2 {
+    font-size: 1.6rem;
+  }
+}
+
+/* =====================================================
    REQUISITOS
    ===================================================== */
 

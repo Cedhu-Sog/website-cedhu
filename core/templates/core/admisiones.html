@@ -131,6 +131,80 @@
     </div>
   </section>
 
+  <section class="admisiones admisiones-pago">
+  <div class="container">
+    <div class="pago-card">
+      <h2>Pago de matrícula</h2>
+
+      <form id="payment-form" method="POST">
+        {% csrf_token %}
+
+        <div class="form-grid">
+          <input type="text" name="nombre_padre" placeholder="Nombre del padre" required>
+          <input type="email" name="email_padre" placeholder="Correo" required>
+          <input type="number" name="id_alumno" placeholder="ID del alumno" required>
+          <input type="number" step="0.01" name="monto" placeholder="Monto a pagar" required>
+          <input type="text" name="banco" placeholder="Banco" required>
+
+          <select name="metodo_pago" required>
+            <option value="">Método de pago</option>
+            <option value="tarjeta">Tarjeta</option>
+            <option value="transferencia">Transferencia</option>
+          </select>
+        </div>
+
+        <div id="card-element" class="stripe-card"></div>
+
+        <button type="submit" class="btn-primary btn-pago">
+          Pagar matrícula
+        </button>
+      </form>
+
+      <div id="payment-result" class="payment-result"></div>
+    </div>
+  </div>
+</section>
+
+
+<script src="https://js.stripe.com/v3/"></script>
+<script>
+    const stripe = Stripe('{{ STRIPE_PUBLIC_KEY }}');
+    const elements = stripe.elements();
+    const card = elements.create('card');
+    card.mount('#card-element');
+
+    const form = document.getElementById('payment-form');
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const {token, error} = await stripe.createToken(card);
+        if (error) {
+            document.getElementById('payment-result').innerText = error.message;
+            return;
+        }
+
+        const formData = new FormData(form);
+        formData.append('stripeToken', token.id);
+
+        fetch("{% url 'procesar_pago' %}", {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if(data.error){
+                document.getElementById('payment-result').innerText = data.error;
+            } else {
+                document.getElementById('payment-result').innerText = data.mensaje;
+            }
+        });
+    });
+</script>
+
+
   <!-- REQUISITOS -->
   <section class="admisiones-requisitos">
     <div class="container">
