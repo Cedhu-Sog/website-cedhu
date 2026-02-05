@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'padres',
 
     # 🔄 Solo para desarrollo (recarga automática)
     'django_browser_reload',

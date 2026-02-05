@@ -21,9 +21,6 @@ urlpatterns = [
     path('panel/toggle-user/<int:user_id>/', views.toggle_user, name='toggle_user'),
     path('panel/delete-user/<int:user_id>/', views.delete_user, name='delete_user'),
     path('panel/gestionar-inicio/', views.gestionar_inicio, name='gestionar_inicio'),
-
-    # 💳 Pago matrícula
-    path('procesar_pago/', views.procesar_pago, name='procesar_pago'),
 ]
 
 
