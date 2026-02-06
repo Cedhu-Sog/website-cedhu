@@ -1,0 +1,59 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Lúdicas - CEDHU{% endblock %}
+
+{% load static %}
+
+{% block content %}
+
+<link rel="stylesheet" href="{% static 'core/css/ludicas.css' %}" />
+
+<main class="ludicas-container">
+
+    <!-- Encabezado -->
+    <section class="ludicas-header">
+        <h1>Inscripción a Lúdicas</h1>
+        <p>
+            Las actividades lúdicas fortalecen el desarrollo integral de nuestros educandos.
+            Seleccione el grado correspondiente para realizar la inscripción.
+        </p>
+    </section>
+
+    <!-- Imagen institucional -->
+    <section class="ludicas-image">
+        <img src="{% static 'core/img/ludicas.jpg' %}" alt="Educandos practicando lúdicas en el CEDHU">
+    </section>
+
+    <!-- Tarjetas -->
+    <section class="ludicas-grid">
+
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfhESS_cY47SUzBEl30EG20ZpXkuJ60HBkcdKaAEsE4qXa-Bg/viewform?usp=header"
+           class="ludica-card"
+           >
+            <h2>Preescolar</h2>
+            <p>Inscripción para estudiantes de nivel preescolar.</p>
+        </a>
+
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLScSJ4B967onsaAWy_uujPfKh9NA538cqexIr63gI7jVUe7wBA/viewform?usp=header"
+           class="ludica-card">
+            <h2>Grados 1° y 2°</h2>
+            <p>Inscripción para estudiantes de primero y segundo.</p>
+        </a>
+
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSeeXJ1oi42tnLlw64c94tmjmNxGEnb9se2WlvOys6reX_g7UA/viewform?usp=header"
+           class="ludica-card">
+            <h2>Grados 3°, 4° y 5°</h2>
+            <p>Inscripción para estudiantes de básica primaria.</p>
+        </a>
+
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdMW4tLnd9U99G1oV5jPHYnnL3vTlpKenejeddLs69c5lMDIg/viewform?usp=header"
+           class="ludica-card">
+            <h2>Grados 6° a 9°</h2>
+            <p>Inscripción para estudiantes de básica secundaria.</p>
+        </a>
+
+    </section>
+
+</main>
+
+{% endblock %}

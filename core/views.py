@@ -50,6 +50,9 @@ def contact(request):
 def utiles_escolares_view(request):
     return render(request, 'core/utiles_escolares.html')
 
+def ludicas_view(request):
+    return render(request, 'core/ludicas.html')
+
 def logout_view(request):
     logout(request)
     return redirect('home')

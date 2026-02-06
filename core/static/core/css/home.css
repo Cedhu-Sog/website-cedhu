@@ -19,7 +19,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  opacity: 0.01;
+  opacity: 0;
   transition: opacity 0.7s ease-in-out;
 }
 .hero-slide .slide.active {
@@ -295,6 +295,8 @@
   color: #10b65c;
   text-decoration: none;
   max-width: 100%;
+  white-space: normal;
+  word-break: break-word;
   overflow-wrap: break-word;
   transition: all 0.3s ease;
 }

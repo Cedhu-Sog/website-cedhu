@@ -36,11 +36,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'padres',
-
-    # 🔄 Solo para desarrollo (recarga automática)
+    'estudiantes',  # ✅ NUEVA APP
     'django_browser_reload',
-
-    # App principal
     'core',
 ]
 
@@ -87,14 +84,16 @@ WSGI_APPLICATION = 'config.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ.get('DB_NAME', 'cedhu_db'),
-        'USER': os.environ.get('DB_USER', 'postgres'),
-        'PASSWORD': os.environ.get('DB_PASSWORD', 'cotamo123'),
-        'HOST': os.environ.get('DB_HOST', 'localhost'),
-        'PORT': os.environ.get('DB_PORT', '5432'),
+        'NAME': 'cedhu_db',
+        'USER': 'postgres',
+        'PASSWORD': 'cotamo123',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+        'OPTIONS': {
+            'client_encoding': 'UTF8',
+        },
     }
 }
-
 
 
 # 🔐 Validadores de contraseña
@@ -140,5 +139,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # 💳 Stripe
 STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
 STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY')
-
-

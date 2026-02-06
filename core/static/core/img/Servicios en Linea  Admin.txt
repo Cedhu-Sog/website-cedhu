@@ -1,9 +1,0 @@
-Servicios en Linea / Admin
-
-@admin.register(Evento)
-class EventoAdmin(admin.ModelAdmin):
-    list_display = ('nombre', 'fecha', 'hora', 'portada_display')
-    list_filter = ('fecha',)
-    search_fields = ('nombre', 'descripcion')
-
-

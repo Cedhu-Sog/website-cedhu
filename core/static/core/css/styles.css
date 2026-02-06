@@ -45,13 +45,18 @@ header {
 }
 
 /* Contenedores izquierdo y derecho */
-.navbar-left,
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  flex: 1;
+}
+
 .navbar-right {
   display: flex;
   align-items: center;
-  gap: 16px;
-  flex-wrap: nowrap;      /* no permitir que se rompan elementos */
-  min-width: 0;           /* evita estiramiento en flex */
+  gap: 25px;
+   margin-left: auto;
 }
 
 /* Logo */
@@ -68,7 +73,6 @@ header {
 .nav-menu {
   display: flex;
   align-items: center;
-  margin-left: 80px;
   gap: 40px;
   flex-wrap: nowrap;      /* mantener todos los links en una sola fila */
   max-height: none;
@@ -140,7 +144,7 @@ header {
 
 /* Imágenes del lado derecho */
 .navbar-right img {
-  height: 40px;
+  height: 35px;
   width: auto;
   object-fit: contain;
   transition: transform 0.3s ease;
@@ -188,7 +192,7 @@ header {
 }
 
 /* Móviles */
-@media (max-width: 768px) {
+@media (max-width: 838px) {
   .navbar { align-items: flex-start; }
   .navbar-left { width: 100%; justify-content: space-between; gap: 12px; }
   .hamburger { display: block; }
@@ -367,7 +371,7 @@ header {
 .floating-button img { width: 26px; height: 26px; display: block; }
 .floating-button:hover { transform: scale(1.08); }
 
-@media (max-width: 768px) {
+@media (max-width: 838px) {
   .floating-buttons { right: 12px; bottom: 12px; gap: 10px; }
   .floating-button { width: 44px; height: 44px; }
   .floating-button img { width: 22px; height: 22px; }
@@ -476,14 +480,14 @@ header {
 }
 
 /* Responsivo */
-@media (max-width: 768px) {
+@media (max-width: 838px) {
   .accessibility-container { left: 12px; bottom: 12px; gap: 10px; }
-  .accessibility-fab { width: 44px; height: 44px; }
-  .accessibility-fab img { width: 22px; height: 22px; }
+  .accessibility-fab { width: 60px; height: 60px; }
+  .accessibility-fab img { width: 30px; height: 30px; }
 }
 @media (max-width: 480px) {
-  .accessibility-fab { width: 40px; height: 40px; }
-  .accessibility-fab img { width: 20px; height: 20px; }
+  .accessibility-fab { width: 50px; height: 50px; }
+  .accessibility-fab img { width: 25px; height: 25px; }
   .accessibility-panel { width: 200px; padding: 12px; }
 }
 
@@ -664,15 +668,15 @@ footer {
   }
 
   /* Ajuste responsivo (igual que redes) */
-  @media (max-width: 768px) {
+  @media (max-width: 838px) {
     .plataformas-flotantes { right: 12px; bottom: 12px; gap: 10px; }
-    .plataformas-flotantes a { width: 44px; height: 44px; }
-    .plataformas-flotantes img { width: 22px; height: 22px; }
+    .plataformas-flotantes a { width: 60px; height: 60px; }
+    .plataformas-flotantes img { width: 30px; height: 30px; }
   }
 
   @media (max-width: 480px) {
-    .plataformas-flotantes a { width: 40px; height: 40px; }
-    .plataformas-flotantes img { width: 20px; height: 20px; }
+    .plataformas-flotantes a { width: 50px; height: 50px; }
+    .plataformas-flotantes img { width: 30px; height: 30px; }
   }
 }
 
