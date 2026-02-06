@@ -192,7 +192,7 @@ header {
 }
 
 /* Móviles */
-@media (max-width: 768px) {
+@media (max-width: 838px) {
   .navbar { align-items: flex-start; }
   .navbar-left { width: 100%; justify-content: space-between; gap: 12px; }
   .hamburger { display: block; }
@@ -371,7 +371,7 @@ header {
 .floating-button img { width: 26px; height: 26px; display: block; }
 .floating-button:hover { transform: scale(1.08); }
 
-@media (max-width: 768px) {
+@media (max-width: 838px) {
   .floating-buttons { right: 12px; bottom: 12px; gap: 10px; }
   .floating-button { width: 44px; height: 44px; }
   .floating-button img { width: 22px; height: 22px; }
@@ -480,14 +480,14 @@ header {
 }
 
 /* Responsivo */
-@media (max-width: 768px) {
+@media (max-width: 838px) {
   .accessibility-container { left: 12px; bottom: 12px; gap: 10px; }
-  .accessibility-fab { width: 44px; height: 44px; }
-  .accessibility-fab img { width: 22px; height: 22px; }
+  .accessibility-fab { width: 60px; height: 60px; }
+  .accessibility-fab img { width: 30px; height: 30px; }
 }
 @media (max-width: 480px) {
-  .accessibility-fab { width: 40px; height: 40px; }
-  .accessibility-fab img { width: 20px; height: 20px; }
+  .accessibility-fab { width: 50px; height: 50px; }
+  .accessibility-fab img { width: 25px; height: 25px; }
   .accessibility-panel { width: 200px; padding: 12px; }
 }
 
@@ -668,15 +668,15 @@ footer {
   }
 
   /* Ajuste responsivo (igual que redes) */
-  @media (max-width: 768px) {
+  @media (max-width: 838px) {
     .plataformas-flotantes { right: 12px; bottom: 12px; gap: 10px; }
-    .plataformas-flotantes a { width: 44px; height: 44px; }
-    .plataformas-flotantes img { width: 22px; height: 22px; }
+    .plataformas-flotantes a { width: 60px; height: 60px; }
+    .plataformas-flotantes img { width: 30px; height: 30px; }
   }
 
   @media (max-width: 480px) {
-    .plataformas-flotantes a { width: 40px; height: 40px; }
-    .plataformas-flotantes img { width: 20px; height: 20px; }
+    .plataformas-flotantes a { width: 50px; height: 50px; }
+    .plataformas-flotantes img { width: 30px; height: 30px; }
   }
 }
 
