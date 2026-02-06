@@ -410,8 +410,8 @@ header {
 }
 
 .accessibility-fab img {
-  width: 34px;   /* más grande que antes */
-  height: 34px;
+  width: 30px;   /* más grande que antes */
+  height: 30px;
   display: block;
   object-fit: contain; /* mantiene proporción sin recortar */
   transition: transform 0.3s ease;
@@ -482,12 +482,12 @@ header {
 /* Responsivo */
 @media (max-width: 838px) {
   .accessibility-container { left: 12px; bottom: 12px; gap: 10px; }
-  .accessibility-fab { width: 60px; height: 60px; }
+  .accessibility-fab { width: 50px; height: 50px; }
   .accessibility-fab img { width: 30px; height: 30px; }
 }
 @media (max-width: 480px) {
-  .accessibility-fab { width: 50px; height: 50px; }
-  .accessibility-fab img { width: 25px; height: 25px; }
+  .accessibility-fab { width: 40px; height: 40px; }
+  .accessibility-fab img { width: 20px; height: 20px; }
   .accessibility-panel { width: 200px; padding: 12px; }
 }
 
