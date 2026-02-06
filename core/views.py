@@ -32,6 +32,9 @@ def nosotros_view(request):
 def historia_view(request):
     return render(request, 'core/historia.html')
 
+def comunidad_view(request):
+    return render(request, 'core/comunidad.html')
+
 def admisiones_view(request):
     return render(request, 'core/admisiones.html')
 

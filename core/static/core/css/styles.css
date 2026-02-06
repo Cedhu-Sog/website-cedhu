@@ -52,9 +52,18 @@ header {
   flex: 1;
 }
 
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  flex: 1;
+}
+
 .navbar-right {
   display: flex;
   align-items: center;
+  gap: 25px;
+   margin-left: auto;
   gap: 25px;
    margin-left: auto;
 }
@@ -145,6 +154,7 @@ header {
 /* Imágenes del lado derecho */
 .navbar-right img {
   height: 35px;
+  height: 35px;
   width: auto;
   object-fit: contain;
   transition: transform 0.3s ease;
@@ -192,6 +202,7 @@ header {
 }
 
 /* Móviles */
+
 @media (max-width: 838px) {
   .navbar { align-items: flex-start; }
   .navbar-left { width: 100%; justify-content: space-between; gap: 12px; }
@@ -371,6 +382,7 @@ header {
 .floating-button img { width: 26px; height: 26px; display: block; }
 .floating-button:hover { transform: scale(1.08); }
 
+
 @media (max-width: 838px) {
   .floating-buttons { right: 12px; bottom: 12px; gap: 10px; }
   .floating-button { width: 44px; height: 44px; }
@@ -410,8 +422,8 @@ header {
 }
 
 .accessibility-fab img {
-  width: 34px;   /* más grande que antes */
-  height: 34px;
+  width: 30px;   /* más grande que antes */
+  height: 30px;
   display: block;
   object-fit: contain; /* mantiene proporción sin recortar */
   transition: transform 0.3s ease;
@@ -480,9 +492,10 @@ header {
 }
 
 /* Responsivo */
+
 @media (max-width: 838px) {
   .accessibility-container { left: 12px; bottom: 12px; gap: 10px; }
-  .accessibility-fab { width: 60px; height: 60px; }
+  .accessibility-fab { width: 50px; height: 50px; }
   .accessibility-fab img { width: 30px; height: 30px; }
 }
 @media (max-width: 480px) {
@@ -669,14 +682,14 @@ footer {
 
   /* Ajuste responsivo (igual que redes) */
   @media (max-width: 838px) {
-    .plataformas-flotantes { right: 12px; bottom: 12px; gap: 10px; }
-    .plataformas-flotantes a { width: 60px; height: 60px; }
-    .plataformas-flotantes img { width: 30px; height: 30px; }
+    .plataformas-flotantes { right: 12px; bottom: 12px; gap: 15px; }
+    .plataformas-flotantes a { width: 50px; height: 50px; }
+    .plataformas-flotantes img { width: 25px; height: 25px; }
   }
 
   @media (max-width: 480px) {
-    .plataformas-flotantes a { width: 50px; height: 50px; }
-    .plataformas-flotantes img { width: 30px; height: 30px; }
+    .plataformas-flotantes a { width: 40px; height: 40px; }
+    .plataformas-flotantes img { width: 25px; height: 25px; }
   }
 }
 
