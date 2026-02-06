@@ -1,0 +1,1 @@
+[{"model": "core.contenidoinicio", "pk": 1, "fields": {"titulo_galeria": "Galería prueba", "url_manual": "https://example.com", "texto_direccion": "Prueba", "iframe_mapa": "", "logo": "", "imagen_manual": ""}}]

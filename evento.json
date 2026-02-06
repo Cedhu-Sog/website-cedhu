@@ -1,0 +1,1 @@
+[{"model": "core.evento", "pk": 1, "fields": {"nombre": "Evento prueba", "descripcion": null, "fecha": "2026-02-03", "hora": "19:38:59.889", "portada": "eventos/portada.jpg"}}]

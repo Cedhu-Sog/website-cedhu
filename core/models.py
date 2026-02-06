@@ -9,16 +9,17 @@ class ContenidoInicio(models.Model):
     imagen_manual = models.ImageField(upload_to='manuales/', blank=True, null=True)
 
 class GalleryImage(models.Model):
-    contenido = models.ForeignKey(ContenidoInicio, related_name='gallery_images', on_delete=models.CASCADE)
+    contenido = models.ForeignKey(
+        ContenidoInicio,
+        related_name='gallery_images',
+        on_delete=models.CASCADE
+    )
     image = models.ImageField(upload_to='gallery/')
     descripcion = models.TextField(blank=True)
     orden = models.PositiveIntegerField()
 
     class Meta:
         unique_together = ('contenido', 'orden')
-
-
-# servicios en linea 
 
 class Evento(models.Model):
     nombre = models.CharField(max_length=200)
