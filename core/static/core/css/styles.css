@@ -669,14 +669,14 @@ footer {
 
   /* Ajuste responsivo (igual que redes) */
   @media (max-width: 838px) {
-    .plataformas-flotantes { right: 12px; bottom: 12px; gap: 10px; }
-    .plataformas-flotantes a { width: 60px; height: 60px; }
-    .plataformas-flotantes img { width: 30px; height: 30px; }
+    .plataformas-flotantes { right: 12px; bottom: 12px; gap: 15px; }
+    .plataformas-flotantes a { width: 50px; height: 50px; }
+    .plataformas-flotantes img { width: 25px; height: 25px; }
   }
 
   @media (max-width: 480px) {
-    .plataformas-flotantes a { width: 50px; height: 50px; }
-    .plataformas-flotantes img { width: 30px; height: 30px; }
+    .plataformas-flotantes a { width: 40px; height: 40px; }
+    .plataformas-flotantes img { width: 25px; height: 25px; }
   }
 }
 
