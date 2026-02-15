@@ -6,19 +6,19 @@ load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# 🔐 Clave secreta
-SECRET_KEY = os.environ.get('SECRET_KEY', 'dev-secret-key')
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
-# 🐞 DEBUG SIEMPRE TRUE EN LOCAL
-DEBUG = os.environ.get("DEBUG", "True") == "True"
+# Modo de depuración. Desactivar en producción.
+DEBUG = os.environ.get("DEBUG", "False") == "True"
 
-# 🌍 Hosts permitidos
+
+# Hosts permitidos para servir el proyecto.
 ALLOWED_HOSTS = [
-    '127.0.0.1',
-    'localhost',
     'www.cedhu.edu.co',
     'cedhu.edu.co',
     'website-cedhu.onrender.com',
+    '127.0.0.1', 
+    'localhost'
 ]
 
 CSRF_TRUSTED_ORIGINS = [
@@ -27,7 +27,6 @@ CSRF_TRUSTED_ORIGINS = [
     'https://cedhu.edu.co',
 ]
 
-# 📦 Apps instaladas
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -35,17 +34,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'padres',
-    'estudiantes',  # ✅ NUEVA APP
     'django_browser_reload',
     'core',
 ]
 
-# 🧱 Middleware
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-
-    # WhiteNoise solo sirve en producción
     'whitenoise.middleware.WhiteNoiseMiddleware',
 
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -54,14 +49,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
-    # Browser reload (dev)
     'django_browser_reload.middleware.BrowserReloadMiddleware',
 ]
 
+
 ROOT_URLCONF = 'config.urls'
 
-# 🎨 Templates
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -70,7 +63,7 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
-                'django.template.context_processors.request',
+                'django.template.context_processors.request', 
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
@@ -80,7 +73,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-# 🗄️ Base de datos (LOCAL)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -92,8 +84,6 @@ DATABASES = {
     }
 }
 
-
-# 🔐 Validadores de contraseña
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
@@ -101,38 +91,28 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
-# 🌐 Idioma y zona horaria
 LANGUAGE_CODE = 'es'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# 📁 Archivos estáticos
 STATIC_URL = '/static/'
 
-# Desarrollo
-STATICFILES_DIRS = [
-    BASE_DIR / 'core' / 'static'
-]
+# Para desarrollo - busca archivos estáticos aquí
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'core', 'static')]
 
-# Producción
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+# Para producción - collectstatic reúne todos los archivos aquí
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-# ⚠️ SOLO EN PRODUCCIÓN
-if not DEBUG:
-    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-# 🖼️ Media
+if DEBUG:
+    STATICFILES_DIRS = [BASE_DIR / 'core' / 'static']
+
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-# 🔑 Login
 LOGIN_URL = '/login/'
 
-# 🔢 ID por defecto
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
-# 💳 Stripe
-STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
-STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY')
