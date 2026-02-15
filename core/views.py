@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from .models import ContenidoInicio, GalleryImage
+from .models import ContenidoInicio, GalleryImage, Noticia
 from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
 
@@ -9,9 +9,12 @@ def home(request):
     contenido = ContenidoInicio.objects.first()  # <- Aquí se añadió
     gallery_images = contenido.gallery_images.all() if contenido else []
 
+    noticias_home = Noticia.objects.filter(activa=True).only('imagen', 'url_name', 'titulo')[:8]
+
     return render(request, 'core/home.html', {
         'contenido': contenido,
         'gallery_images': gallery_images,
+        'noticias_home': noticias_home,
     })
 
 def login_view(request):
@@ -55,6 +58,14 @@ def utiles_escolares_view(request):
 
 def ludicas_view(request):
     return render(request, 'core/ludicas.html')
+
+def noticias(request):
+    noticias = Noticia.objects.filter(activa=True)
+
+    return render(request, 'core/noticias.html', {
+        'noticias': noticias
+    })
+
 
 def logout_view(request):
     logout(request)

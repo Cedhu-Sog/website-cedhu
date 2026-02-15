@@ -1,0 +1,27 @@
+{% extends 'core/base.html' %} {% block title %}Noticias - CEDHU{% endblock %}
+{%load static %} {% block content %}
+
+
+<link rel="stylesheet" href="{% static 'core/css/noticias.css' %}" />
+<div class="contenido">
+    <section class=".news-section">
+        <h2>NOTICIAS CEDHU</h2>
+
+        <div class="news-grid">
+            {% for noticia in noticias %}
+            <article class="news-card">
+                {% if noticia.imagen %}
+                <img src="{{ noticia.imagen.url }}" alt="{{ noticia.titulo }}">
+                {% endif %}
+                <h3>{{ noticia.titulo }}</h3>
+                <small>{{ noticia.fecha_publicacion|date:"d M Y" }}</small>
+                <p>{{ noticia.contenido }}</p>
+            </article>
+            {% empty %}
+            <p>No hay noticias publicadas.</p>
+            {% endfor %}
+        </div>
+    </section>
+</div>
+
+{% endblock %}

@@ -34,3 +34,20 @@ class Evento(models.Model):
     class Meta:
         verbose_name_plural = "Eventos"
         ordering = ['fecha', 'hora']
+
+class Noticia(models.Model):
+    titulo = models.CharField(max_length=200, blank=True)
+    imagen = models.ImageField(upload_to='noticias/')
+    url_name = models.CharField(
+        max_length=100,
+        blank=True,
+        help_text="Ej: core:nosotros, core:noticias"
+    )
+    fecha = models.DateTimeField(auto_now_add=True)
+    activa = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ['-fecha']  # MÁS RECIENTES PRIMERO
+
+    def __str__(self):
+        return self.titulo or f"Noticia {self.id}"
