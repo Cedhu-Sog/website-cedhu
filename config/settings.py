@@ -1,5 +1,6 @@
 from pathlib import Path
 from dotenv import load_dotenv
+from django.contrib.auth import get_user_model
 import os
 import dj_database_url
 
@@ -129,3 +130,14 @@ LOGIN_URL = '/login/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+if os.environ.get("RENDER") == "true":
+    try:
+        User = get_user_model()
+        if not User.objects.filter(username=os.environ.get("DJANGO_SUPERUSER_USERNAME")).exists():
+            User.objects.create_superuser(
+                os.environ.get("DJANGO_SUPERUSER_USERNAME"),
+                os.environ.get("DJANGO_SUPERUSER_EMAIL"),
+                os.environ.get("DJANGO_SUPERUSER_PASSWORD")
+            )
+    except Exception as e:
+        print(f"Error creating superuser: {e}")
