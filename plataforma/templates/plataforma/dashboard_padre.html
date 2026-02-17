@@ -1,0 +1,162 @@
+{% extends 'plataforma/base_plataforma.html' %}
+
+{% block title %}Mi Panel - CEDHU{% endblock %}
+
+{% block page_title %}Panel de Padre{% endblock %}
+{% block page_subtitle %}Bienvenido a tu panel de control{% endblock %}
+
+{% block content %}
+<!-- Información del Padre -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-user"></i> Información Personal
+            </div>
+            <div class="card-body">
+                {% if padre %}
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>Nombre:</strong> {{ padre.nombres }} {{ padre.apellidos }}</p>
+                        <p><strong>Documento:</strong> {{ padre.documento }}</p>
+                        <p><strong>Correo:</strong> {{ padre.correo }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>Teléfono:</strong> {{ padre.telefono }}</p>
+                        <p><strong>Dirección:</strong> {{ padre.direccion }}</p>
+                    </div>
+                </div>
+                {% else %}
+                <div class="alert alert-warning">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    Tu perfil de usuario no está vinculado a un registro de padre. 
+                    Contacta al administrador.
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Estudiantes -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-graduation-cap"></i> Mis Estudiantes
+            </div>
+            <div class="card-body">
+                {% if estudiantes %}
+                <div class="row">
+                    {% for estudiante in estudiantes %}
+                    <div class="col-md-6 mb-3">
+                        <div class="border rounded p-3">
+                            <div class="d-flex align-items-center">
+                                <div class="me-3" style="font-size: 3rem; color: #3498db;">
+                                    <i class="fas fa-user-graduate"></i>
+                                </div>
+                                <div>
+                                    <h5 class="mb-1">{{ estudiante.nombres }} {{ estudiante.apellidos }}</h5>
+                                    <p class="mb-1 text-muted">
+                                        <strong>Grado:</strong> {{ estudiante.grado }}
+                                    </p>
+                                    <p class="mb-1 text-muted">
+                                        <strong>Documento:</strong> {{ estudiante.documento }}
+                                    </p>
+                                    <p class="mb-0 text-muted">
+                                        <strong>Edad:</strong> {{ estudiante.edad }} años
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="text-center py-4">
+                    <i class="fas fa-user-graduate fa-3x text-muted mb-3"></i>
+                    <p class="text-muted">No tienes estudiantes registrados</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Módulos Disponibles -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-th-large"></i> Servicios Disponibles
+            </div>
+            <div class="card-body">
+                {% if modulos_disponibles %}
+                <div class="row g-3">
+                    {% for modulo in modulos_disponibles %}
+                    <div class="col-md-4">
+                        <a href="{{ modulo.url_base }}" class="text-decoration-none">
+                            <div class="p-4 border rounded text-center hover-card">
+                                <i class="fas {{ modulo.icono }} fa-3x text-primary mb-3"></i>
+                                <h5 class="mb-2">{{ modulo.nombre }}</h5>
+                                <p class="text-muted mb-0">{{ modulo.descripcion }}</p>
+                            </div>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="text-center py-4">
+                    <i class="fas fa-puzzle-piece fa-3x text-muted mb-3"></i>
+                    <p class="text-muted">No hay módulos disponibles en este momento</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Información Útil -->
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-info text-white">
+                <i class="fas fa-info-circle"></i> Información
+            </div>
+            <div class="card-body">
+                <p><i class="fas fa-check-circle text-success"></i> Mantén tu información actualizada</p>
+                <p><i class="fas fa-check-circle text-success"></i> Revisa regularmente los módulos disponibles</p>
+                <p class="mb-0"><i class="fas fa-check-circle text-success"></i> Contacta al colegio ante cualquier duda</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-warning text-white">
+                <i class="fas fa-phone"></i> Contacto
+            </div>
+            <div class="card-body">
+                <p><strong>Teléfono:</strong> (123) 456-7890</p>
+                <p><strong>Email:</strong> info@cedhu.edu.co</p>
+                <p class="mb-0"><strong>Horario:</strong> Lunes a Viernes, 7:00 AM - 3:00 PM</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .hover-card {
+        transition: all 0.3s;
+        background-color: white;
+    }
+    
+    .hover-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        background-color: #f8f9fa;
+    }
+</style>
+{% endblock %}

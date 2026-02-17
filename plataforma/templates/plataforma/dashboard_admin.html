@@ -1,0 +1,237 @@
+{% extends 'plataforma/base_plataforma.html' %}
+
+{% block title %}Dashboard Administrador - CEDHU{% endblock %}
+
+{% block page_title %}Dashboard de Administrador{% endblock %}
+{% block page_subtitle %}Panel de control y gestión del sistema{% endblock %}
+
+{% block content %}
+<!-- Estadísticas Rápidas -->
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card stat-card primary">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-muted mb-1">Total Usuarios</h6>
+                        <h3 class="mb-0">{{ stats_usuarios.total }}</h3>
+                    </div>
+                    <div class="text-primary" style="font-size: 3rem; opacity: 0.3;">
+                        <i class="fas fa-users"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3">
+        <div class="card stat-card success">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-muted mb-1">Padres</h6>
+                        <h3 class="mb-0">{{ stats_usuarios.padres }}</h3>
+                    </div>
+                    <div class="text-success" style="font-size: 3rem; opacity: 0.3;">
+                        <i class="fas fa-user-friends"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3">
+        <div class="card stat-card warning">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-muted mb-1">Administradores</h6>
+                        <h3 class="mb-0">{{ stats_usuarios.administradores }}</h3>
+                    </div>
+                    <div class="text-warning" style="font-size: 3rem; opacity: 0.3;">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-3">
+        <div class="card stat-card danger">
+            <div class="card-body">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h6 class="text-muted mb-1">Módulos Activos</h6>
+                        <h3 class="mb-0">{{ modulos_activos|length }}</h3>
+                    </div>
+                    <div class="text-danger" style="font-size: 3rem; opacity: 0.3;">
+                        <i class="fas fa-th-large"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Accesos Rápidos -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-bolt"></i> Accesos Rápidos
+            </div>
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-3">
+                        <a href="{% url 'gestionar_usuarios' %}" class="text-decoration-none">
+                            <div class="p-3 border rounded text-center hover-effect">
+                                <i class="fas fa-users fa-2x text-primary mb-2"></i>
+                                <p class="mb-0 fw-bold">Gestionar Usuarios</p>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <a href="{% url 'gestionar_parametros' %}" class="text-decoration-none">
+                            <div class="p-3 border rounded text-center hover-effect">
+                                <i class="fas fa-cog fa-2x text-success mb-2"></i>
+                                <p class="mb-0 fw-bold">Parámetros Globales</p>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <a href="{% url 'gestionar_modulos' %}" class="text-decoration-none">
+                            <div class="p-3 border rounded text-center hover-effect">
+                                <i class="fas fa-th-large fa-2x text-warning mb-2"></i>
+                                <p class="mb-0 fw-bold">Gestionar Módulos</p>
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <a href="{% url 'ver_auditoria' %}" class="text-decoration-none">
+                            <div class="p-3 border rounded text-center hover-effect">
+                                <i class="fas fa-history fa-2x text-danger mb-2"></i>
+                                <p class="mb-0 fw-bold">Ver Auditoría</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Parámetros Importantes -->
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-sliders-h"></i> Parámetros Importantes
+            </div>
+            <div class="card-body">
+                {% if fecha_corte_ludicas %}
+                <div class="d-flex justify-content-between align-items-center mb-3 p-3 bg-light rounded">
+                    <div>
+                        <strong>Fecha de Corte - Lúdicas</strong>
+                        <p class="mb-0 text-muted">{{ fecha_corte_ludicas|date:"d/m/Y" }}</p>
+                    </div>
+                    <a href="{% url 'gestionar_parametros' %}" class="btn btn-sm btn-primary">
+                        <i class="fas fa-edit"></i> Editar
+                    </a>
+                </div>
+                {% endif %}
+                
+                {% for parametro in parametros|slice:":5" %}
+                <div class="mb-2 pb-2 border-bottom">
+                    <strong>{{ parametro.nombre }}</strong>
+                    <p class="mb-0 text-muted small">{{ parametro.valor }}</p>
+                </div>
+                {% empty %}
+                <p class="text-muted">No hay parámetros configurados</p>
+                {% endfor %}
+                
+                <div class="text-center mt-3">
+                    <a href="{% url 'gestionar_parametros' %}" class="btn btn-outline-primary btn-sm">
+                        Ver todos los parámetros
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Actividad Reciente -->
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-clock"></i> Actividad Reciente
+            </div>
+            <div class="card-body">
+                {% for log in logs_recientes %}
+                <div class="mb-3 pb-2 border-bottom">
+                    <div class="d-flex justify-content-between">
+                        <strong class="text-primary">{{ log.usuario.username|default:"Sistema" }}</strong>
+                        <small class="text-muted">{{ log.fecha|date:"d/m/Y H:i" }}</small>
+                    </div>
+                    <p class="mb-0 small">{{ log.accion }}</p>
+                    <span class="badge bg-secondary">{{ log.get_tipo_accion_display }}</span>
+                </div>
+                {% empty %}
+                <p class="text-muted">No hay actividad reciente</p>
+                {% endfor %}
+                
+                <div class="text-center mt-3">
+                    <a href="{% url 'ver_auditoria' %}" class="btn btn-outline-primary btn-sm">
+                        Ver toda la auditoría
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Módulos del Sistema -->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-puzzle-piece"></i> Módulos del Sistema
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    {% for modulo in modulos_activos %}
+                    <div class="col-md-4 mb-3">
+                        <div class="p-3 border rounded">
+                            <div class="d-flex align-items-center">
+                                <i class="fas {{ modulo.icono }} fa-2x text-primary me-3"></i>
+                                <div>
+                                    <strong>{{ modulo.nombre }}</strong>
+                                    <p class="mb-0 text-muted small">{{ modulo.descripcion|truncatewords:10 }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <p class="text-muted">No hay módulos configurados</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .hover-effect {
+        transition: all 0.3s;
+        cursor: pointer;
+    }
+    
+    .hover-effect:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+</style>
+{% endblock %}
