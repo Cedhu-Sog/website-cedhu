@@ -1,6 +1,8 @@
 from pathlib import Path
 from dotenv import load_dotenv
+from django.contrib.auth import get_user_model
 import os
+import dj_database_url
 
 load_dotenv()
 
@@ -98,12 +100,28 @@ WSGI_APPLICATION = 'config.wsgi.application'
 # BASE DE DATOS
 # ===============================
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+DATABASE_URL = os.getenv("DATABASE_URL")
+
+if DATABASE_URL:
+    # Usa URL (desarrollo / staging / producción)
+    DATABASES = {
+        'default': dj_database_url.config(
+            default=DATABASE_URL,
+            conn_max_age=600
+        )
     }
-}
+else:
+    # Usa configuración local (pgAdmin)
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.getenv('DB_NAME'),
+            'USER': os.getenv('DB_USER'),
+            'PASSWORD': os.getenv('DB_PASSWORD'),
+            'HOST': os.getenv('DB_HOST'),
+            'PORT': os.getenv('DB_PORT'),
+        }
+    }
 
 # ===============================
 # VALIDADORES
@@ -155,3 +173,15 @@ MEDIA_ROOT = BASE_DIR / 'media'
 LOGIN_URL = '/login/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+if os.environ.get("RENDER") == "true":
+    try:
+        User = get_user_model()
+        if not User.objects.filter(username=os.environ.get("DJANGO_SUPERUSER_USERNAME")).exists():
+            User.objects.create_superuser(
+                os.environ.get("DJANGO_SUPERUSER_USERNAME"),
+                os.environ.get("DJANGO_SUPERUSER_EMAIL"),
+                os.environ.get("DJANGO_SUPERUSER_PASSWORD")
+            )
+    except Exception as e:
+        print(f"Error creating superuser: {e}")
