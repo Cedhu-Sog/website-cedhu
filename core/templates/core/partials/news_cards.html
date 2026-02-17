@@ -1,0 +1,15 @@
+{% for noticia in noticias %}
+  <article class="news-card">
+
+    {% if noticia.enlace %}
+      <a href="{{ noticia.enlace }}" target="_blank">
+        <img src="{{ noticia.imagen.url }}" alt="{{ noticia.titulo }}">
+      </a>
+    {% else %}
+      <img src="{{ noticia.imagen.url }}"
+           alt="{{ noticia.titulo }}"
+           onclick="openModal(this)">
+    {% endif %}
+
+  </article>
+{% endfor %}

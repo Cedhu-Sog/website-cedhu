@@ -1,0 +1,169 @@
+{% extends 'plataforma/base_plataforma.html' %}
+
+{% block title %}Gestionar Parámetros - CEDHU{% endblock %}
+
+{% block page_title %}Gestión de Parámetros Globales{% endblock %}
+{% block page_subtitle %}Configura los parámetros del sistema{% endblock %}
+
+{% block content %}
+<!-- Fecha de Corte - Lúdicas -->
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-calendar-alt"></i> Fecha de Corte - Lúdicas
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label class="form-label">Fecha Límite de Inscripción</label>
+                        <input 
+                            type="date" 
+                            class="form-control" 
+                            name="fecha_corte_ludicas"
+                            value="{% if fecha_corte_ludicas %}{{ fecha_corte_ludicas|date:'Y-m-d' }}{% endif %}"
+                            required
+                        >
+                        <small class="text-muted">
+                            Esta fecha se aplica a todas las actividades lúdicas del sistema.
+                        </small>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Guardar Fecha
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Agregar Nuevo Parámetro -->
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-plus-circle"></i> Agregar Nuevo Parámetro
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label class="form-label">Nombre del Parámetro</label>
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            name="nombre_parametro"
+                            placeholder="ej: email_contacto"
+                            required
+                        >
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Valor</label>
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            name="valor_parametro"
+                            placeholder="ej: info@cedhu.edu.co"
+                            required
+                        >
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Descripción (opcional)</label>
+                        <textarea 
+                            class="form-control" 
+                            name="descripcion_parametro"
+                            rows="2"
+                            placeholder="Descripción del parámetro"
+                        ></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-success">
+                        <i class="fas fa-plus"></i> Agregar Parámetro
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Lista de Parámetros -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-list"></i> Parámetros Configurados
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Valor</th>
+                                <th>Descripción</th>
+                                <th>Última Modificación</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for parametro in parametros %}
+                            <tr>
+                                <td><strong>{{ parametro.nombre }}</strong></td>
+                                <td><code>{{ parametro.valor }}</code></td>
+                                <td>{{ parametro.descripcion|truncatewords:10 }}</td>
+                                <td>{{ parametro.fecha_modificacion|date:"d/m/Y H:i" }}</td>
+                                <td>
+                                    <form method="post" action="{% url 'eliminar_parametro' parametro.id %}" style="display: inline;">
+                                        {% csrf_token %}
+                                        <button 
+                                            type="submit" 
+                                            class="btn btn-sm btn-danger"
+                                            onclick="return confirm('¿Estás seguro de eliminar este parámetro?')"
+                                        >
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="5" class="text-center text-muted">
+                                    No hay parámetros configurados
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Información sobre Parámetros -->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card border-info">
+            <div class="card-header bg-info text-white">
+                <i class="fas fa-info-circle"></i> Información sobre Parámetros
+            </div>
+            <div class="card-body">
+                <h6>¿Qué son los parámetros globales?</h6>
+                <p>Los parámetros globales son valores de configuración que se utilizan en todo el sistema. 
+                   Permiten cambiar comportamientos sin modificar código.</p>
+                
+                <h6 class="mt-3">Parámetros Importantes:</h6>
+                <ul>
+                    <li><code>fecha_corte_ludicas</code> - Fecha límite para inscripción en lúdicas</li>
+                    <li><code>email_contacto</code> - Email de contacto institucional</li>
+                    <li><code>telefono_principal</code> - Teléfono principal del colegio</li>
+                </ul>
+                
+                <div class="alert alert-warning mt-3">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <strong>Precaución:</strong> Modificar parámetros puede afectar el funcionamiento del sistema. 
+                    Asegúrate de conocer el impacto antes de realizar cambios.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

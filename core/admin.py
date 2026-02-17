@@ -1,10 +1,36 @@
 from django.contrib import admin
-from .models import ContenidoInicio, Evento  # Solo importamos lo que realmente está en core.models
+from django import forms
+from .models import ContenidoInicio, Evento, Noticia  # Solo importamos lo que realmente está en core.models
+from core.utils.url_choices import get_named_urls
 
+class NoticiaAdminForm(forms.ModelForm):
+    url_name = forms.ChoiceField(
+        required=False,
+        choices=[],
+        help_text="Selecciona una página interna del sitio"
+    )
+
+    class Meta:
+        model = Noticia
+        fields = "__all__"
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["url_name"].choices = [
+            ("", "— Sin enlace —")
+        ] + get_named_urls()
 
 @admin.register(ContenidoInicio)
 class ContenidoInicioAdmin(admin.ModelAdmin):
     list_display = ('titulo_galeria', 'texto_direccion', 'imagen_manual')
+
+
+@admin.register(Noticia)
+class NoticiaAdmin(admin.ModelAdmin):
+    form = NoticiaAdminForm
+    list_display = ("titulo", "url_name", "activa", "fecha")
+    list_filter = ("activa",)
+    search_fields = ("titulo",)
 
 
 @admin.register(Evento)

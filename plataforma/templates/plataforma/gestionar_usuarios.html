@@ -1,0 +1,204 @@
+{% extends 'plataforma/base_plataforma.html' %}
+
+{% block title %}Gestionar Usuarios - CEDHU{% endblock %}
+
+{% block page_title %}Gestión de Usuarios{% endblock %}
+{% block page_subtitle %}Administra usuarios y perfiles del sistema{% endblock %}
+
+{% block content %}
+<!-- Estadísticas -->
+<div class="row mb-4">
+    <div class="col-md-3">
+        <div class="card stat-card primary">
+            <div class="card-body">
+                <h6 class="text-muted">Total Usuarios</h6>
+                <h3>{{ stats.total }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card stat-card success">
+            <div class="card-body">
+                <h6 class="text-muted">Activos</h6>
+                <h3>{{ stats.activos }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card stat-card warning">
+            <div class="card-body">
+                <h6 class="text-muted">Padres</h6>
+                <h3>{{ stats.padres }}</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card stat-card danger">
+            <div class="card-body">
+                <h6 class="text-muted">Administradores</h6>
+                <h3>{{ stats.administradores }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Lista de Usuarios -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <span><i class="fas fa-users"></i> Usuarios del Sistema</span>
+                <a href="/admin/auth/user/add/" class="btn btn-sm btn-success" target="_blank">
+                    <i class="fas fa-plus"></i> Nuevo Usuario (Admin Django)
+                </a>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Usuario</th>
+                                <th>Nombre</th>
+                                <th>Email</th>
+                                <th>Rol</th>
+                                <th>Estado</th>
+                                <th>Padre Vinculado</th>
+                                <th>Fecha Registro</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for usuario in usuarios %}
+                            <tr>
+                                <td>
+                                    <strong>{{ usuario.username }}</strong>
+                                    {% if usuario.is_superuser %}
+                                        <span class="badge bg-danger">Super Admin</span>
+                                    {% endif %}
+                                </td>
+                                <td>{{ usuario.first_name }} {{ usuario.last_name }}</td>
+                                <td>{{ usuario.email|default:"-" }}</td>
+                                <td>
+                                    {% if usuario.perfil %}
+                                        <span class="badge bg-primary">
+                                            {{ usuario.perfil.get_rol_display }}
+                                        </span>
+                                    {% else %}
+                                        <span class="badge bg-secondary">Sin perfil</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if usuario.perfil and usuario.perfil.activo %}
+                                        <span class="badge bg-success">
+                                            <i class="fas fa-check-circle"></i> Activo
+                                        </span>
+                                    {% else %}
+                                        <span class="badge bg-secondary">
+                                            <i class="fas fa-times-circle"></i> Inactivo
+                                        </span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if usuario.perfil.padre %}
+                                        {{ usuario.perfil.padre.nombres }} {{ usuario.perfil.padre.apellidos }}
+                                    {% else %}
+                                        <span class="text-muted">-</span>
+                                    {% endif %}
+                                </td>
+                                <td>{{ usuario.date_joined|date:"d/m/Y" }}</td>
+                                <td>
+                                    {% if usuario != request.user %}
+                                        <!-- Toggle Activo/Inactivo -->
+                                        <form method="post" action="{% url 'toggle_usuario' usuario.id %}" style="display: inline;">
+                                            {% csrf_token %}
+                                            {% if usuario.perfil.activo %}
+                                                <button 
+                                                    type="submit" 
+                                                    class="btn btn-sm btn-warning"
+                                                    title="Desactivar"
+                                                >
+                                                    <i class="fas fa-ban"></i>
+                                                </button>
+                                            {% else %}
+                                                <button 
+                                                    type="submit" 
+                                                    class="btn btn-sm btn-success"
+                                                    title="Activar"
+                                                >
+                                                    <i class="fas fa-check"></i>
+                                                </button>
+                                            {% endif %}
+                                        </form>
+                                        
+                                        <!-- Eliminar -->
+                                        <form method="post" action="{% url 'eliminar_usuario' usuario.id %}" style="display: inline;">
+                                            {% csrf_token %}
+                                            <button 
+                                                type="submit" 
+                                                class="btn btn-sm btn-danger"
+                                                onclick="return confirm('¿Estás seguro de eliminar este usuario? Esta acción no se puede deshacer.')"
+                                                title="Eliminar"
+                                            >
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                        
+                                        <!-- Editar en Admin -->
+                                        <a 
+                                            href="/admin/auth/user/{{ usuario.id }}/change/" 
+                                            class="btn btn-sm btn-primary"
+                                            target="_blank"
+                                            title="Editar"
+                                        >
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                    {% else %}
+                                        <span class="badge bg-info">Usuario Actual</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="8" class="text-center text-muted">
+                                    No hay usuarios registrados
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Información -->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card border-info">
+            <div class="card-header bg-info text-white">
+                <i class="fas fa-info-circle"></i> Información sobre Usuarios
+            </div>
+            <div class="card-body">
+                <h6>Gestión de Usuarios:</h6>
+                <ul>
+                    <li><strong>Crear Usuario:</strong> Usa el botón "Nuevo Usuario" o accede al admin de Django</li>
+                    <li><strong>Asignar Rol:</strong> Se asigna automáticamente al crear el usuario (por defecto: PADRE)</li>
+                    <li><strong>Vincular Padre:</strong> Para usuarios con rol PADRE, vincula el registro correspondiente en el admin</li>
+                    <li><strong>Activar/Desactivar:</strong> Controla el acceso sin eliminar la cuenta</li>
+                </ul>
+                
+                <div class="alert alert-warning mt-3">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <strong>Importante:</strong> 
+                    <ul class="mb-0">
+                        <li>Los usuarios con rol PADRE deben estar vinculados a un registro en la tabla Padres</li>
+                        <li>No puedes eliminar tu propia cuenta</li>
+                        <li>Los superusuarios tienen acceso total al sistema</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

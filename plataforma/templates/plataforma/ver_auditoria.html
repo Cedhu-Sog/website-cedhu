@@ -1,0 +1,242 @@
+{% extends 'plataforma/base_plataforma.html' %}
+
+{% block title %}Auditoría - CEDHU{% endblock %}
+
+{% block page_title %}Auditoría del Sistema{% endblock %}
+{% block page_subtitle %}Registro de actividades y acciones{% endblock %}
+
+{% block content %}
+<!-- Filtros -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-filter"></i> Filtros
+            </div>
+            <div class="card-body">
+                <form method="get" class="row g-3">
+                    <div class="col-md-3">
+                        <label class="form-label">Tipo de Acción</label>
+                        <select name="tipo" class="form-select">
+                            <option value="">Todos</option>
+                            {% for tipo_codigo, tipo_nombre in tipos_accion %}
+                            <option value="{{ tipo_codigo }}" {% if tipo_filtro == tipo_codigo %}selected{% endif %}>
+                                {{ tipo_nombre }}
+                            </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <label class="form-label">Usuario</label>
+                        <input 
+                            type="text" 
+                            name="usuario" 
+                            class="form-control" 
+                            placeholder="Buscar usuario..."
+                            value="{{ usuario_filtro }}"
+                        >
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <label class="form-label">Límite de Registros</label>
+                        <select name="limite" class="form-select">
+                            <option value="50" {% if limite == 50 %}selected{% endif %}>50</option>
+                            <option value="100" {% if limite == 100 %}selected{% endif %}>100</option>
+                            <option value="200" {% if limite == 200 %}selected{% endif %}>200</option>
+                        </select>
+                    </div>
+                    
+                    <div class="col-md-3 d-flex align-items-end">
+                        <button type="submit" class="btn btn-primary w-100">
+                            <i class="fas fa-search"></i> Filtrar
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Estadísticas de Actividad -->
+<div class="row mb-4">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-chart-bar"></i> Actividad por Tipo
+            </div>
+            <div class="card-body">
+                {% for stat in stats.por_tipo %}
+                <div class="mb-2">
+                    <div class="d-flex justify-content-between">
+                        <span>{{ stat.tipo_accion }}</span>
+                        <strong>{{ stat.total }}</strong>
+                    </div>
+                    <div class="progress" style="height: 5px;">
+                        <div 
+                            class="progress-bar" 
+                            style="width: {{ stat.total|add:'0' }}%"
+                        ></div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-users"></i> Usuarios Más Activos
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    {% for stat in stats.por_usuario %}
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>{{ stat.usuario__username|default:"Anónimo" }}</span>
+                        <span class="badge bg-primary">{{ stat.total }}</span>
+                    </li>
+                    {% empty %}
+                    <li class="list-group-item text-muted">No hay datos</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Registro de Logs -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-history"></i> Registro de Actividades
+                <span class="badge bg-secondary">{{ logs|length }} registros</span>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-sm table-hover">
+                        <thead>
+                            <tr>
+                                <th>Fecha/Hora</th>
+                                <th>Usuario</th>
+                                <th>Tipo</th>
+                                <th>Acción</th>
+                                <th>Módulo</th>
+                                <th>IP</th>
+                                <th>Detalles</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for log in logs %}
+                            <tr>
+                                <td>
+                                    <small>{{ log.fecha|date:"d/m/Y" }}<br>{{ log.fecha|date:"H:i:s" }}</small>
+                                </td>
+                                <td>
+                                    <strong>{{ log.usuario.username|default:"Sistema" }}</strong>
+                                </td>
+                                <td>
+                                    {% if log.tipo_accion == 'LOGIN' %}
+                                        <span class="badge bg-success">{{ log.get_tipo_accion_display }}</span>
+                                    {% elif log.tipo_accion == 'LOGOUT' %}
+                                        <span class="badge bg-secondary">{{ log.get_tipo_accion_display }}</span>
+                                    {% elif log.tipo_accion == 'CREAR' %}
+                                        <span class="badge bg-primary">{{ log.get_tipo_accion_display }}</span>
+                                    {% elif log.tipo_accion == 'EDITAR' %}
+                                        <span class="badge bg-warning">{{ log.get_tipo_accion_display }}</span>
+                                    {% elif log.tipo_accion == 'ELIMINAR' %}
+                                        <span class="badge bg-danger">{{ log.get_tipo_accion_display }}</span>
+                                    {% else %}
+                                        <span class="badge bg-info">{{ log.get_tipo_accion_display }}</span>
+                                    {% endif %}
+                                </td>
+                                <td>{{ log.accion|truncatewords:10 }}</td>
+                                <td>
+                                    {% if log.modulo %}
+                                        <code>{{ log.modulo }}</code>
+                                    {% else %}
+                                        <span class="text-muted">-</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <small>{{ log.ip_address|default:"-" }}</small>
+                                </td>
+                                <td>
+                                    {% if log.detalles %}
+                                        <button 
+                                            class="btn btn-sm btn-outline-secondary" 
+                                            data-bs-toggle="modal" 
+                                            data-bs-target="#detalleModal{{ log.id }}"
+                                        >
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="detalleModal{{ log.id }}" tabindex="-1">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title">Detalles de la Acción</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p><strong>Usuario:</strong> {{ log.usuario.username|default:"Sistema" }}</p>
+                                                        <p><strong>Acción:</strong> {{ log.accion }}</p>
+                                                        <p><strong>Fecha:</strong> {{ log.fecha|date:"d/m/Y H:i:s" }}</p>
+                                                        <hr>
+                                                        <p><strong>Detalles:</strong></p>
+                                                        <pre>{{ log.detalles }}</pre>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% else %}
+                                        <span class="text-muted">-</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="7" class="text-center text-muted">
+                                    No hay registros de auditoría
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Información -->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card border-info">
+            <div class="card-header bg-info text-white">
+                <i class="fas fa-info-circle"></i> Información sobre Auditoría
+            </div>
+            <div class="card-body">
+                <h6>¿Qué registra el sistema de auditoría?</h6>
+                <p>El sistema registra automáticamente las siguientes acciones:</p>
+                <ul>
+                    <li><strong>LOGIN/LOGOUT:</strong> Inicios y cierres de sesión</li>
+                    <li><strong>CREAR:</strong> Creación de registros</li>
+                    <li><strong>EDITAR:</strong> Modificación de registros</li>
+                    <li><strong>ELIMINAR:</strong> Eliminación de registros</li>
+                    <li><strong>VER:</strong> Visualización de información sensible</li>
+                    <li><strong>EXPORTAR:</strong> Exportación de datos</li>
+                </ul>
+                
+                <div class="alert alert-warning mt-3">
+                    <i class="fas fa-shield-alt"></i>
+                    <strong>Seguridad:</strong> Los logs de auditoría no pueden ser modificados. 
+                    Solo los superusuarios pueden eliminar registros desde el admin de Django.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
