@@ -8,7 +8,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Carga las variables del archivo .env
 load_dotenv(BASE_DIR / '.env')
 
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = os.environ.get(
+    'SECRET_KEY',
+    'django-insecure-clave-temporal-para-desarrollo'
+)
 
 DEBUG = True
 
