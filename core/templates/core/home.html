@@ -33,11 +33,14 @@ CEDHU{% endblock %} {% block content %}
   <!-- SLIDE 3 -->
 
   <div class="slide">
-    <video autoplay muted playsinline disablepictureinpicture>
-      <source
-        src="{% static 'core/videos/Presentacioncedhu.mp4' %}"
-        type="video/mp4"
-      />
+    <iframe
+      src="https://www.youtube.com/embed/CoQVq_HIpP4?autoplay=1&mute=1&loop=1&playlist=CoQVq_HIpP4&controls=0&rel=0&playsinline=1"
+      title="Video de presentación CEDHU"
+      loading="lazy"
+      referrerpolicy="strict-origin-when-cross-origin"
+      allow="autoplay; encrypted-media; picture-in-picture"
+      allowfullscreen
+    ></iframe>
     <div class="overlay">
       <h1 class="subtitle">
         ELIGE TU <span>FUTURO,</span><br />ELIGE <strong>CEDHU</strong>
