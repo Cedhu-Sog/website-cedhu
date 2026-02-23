@@ -1,8 +1,9 @@
 {% extends 'core/base.html' %} {% load static %} {% block title %}Inicio -
 CEDHU{% endblock %} {% block content %}
-<!-- Hero principal -->
+<!-- Hero estilo Harvard (sin header y sin flechas) -->
 <section class="hero-slide">
-  <div class="slides-track">
+  <div class="slides-track" aria-label="Galería principal de inicio">
+  <!-- SLIDE 2 AGREGAR UNA IMAGEN POR CUESTIÓN DE SEO-->
   <div class="slide active">
     <img
       src="{% static 'core/img/Banner-Cedhu-Destacado-1.jpg' %}"

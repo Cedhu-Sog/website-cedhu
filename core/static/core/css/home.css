@@ -6,29 +6,43 @@
   width: 100%;
   height: 100vh;
   overflow: hidden;
+  margin-bottom: 0;
   animation: none !important;
   opacity: 1 !important;
   transform: none !important;
 }
 
 .hero-slide .slides-track {
-  display: flex;
-  width: 100%;
   height: 100%;
-  transition: transform 0.55s ease;
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+.hero-slide .slides-track::-webkit-scrollbar {
+  display: none;
 }
 
 .hero-slide .slide {
+  position: relative;
   flex: 0 0 100%;
   width: 100%;
   height: 100%;
-  position: relative;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+.hero-slide .slide.active {
+  outline: 0;
 }
 
 .hero-slide img,
 .hero-slide video,
 .hero-slide iframe {
-  margin-top: 80px;
+  margin-top: 0;
   width: 100%;
   height: calc(100% - 80px);
   border: 0;
@@ -38,7 +52,7 @@
 
 .hero-slide .indicators {
   position: absolute;
-  bottom: 32px;
+  bottom: 28px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -61,13 +75,10 @@
   transform: scale(1.2);
 }
 
-.contenido {
-  margin-top: -20px;
-}
-
+/* responsive */
 @media (max-width: 900px) {
   .hero-slide .indicators {
-    bottom: 24px;
+    bottom: 20px;
     gap: 10px;
   }
 
@@ -77,22 +88,11 @@
   }
 }
 
-/* capa que rebota encima de cada slide para incentivar a bajar el sitio web */
-.flow-invitation {
-  content: "";
-  position: fixed;
-  bottom: -40px;
-  left: 0;
-  width: 100%;
-  height: 60px;
-  background: #b1d6c2;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-  z-index: 3;
-  pointer-events: none;
-
-  animation: bounceResorte 30s ease-out infinite;
+/* superposición de contenido sobre el hero */
+.contenido {
+  margin-top: -20px;
 }
+
 
 @keyframes bounceResorte {
   0% {
