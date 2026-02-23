@@ -1,36 +1,21 @@
 {% extends 'core/base.html' %} {% load static %} {% block title %}Inicio -
 CEDHU{% endblock %} {% block content %}
-<div class="flow-invitation"></div>
-<!-- Hero estilo Harvard (sin header y sin flechas) -->
+<!-- Hero principal -->
 <section class="hero-slide">
-  <!-- SLIDE 2 AGREGAR UNA IMAGEN POR CUESTIÓN DE SEO-->
+  <div class="slides-track">
   <div class="slide active">
     <img
       src="{% static 'core/img/Banner-Cedhu-Destacado-1.jpg' %}"
       alt="primer puesto prueba saber cedhu 2025"
     />
-    <div class="overlay">
-      <h2 class="subtitle"><span></span></h2>
-      <h1 class="title"></h1>
-    </div>
   </div>
 
-  <!-- SLIDE 1 CON VIDEO -->
   <div class="slide">
-      <img
+    <img
       src="{% static 'core/img/Banner-Cedhu-Destacado-2.jpg' %}"
       alt="primer puesto prueba saber cedhu 2025"
     />
-    <div class="overlay">
-      {% comment %}
-      <h2 class="subtitle">
-        SER FELICES EN EL<span> PROCESO</span>DE <br /><b>ENSEÑAR Y APRENDER</b>
-      </h2>
-      {% endcomment %}
-    </div>
   </div>
-
-  <!-- SLIDE 3 -->
 
   <div class="slide">
     <iframe
@@ -41,28 +26,14 @@ CEDHU{% endblock %} {% block content %}
       allow="autoplay; encrypted-media; picture-in-picture"
       allowfullscreen
     ></iframe>
-    <div class="overlay">
-      <h1 class="subtitle">
-        ELIGE TU <span>FUTURO,</span><br />ELIGE <strong>CEDHU</strong>
-      </h1>
-    </div>
+  </div>
   </div>
 
-  <!-- PUNTOS -->
   <div class="indicators">
     <span class="dot active"></span>
     <span class="dot"></span>
     <span class="dot"></span>
   </div>
-
-  <button
-    class="hero-control"
-    id="heroToggle"
-    aria-label="Pausar animación"
-    aria-pressed="false"
-  >
-    ⏸
-  </button>
 </section>
 
 <div class="contenido">
