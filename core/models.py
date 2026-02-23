@@ -1,5 +1,6 @@
 from django.db import models
 
+
 class ContenidoInicio(models.Model):
     titulo_galeria = models.CharField(max_length=255, blank=True)
     url_manual = models.URLField(blank=True)
@@ -7,6 +8,7 @@ class ContenidoInicio(models.Model):
     iframe_mapa = models.TextField(blank=True)
     logo = models.ImageField(upload_to='logos/', blank=True, null=True)
     imagen_manual = models.ImageField(upload_to='manuales/', blank=True, null=True)
+
 
 class GalleryImage(models.Model):
     contenido = models.ForeignKey(
@@ -20,6 +22,7 @@ class GalleryImage(models.Model):
 
     class Meta:
         unique_together = ('contenido', 'orden')
+
 
 class Evento(models.Model):
     nombre = models.CharField(max_length=200)
@@ -35,19 +38,21 @@ class Evento(models.Model):
         verbose_name_plural = "Eventos"
         ordering = ['fecha', 'hora']
 
+
 class Noticia(models.Model):
-    titulo = models.CharField(max_length=200, blank=True)
     imagen = models.ImageField(upload_to='noticias/')
-    url_name = models.CharField(
-        max_length=100,
+    url = models.URLField(
         blank=True,
-        help_text="Ej: core:nosotros, core:noticias"
+        null=True,
+        help_text="URL externa de la noticia. Si se deja vacío, al hacer clic se abrirá la imagen directamente."
     )
     fecha = models.DateTimeField(auto_now_add=True)
     activa = models.BooleanField(default=True)
 
     class Meta:
-        ordering = ['-fecha']  # MÁS RECIENTES PRIMERO
+        ordering = ['-fecha']
+        verbose_name = "Noticia"
+        verbose_name_plural = "Noticias"
 
     def __str__(self):
-        return self.titulo or f"Noticia {self.id}"
+        return f"Noticia #{self.id} — {self.fecha.strftime('%d/%m/%Y')}"
