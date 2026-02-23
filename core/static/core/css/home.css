@@ -4,81 +4,46 @@
 .hero-slide {
   position: relative;
   width: 100%;
-  height: 85vh;
+  height: 100vh;
   overflow: hidden;
-  margin-bottom: 90px;
+  margin-bottom: 0;
   animation: none !important;
   opacity: 1 !important;
   transform: none !important;
 }
 
-/* slides */
+.hero-slide .slides-track {
+  height: 100%;
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+.hero-slide .slides-track::-webkit-scrollbar {
+  display: none;
+}
+
 .hero-slide .slide {
-  position: absolute;
-  top: 0;
-  left: 0;
+  position: relative;
+  flex: 0 0 100%;
   width: 100%;
   height: 100%;
-  opacity: 0;
-  transition: opacity 0.7s ease-in-out;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
 }
+
 .hero-slide .slide.active {
-  opacity: 1;
-  position: fixed; /* ← Se mantiene en el viewport */
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -2; /* queda detrás del contenido */
-}
-
-/* overlay de texto */
-.hero-slide .overlay {
-  position: absolute;
-  bottom: 10%;
-  left: 50%;
-  transform: translateX(-50%);
-  text-align: center;
-  color: #fff;
-  z-index: -4;
-  pointer-events: none;
-}
-
-/* estado inicial: texto oculto */
-.hero-slide .overlay .subtitle,
-.hero-slide .overlay .title {
-  opacity: 0.01;
-  transform: translateY(30px);
-  will-change: transform, opacity;
-}
-
-/* estilo visual del texto */
-.hero-slide .overlay .subtitle {
-  font-size: 2.1rem;
-  font-weight: 600;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  margin: 0;
-}
-.hero-slide .overlay .subtitle span {
-  background: #10b65c;
-  padding: 0 8px;
-  display: inline-block;
-}
-.hero-slide .overlay .title {
-  font-size: clamp(3.2rem, 10vw, 6rem);
-  font-weight: 900;
-  margin-top: 0.35rem;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  line-height: 0.9;
+  outline: 0;
 }
 
 /* imagen y video */
 .hero-slide img,
 .hero-slide video,
 .hero-slide iframe {
-  margin-top: 80px;
+  margin-top: 0;
   width: 100%;
   height: 100%;
   border: 0;
@@ -89,12 +54,12 @@
 /* dots indicadores */
 .hero-slide .indicators {
   position: absolute;
-  bottom: 36px;
+  bottom: 28px;
   left: 50%;
   transform: translateX(-50%);
-  display: flex; /*Cambiar de none a flex para mostrarlos*/
+  display: flex;
   gap: 14px;
-  z-index: 0;
+  z-index: 2;
 }
 .hero-slide .dot {
   width: 16px;
@@ -110,55 +75,10 @@
   transform: scale(1.25);
 }
 
-/* animaciones */
-@keyframes slideInSubtitle {
-  0% {
-    opacity: 0.01;
-    transform: translateY(28px);
-  }
-  60% {
-    opacity: 1;
-    transform: translateY(-6px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-@keyframes slideInTitle {
-  0% {
-    opacity: 0.01;
-    transform: translateY(36px) scale(0.98);
-    filter: blur(3px);
-  }
-  60% {
-    opacity: 1;
-    transform: translateY(-4px) scale(1.01);
-    filter: blur(0.5px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-    filter: blur(0);
-  }
-}
-.hero-slide .overlay.animate .subtitle {
-  animation: slideInSubtitle 700ms cubic-bezier(0.22, 0.9, 0.3, 1) both;
-}
-.hero-slide .overlay.animate .title {
-  animation: slideInTitle 900ms cubic-bezier(0.22, 0.9, 0.3, 1) 120ms both;
-}
-
 /* responsive */
 @media (max-width: 900px) {
-  .hero-slide .overlay .subtitle {
-    font-size: 1.35rem;
-  }
-  .hero-slide .overlay .title {
-    font-size: clamp(2rem, 12vw, 4rem);
-  }
   .hero-slide .indicators {
-    bottom: 28px;
+    bottom: 20px;
     gap: 10px;
   }
   .hero-slide .dot {
@@ -167,80 +87,11 @@
   }
 }
 
-/* ===============================
-   BOTÓN PLAY / PAUSA HERO
-================================ */
-.hero-control {
-  position: absolute;
-  bottom: 100px;
-  left: 20px;
-
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  border: none;
-
-  background: rgba(0, 0, 0, 0.55);
-  color: #fff;
-  font-size: 20px;
-  cursor: pointer;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  z-index: 0;
-  backdrop-filter: blur(6px);
-  transition: background 0.25s, transform 0.2s;
+/* superposición de contenido sobre el hero */
+.contenido {
+  margin-top: -20px;
 }
 
-.hero-control:hover {
-  background: rgba(0, 0, 0, 0.75);
-  transform: scale(1.08);
-}
-
-.hero-control:focus {
-  outline: 2px solid #00000080;
-  outline-offset: 2px;
-}
-
-/* ocultarlo en mobile si quieres */
-@media (max-width: 768px) {
-  .hero-control {
-    bottom: 60px;
-    left: 12px;
-  }
-}
-
-@media (max-width: 480px) {
-  .hero-control {
-    bottom: 50px;
-    left: 12px;
-    width: 40px;
-    height: 40px;
-  }
-}
-
-/* capa que rebota encima de cada slide para incentivar a bajar el sitio web */
-.flow-invitation {
-  content: "";
-  position: fixed;
-  bottom: -40px;
-  left: 0;
-  width: 100%;
-  height: 60px;
-  background: #b1d6c2;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-  z-index: 3;
-  pointer-events: none;
-
-  /* -------------------------
-  Ciclo completo 30s, pero animación cartoon solo al inicio 
-  ----------------------------*/
-
-  animation: bounceResorte 30s ease-out infinite;
-}
 
 @keyframes bounceResorte {
   0% {
