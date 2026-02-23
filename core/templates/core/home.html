@@ -1,75 +1,45 @@
 {% extends 'core/base.html' %} {% load static %} {% block title %}Inicio -
 CEDHU{% endblock %} {% block content %}
 <div class="flow-invitation"></div>
-<!-- Hero estilo Harvard (sin header y sin flechas) -->
-<section class="hero-slide">
-  <!-- SLIDE 2 AGREGAR UNA IMAGEN POR CUESTIÓN DE SEO-->
-  <div class="slide active">
-    <img
-      src="{% static 'core/img/Banner-Cedhu-Destacado-1.jpg' %}"
-      alt="primer puesto prueba saber cedhu 2025"
-    />
-    <div class="overlay">
-      <h2 class="subtitle"><span></span></h2>
-      <h1 class="title"></h1>
+
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-track">
+
+    <!-- SLIDE 1 -->
+    <div class="hero-slide active" data-type="image">
+      <img src="{% static 'core/img/Banner-Cedhu-Destacado-1.jpg' %}" alt="Slide 1">
     </div>
-  </div>
 
-  <!-- SLIDE 1 CON VIDEO -->
-  <div class="slide">
-      <img
-      src="{% static 'core/img/Banner-Cedhu-Destacado-2.jpg' %}"
-      alt="primer puesto prueba saber cedhu 2025"
-    />
-    <div class="overlay">
-      {% comment %}
-      <h2 class="subtitle">
-        SER FELICES EN EL<span> PROCESO</span>DE <br /><b>ENSEÑAR Y APRENDER</b>
-      </h2>
-      {% endcomment %}
+    <!-- SLIDE 2 -->
+    <div class="hero-slide" data-type="image">
+      <img src="{% static 'core/img/Banner-Cedhu-Destacado-2.jpg' %}" alt="Slide 2">
     </div>
-  </div>
 
-  <!-- SLIDE 3 -->
-
-  <div class="slide">
-    <iframe
-      src="https://www.youtube.com/embed/CoQVq_HIpP4?autoplay=1&mute=1&loop=1&playlist=CoQVq_HIpP4&controls=0&rel=0&playsinline=1"
-      title="Video de presentación CEDHU"
-      loading="lazy"
-      referrerpolicy="strict-origin-when-cross-origin"
-      allow="autoplay; encrypted-media; picture-in-picture"
-      allowfullscreen
-    ></iframe>
-    <div class="overlay">
-      <h1 class="subtitle">
-        ELIGE TU <span>FUTURO,</span><br />ELIGE <strong>CEDHU</strong>
-      </h1>
+    <!-- SLIDE 3 (VIDEO YOUTUBE) -->
+    <div class="hero-slide" data-type="video">
+      <div class="video-wrapper">
+        <iframe
+          id="heroVideo"
+          src="https://www.youtube.com/embed/CoQVq_HIpP4?enablejsapi=1&controls=0&rel=0&modestbranding=1&playsinline=1"
+          referrerpolicy="strict-origin-when-cross-origin"
+          frameborder="0"
+          allow="autoplay; fullscreen"
+          allowfullscreen>
+        </iframe>
+        <div class="video-blocker"></div>
+      </div>
     </div>
+
   </div>
 
-  <!-- PUNTOS -->
-  <div class="indicators">
-    <span class="dot active"></span>
-    <span class="dot"></span>
-    <span class="dot"></span>
-  </div>
-
-  <button
-    class="hero-control"
-    id="heroToggle"
-    aria-label="Pausar animación"
-    aria-pressed="false"
-  >
-    ⏸
-  </button>
+  <!-- Flechas desktop -->
+  <button class="hero-arrow left">&#10094;</button>
+  <button class="hero-arrow right">&#10095;</button>
 </section>
 
 <div class="contenido">
-
-  <!-- ==========================
-     SECCIÓN NOTICIAS
-  ============================== -->
 
    <!-- ==========================
      SECCIÓN NOTICIAS
@@ -438,6 +408,7 @@ CEDHU{% endblock %} {% block content %}
 {% block extra_js %}
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="{% static 'core/js/home.js' %}?v=3"></script>
+<script src="https://www.youtube.com/iframe_api"></script>
 {% endblock %}
 
 {% endblock %}
