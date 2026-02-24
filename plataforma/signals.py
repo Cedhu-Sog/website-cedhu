@@ -7,19 +7,17 @@ from .models import Perfil
 @receiver(post_save, sender=User)
 def crear_perfil_usuario(sender, instance, created, **kwargs):
     """
-    Signal que crea automáticamente un Perfil cuando se crea un User.
-    Por defecto, el rol será PADRE.
+    Crea automáticamente un Perfil cuando se crea un User.
+    Si es superusuario o staff → rol ADMINISTRADOR (sin validación de Padre).
+    Si es usuario normal → rol PADRE.
     """
     if created:
-        # Solo crear perfil si no existe
         if not hasattr(instance, 'perfil'):
-            Perfil.objects.create(user=instance, rol='PADRE')
+            rol = 'ADMINISTRADOR' if (instance.is_superuser or instance.is_staff) else 'PADRE'
+            Perfil.objects.create(user=instance, rol=rol)
 
 
 @receiver(post_save, sender=User)
 def guardar_perfil_usuario(sender, instance, **kwargs):
-    """
-    Signal que guarda el perfil cuando se guarda el usuario.
-    """
     if hasattr(instance, 'perfil'):
         instance.perfil.save()
