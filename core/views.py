@@ -1,21 +1,24 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
-from .models import ContenidoInicio, GalleryImage, Noticia
+from .models import ContenidoInicio, GalleryImage, Noticia, Evento
 from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
+import datetime
+
 
 def home(request):
-    contenido = ContenidoInicio.objects.first()  # <- Aquí se añadió
+    contenido = ContenidoInicio.objects.first()
     gallery_images = contenido.gallery_images.all() if contenido else []
 
-    noticias_home = Noticia.objects.filter(activa=True).only('imagen', 'url_name', 'titulo')[:8]
+    noticias_home = Noticia.objects.filter(activa=True).only('imagen', 'url')[:12]
 
     return render(request, 'core/home.html', {
         'contenido': contenido,
         'gallery_images': gallery_images,
         'noticias_home': noticias_home,
     })
+
 
 def login_view(request):
     if request.method == 'POST':
@@ -29,39 +32,49 @@ def login_view(request):
             messages.error(request, 'Usuario o contraseña incorrectos')
     return render(request, 'core/login.html')
 
+
 def nosotros_view(request):
     return render(request, 'core/nosotros.html')
+
 
 def historia_view(request):
     return render(request, 'core/historia.html')
 
+
 def comunidad_view(request):
     return render(request, 'core/comunidad.html')
+
 
 def admisiones_view(request):
     return render(request, 'core/admisiones.html')
 
+
 def oferta_educativa_view(request):
     return render(request, 'core/oferta_educativa.html')
+
 
 def servicios_en_linea_view(request):
     return render(request, 'core/servicios_en_linea.html')
 
+
 def about(request):
     return render(request, 'core/about.html')
+
 
 def contact(request):
     return render(request, 'core/contact.html')
 
+
 def utiles_escolares_view(request):
     return render(request, 'core/utiles_escolares.html')
+
 
 def ludicas_view(request):
     return render(request, 'core/ludicas.html')
 
+
 def noticias(request):
     noticias = Noticia.objects.filter(activa=True)
-
     return render(request, 'core/noticias.html', {
         'noticias': noticias
     })
@@ -71,14 +84,18 @@ def logout_view(request):
     logout(request)
     return redirect('home')
 
+
 def panel_admin(request):
     return render(request, 'core/panel_admin.html')
+
 
 def toggle_user(request, user_id):
     return redirect('panel_admin')
 
+
 def delete_user(request, user_id):
     return redirect('panel_admin')
+
 
 def gestionar_inicio(request):
     contenido, _ = ContenidoInicio.objects.get_or_create(pk=1)
@@ -173,8 +190,7 @@ def gestionar_inicio(request):
     return render(request, 'core/gestionar_inicio.html', context)
 
 
-
-# servicios en linea 
+# servicios en linea
 
 @login_required
 def gestionar_eventos(request):
@@ -203,7 +219,7 @@ def gestionar_eventos(request):
                 portada=portada,
             )
             messages.success(request, 'Evento creado exitosamente.')
-        
+
         elif 'eliminar_evento' in request.POST:
             evento_id = request.POST.get('evento_id')
             try:
@@ -217,6 +233,7 @@ def gestionar_eventos(request):
 
     context = {'eventos': eventos}
     return render(request, 'core/gestionar_eventos.html', context)
+
 
 def detalle_evento(request, evento_id):
     try:
