@@ -43,163 +43,133 @@
  HERO SLIDER - AUTO Y CON VIDEOS SINCRONIZADOS 
 ============================================ */
 
-document.addEventListener("DOMContentLoaded", () => {
-  const heroSlides = Array.from(
-    document.querySelectorAll(".hero-slide .slide")
-  );
-  const heroDots = Array.from(document.querySelectorAll(".hero-slide .dot"));
-  const toggleBtn = document.getElementById("heroToggle");
 
-  let heroIndex = 0;
-  let autoplayTimer = null;
-  let isPaused = false;
+const track = document.querySelector('.hero-track');
+const slides = document.querySelectorAll('.hero-slide');
+const leftArrow = document.querySelector('.hero-arrow.left');
+const rightArrow = document.querySelector('.hero-arrow.right');
 
-  const AUTOPLAY_DELAY = 6000;
+let currentIndex = 0;
+let autoplayInterval;
+let player;
+let isPaused = false;
+let startX = 0;
+let isDragging = false;
+const imageDuration = 5000;
 
-  if (!heroSlides.length || !heroDots.length) return;
-
-  /* ==========================
-     AUTOPLAY
-  ========================== */
-
-  function stopAutoplay() {
-    clearTimeout(autoplayTimer);
-    autoplayTimer = null;
-  }
-
-  function startAutoplay() {
-    if (isPaused) return;
-
-    stopAutoplay();
-    autoplayTimer = setTimeout(() => {
-      nextHeroSlide();
-    }, AUTOPLAY_DELAY);
-  }
-
-  function nextHeroSlide() {
-    const next = (heroIndex + 1) % heroSlides.length;
-    showHeroSlide(next);
-  }
-
-  /* ==========================
-     SLIDES
-  ========================== */
-
-  function showHeroSlide(n) {
-    heroSlides.forEach((slide, i) => {
-      const overlay = slide.querySelector(".overlay");
-      const video = slide.querySelector("video");
-
-      slide.classList.toggle("active", i === n);
-      if (heroDots[i]) heroDots[i].classList.toggle("active", i === n);
-
-      if (i === n) {
-        if (overlay) {
-          overlay.classList.remove("animate");
-          void overlay.offsetWidth;
-          overlay.classList.add("animate");
-        }
-        if (video && !isPaused) {
-          video.currentTime = 0;
-          video.play().catch(() => {});
-        }
-      } else {
-        if (overlay) overlay.classList.remove("animate");
-        if (video) {
-          video.pause();
-          video.onended = null;
-        }
-      }
-    });
-
-    heroIndex = n;
-
-    const currentVideo = heroSlides[n].querySelector("video");
-
-    if (currentVideo && !isPaused) {
-      currentVideo.onended = () => nextHeroSlide();
-    } else {
-      startAutoplay();
+// ----------------
+// YOUTUBE API
+// ----------------
+function onYouTubeIframeAPIReady() {
+  player = new YT.Player('heroVideo', {
+    events: {
+      'onStateChange': onPlayerStateChange
     }
+  });
+}
+
+function onPlayerStateChange(event) {
+  if (event.data === YT.PlayerState.ENDED) {
+    goToSlide(0);
   }
+}
 
-  /* ==========================
-     BOTÓN PLAY / PAUSE
-  ========================== */
+// ----------------
+// SLIDE CONTROL
+// ----------------
+function updateSlidePosition() {
+  track.style.transform = `translateX(-${currentIndex * 100}%)`;
+}
 
-  toggleBtn.addEventListener("click", () => {
-    isPaused = !isPaused;
+function goToSlide(index) {
+  stopAutoplay();
+  currentIndex = index;
+  updateSlidePosition();
 
-    const video = heroSlides[heroIndex].querySelector("video");
-    if (video) isPaused ? video.pause() : video.play().catch(() => {});
+  const type = slides[currentIndex].dataset.type;
 
-    toggleBtn.textContent = isPaused ? "▶" : "⏸";
+  if (type === "video") {
+    player.playVideo();
+  } else {
+    if (player) player.pauseVideo();
+    startAutoplay();
+  }
+}
 
-    isPaused ? stopAutoplay() : startAutoplay();
-  });
+function nextSlide() {
+  currentIndex = (currentIndex + 1) % slides.length;
+  goToSlide(currentIndex);
+}
 
-  /* ==========================
-     DOTS
-  ========================== */
+function prevSlide() {
+  currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+  goToSlide(currentIndex);
+}
 
-  heroDots.forEach((dot, i) => {
-    dot.addEventListener("click", () => showHeroSlide(i));
-  });
+// ----------------
+// AUTOPLAY IMAGES
+// ----------------
+function startAutoplay() {
+  autoplayInterval = setInterval(() => {
+    nextSlide();
+  }, imageDuration);
+}
 
-  /* ==========================
-     VISIBILIDAD
-  ========================== */
+function stopAutoplay() {
+  clearInterval(autoplayInterval);
+}
 
-  document.addEventListener("visibilitychange", () => {
-    if (document.hidden) stopAutoplay();
-    else if (!isPaused) startAutoplay();
-  });
-
-  /* ==========================
-     INIT
-  ========================== */
-
-  showHeroSlide(0);
-});
-
-/* ==========================
-   CONTROL DE PAUSA / PLAY
-========================== */
-
-function pauseHero() {
+// ----------------
+// PAUSA AL MANTENER
+// ----------------
+function pauseAll() {
   isPaused = true;
   stopAutoplay();
-
-  const currentSlide = heroSlides[heroIndex];
-  const video = currentSlide.querySelector("video");
-
-  if (video) {
-    video.pause();
-  }
-
-  toggleBtn.textContent = "▶";
-  toggleBtn.setAttribute("aria-pressed", "true");
+  if (player) player.pauseVideo();
 }
 
-function playHero() {
+function resumeAll() {
+  if (!isPaused) return;
   isPaused = false;
 
-  const currentSlide = heroSlides[heroIndex];
-  const video = currentSlide.querySelector("video");
-
-  if (video) {
-    video.play().catch(() => {});
+  if (slides[currentIndex].dataset.type === "video") {
+    player.playVideo();
+  } else {
+    startAutoplay();
   }
-
-  toggleBtn.textContent = "⏸";
-  toggleBtn.setAttribute("aria-pressed", "false");
-
-  startAutoplay();
 }
 
-toggleBtn.addEventListener("click", () => {
-  isPaused ? playHero() : pauseHero();
+document.querySelector('.hero').addEventListener('mousedown', pauseAll);
+document.querySelector('.hero').addEventListener('mouseup', resumeAll);
+document.querySelector('.hero').addEventListener('touchstart', pauseAll);
+document.querySelector('.hero').addEventListener('touchend', resumeAll);
+
+// ----------------
+// FLECHAS
+// ----------------
+rightArrow.addEventListener('click', nextSlide);
+leftArrow.addEventListener('click', prevSlide);
+
+// ----------------
+// SWIPE MOBILE
+// ----------------
+document.querySelector('.hero').addEventListener('touchstart', e => {
+  startX = e.touches[0].clientX;
 });
+
+document.querySelector('.hero').addEventListener('touchend', e => {
+  let endX = e.changedTouches[0].clientX;
+  let diff = startX - endX;
+
+  if (Math.abs(diff) > 50) {
+    if (diff > 0) nextSlide();
+    else prevSlide();
+  }
+});
+
+// INICIAR
+startAutoplay();
+
 
 /* ============================================
    BOTONES DE SECCIONES INTERACTIVAS
@@ -336,4 +306,3 @@ function closeModal() {
   document.getElementById("imgModal").style.display = "none";
 }
 
-alert("JS cargado");
