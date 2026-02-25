@@ -17,7 +17,7 @@ DEBUG = os.environ.get("DEBUG", "True") == "True"
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(",")
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://website-cedhu-production.up.railway.app',
+    'https://website-cedhu.onrender.com',
     'https://www.cedhu.edu.co',
     'https://cedhu.edu.co',
 ]
