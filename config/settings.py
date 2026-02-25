@@ -4,19 +4,15 @@ from django.contrib.auth import get_user_model
 import os
 import dj_database_url
 
-load_dotenv()
-
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# ===============================
-# SEGURIDAD
-# ===============================
+# Carga las variables del archivo .env
+load_dotenv()
 
 SECRET_KEY = os.environ.get(
-    'SECRET_KEY'
+    'SECRET_KEY',
 )
 
-# En desarrollo siempre True
 DEBUG = os.environ.get("DEBUG", "True") == "True"
 
 ALLOWED_HOSTS = [
@@ -33,10 +29,6 @@ CSRF_TRUSTED_ORIGINS = [
     'https://cedhu.edu.co',
 ]
 
-# ===============================
-# APLICACIONES
-# ===============================
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -51,10 +43,6 @@ INSTALLED_APPS = [
     'estudiantes',
 ]
 
-# ===============================
-# MIDDLEWARE
-# ===============================
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
 
@@ -67,20 +55,15 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
     'django_browser_reload.middleware.BrowserReloadMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
 
-# ===============================
-# TEMPLATES
-# ===============================
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],  # opcional si usas carpeta global
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -122,10 +105,6 @@ else:
         }
     }
 
-# ===============================
-# VALIDADORES
-# ===============================
-
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
@@ -133,34 +112,20 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
-# ===============================
-# INTERNACIONALIZACIÓN
-# ===============================
-
 LANGUAGE_CODE = 'es'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# ===============================
-# ARCHIVOS ESTÁTICOS
-# ===============================
-
 STATIC_URL = '/static/'
 
-# En desarrollo
 STATICFILES_DIRS = [
     BASE_DIR / 'core' / 'static',
 ]
 
-# En producción
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-
-# ===============================
-# MEDIA
-# ===============================
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
@@ -169,7 +134,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # LOGIN
 # ===============================
 
-LOGIN_URL = '/login/'
+LOGIN_URL = '/plataforma/login/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 

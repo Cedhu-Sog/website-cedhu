@@ -19,10 +19,6 @@ from .services import (
 # ============================================
 
 def login_view(request):
-    """
-    Vista de login personalizada que redirige según el rol.
-    """
-    # Si ya está autenticado, redirigir a su dashboard
     if request.user.is_authenticated:
         return redirect('dashboard_redirect')
     
@@ -33,20 +29,16 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         
         if user is not None:
-            # Verificar que tenga perfil
             if not hasattr(user, 'perfil'):
                 messages.error(request, 'Tu cuenta no tiene un perfil asignado. Contacta al administrador.')
                 return render(request, 'plataforma/login.html')
             
-            # Verificar que el perfil esté activo
             if not user.perfil.activo:
                 messages.error(request, 'Tu cuenta está desactivada. Contacta al administrador.')
                 return render(request, 'plataforma/login.html')
             
-            # Login exitoso
             login(request, user)
             
-            # Registrar login en auditoría
             LogAccion.registrar(
                 usuario=user,
                 accion='Inicio de sesión exitoso',
@@ -56,13 +48,10 @@ def login_view(request):
             )
             
             messages.success(request, f'Bienvenido, {user.first_name or user.username}')
-            
-            # Redirigir según el rol
             return redirect('dashboard_redirect')
         else:
             messages.error(request, 'Usuario o contraseña incorrectos')
             
-            # Registrar intento fallido
             LogAccion.objects.create(
                 usuario=None,
                 accion=f'Intento de login fallido: {username}',
@@ -76,9 +65,7 @@ def login_view(request):
 
 
 def logout_view(request):
-    """Vista de logout"""
     if request.user.is_authenticated:
-        # Registrar logout
         LogAccion.registrar(
             usuario=request.user,
             accion='Cierre de sesión',
@@ -94,12 +81,9 @@ def logout_view(request):
 
 @login_required
 def dashboard_redirect(request):
-    """
-    Redirige al dashboard apropiado según el rol del usuario.
-    """
     if not hasattr(request.user, 'perfil'):
         messages.error(request, 'Tu cuenta no tiene un perfil asignado.')
-        return redirect('login')
+        return redirect('plataforma_login')  # ← CAMBIADO
     
     rol = request.user.perfil.rol
     
@@ -109,7 +93,7 @@ def dashboard_redirect(request):
         return redirect('dashboard_padre')
     else:
         messages.error(request, 'Rol no reconocido.')
-        return redirect('login')
+        return redirect('plataforma_login')  # ← CAMBIADO
 
 
 # ============================================
@@ -119,16 +103,10 @@ def dashboard_redirect(request):
 @rol_requerido('ADMINISTRADOR')
 @registrar_accion('VER', 'Accedió al dashboard de administrador', modulo='plataforma')
 def dashboard_admin(request):
-    """
-    Dashboard principal para administradores.
-    """
-    # Obtener estadísticas
     stats_usuarios = UsuarioService.obtener_estadisticas()
     modulos_activos = ModuloService.obtener_modulos_activos()
     parametros = ParametroService.obtener_todos()
     logs_recientes = AuditoriaService.obtener_logs_recientes(limite=10)
-    
-    # Obtener fecha de corte de lúdicas
     fecha_corte_ludicas = ParametroService.obtener_fecha_corte_ludicas()
     
     context = {
@@ -145,17 +123,9 @@ def dashboard_admin(request):
 @rol_requerido('PADRE')
 @registrar_accion('VER', 'Accedió al dashboard de padre', modulo='plataforma')
 def dashboard_padre(request):
-    """
-    Dashboard principal para padres.
-    """
-    # Obtener módulos disponibles para PADRE
     modulos_disponibles = ModuloService.obtener_modulos_por_rol('PADRE')
-    
-    # Obtener información del padre
     perfil = request.user.perfil
     padre = perfil.padre
-    
-    # Obtener estudiantes del padre
     estudiantes = []
     if padre:
         estudiantes = padre.estudiantes.all()
@@ -175,16 +145,11 @@ def dashboard_padre(request):
 
 @solo_administrador
 def gestionar_parametros(request):
-    """
-    Vista para gestionar parámetros globales del sistema.
-    """
     if request.method == 'POST':
-        # Actualizar fecha de corte de lúdicas
         if 'fecha_corte_ludicas' in request.POST:
             fecha = request.POST.get('fecha_corte_ludicas')
             try:
                 ParametroService.establecer_fecha_corte_ludicas(fecha)
-                
                 LogAccion.registrar(
                     usuario=request.user,
                     accion=f'Actualizó fecha de corte de lúdicas a: {fecha}',
@@ -192,22 +157,16 @@ def gestionar_parametros(request):
                     modulo='plataforma',
                     ip=get_client_ip(request)
                 )
-                
                 messages.success(request, 'Fecha de corte actualizada correctamente')
             except Exception as e:
                 messages.error(request, f'Error al actualizar fecha: {str(e)}')
         
-        # Actualizar otros parámetros
         elif 'nombre_parametro' in request.POST:
             nombre = request.POST.get('nombre_parametro')
             valor = request.POST.get('valor_parametro')
             descripcion = request.POST.get('descripcion_parametro', '')
-            
             try:
-                parametro, created = ParametroService.actualizar_parametro(
-                    nombre, valor, descripcion
-                )
-                
+                parametro, created = ParametroService.actualizar_parametro(nombre, valor, descripcion)
                 accion = 'Creó' if created else 'Actualizó'
                 LogAccion.registrar(
                     usuario=request.user,
@@ -217,7 +176,6 @@ def gestionar_parametros(request):
                     detalles=f'Valor: {valor}',
                     ip=get_client_ip(request)
                 )
-                
                 messages.success(request, f'Parámetro {nombre} guardado correctamente')
             except Exception as e:
                 messages.error(request, f'Error al guardar parámetro: {str(e)}')
@@ -237,13 +195,11 @@ def gestionar_parametros(request):
 
 @solo_administrador
 def eliminar_parametro(request, parametro_id):
-    """Elimina un parámetro global"""
     if request.method == 'POST':
         try:
             parametro = get_object_or_404(ParametroGlobal, id=parametro_id)
             nombre = parametro.nombre
             parametro.delete()
-            
             LogAccion.registrar(
                 usuario=request.user,
                 accion=f'Eliminó parámetro: {nombre}',
@@ -251,7 +207,6 @@ def eliminar_parametro(request, parametro_id):
                 modulo='plataforma',
                 ip=get_client_ip(request)
             )
-            
             messages.success(request, f'Parámetro {nombre} eliminado')
         except Exception as e:
             messages.error(request, f'Error al eliminar parámetro: {str(e)}')
@@ -265,21 +220,15 @@ def eliminar_parametro(request, parametro_id):
 
 @solo_administrador
 def gestionar_modulos(request):
-    """
-    Vista para gestionar módulos del sistema.
-    """
     if request.method == 'POST':
         modulo_id = request.POST.get('modulo_id')
         accion = request.POST.get('accion')
-        
         try:
             modulo = get_object_or_404(Modulo, id=modulo_id)
-            
             if accion == 'activar':
                 modulo.activo = True
                 modulo.save()
                 messages.success(request, f'Módulo {modulo.nombre} activado')
-                
                 LogAccion.registrar(
                     usuario=request.user,
                     accion=f'Activó módulo: {modulo.nombre}',
@@ -287,12 +236,10 @@ def gestionar_modulos(request):
                     modulo='plataforma',
                     ip=get_client_ip(request)
                 )
-            
             elif accion == 'desactivar':
                 modulo.activo = False
                 modulo.save()
                 messages.success(request, f'Módulo {modulo.nombre} desactivado')
-                
                 LogAccion.registrar(
                     usuario=request.user,
                     accion=f'Desactivó módulo: {modulo.nombre}',
@@ -300,18 +247,13 @@ def gestionar_modulos(request):
                     modulo='plataforma',
                     ip=get_client_ip(request)
                 )
-        
         except Exception as e:
             messages.error(request, f'Error al gestionar módulo: {str(e)}')
         
         return redirect('gestionar_modulos')
     
     modulos = Modulo.objects.all().order_by('orden')
-    
-    context = {
-        'modulos': modulos,
-    }
-    
+    context = {'modulos': modulos}
     return render(request, 'plataforma/gestionar_modulos.html', context)
 
 
@@ -321,33 +263,24 @@ def gestionar_modulos(request):
 
 @solo_administrador
 def gestionar_usuarios(request):
-    """
-    Vista para gestionar usuarios del sistema.
-    """
     usuarios = User.objects.select_related('perfil').all()
     stats = UsuarioService.obtener_estadisticas()
-    
     context = {
         'usuarios': usuarios,
         'stats': stats,
     }
-    
     return render(request, 'plataforma/gestionar_usuarios.html', context)
 
 
 @solo_administrador
 def toggle_usuario(request, user_id):
-    """Activa o desactiva un usuario"""
     if request.method == 'POST':
         try:
             user = get_object_or_404(User, id=user_id)
             perfil = user.perfil
-            
             perfil.activo = not perfil.activo
             perfil.save()
-            
             estado = 'activado' if perfil.activo else 'desactivado'
-            
             LogAccion.registrar(
                 usuario=request.user,
                 accion=f'Usuario {user.username} {estado}',
@@ -355,7 +288,6 @@ def toggle_usuario(request, user_id):
                 modulo='plataforma',
                 ip=get_client_ip(request)
             )
-            
             messages.success(request, f'Usuario {user.username} {estado}')
         except Exception as e:
             messages.error(request, f'Error al cambiar estado: {str(e)}')
@@ -365,19 +297,14 @@ def toggle_usuario(request, user_id):
 
 @solo_administrador
 def eliminar_usuario(request, user_id):
-    """Elimina un usuario del sistema"""
     if request.method == 'POST':
         try:
             user = get_object_or_404(User, id=user_id)
             username = user.username
-            
-            # No permitir eliminar al usuario actual
             if user == request.user:
                 messages.error(request, 'No puedes eliminar tu propia cuenta')
                 return redirect('gestionar_usuarios')
-            
             user.delete()
-            
             LogAccion.registrar(
                 usuario=request.user,
                 accion=f'Eliminó usuario: {username}',
@@ -385,7 +312,6 @@ def eliminar_usuario(request, user_id):
                 modulo='plataforma',
                 ip=get_client_ip(request)
             )
-            
             messages.success(request, f'Usuario {username} eliminado')
         except Exception as e:
             messages.error(request, f'Error al eliminar usuario: {str(e)}')
@@ -399,10 +325,6 @@ def eliminar_usuario(request, user_id):
 
 @solo_administrador
 def ver_auditoria(request):
-    """
-    Vista para ver logs de auditoría.
-    """
-    # Filtros
     tipo_filtro = request.GET.get('tipo', '')
     usuario_filtro = request.GET.get('usuario', '')
     limite = int(request.GET.get('limite', 50))
@@ -411,13 +333,10 @@ def ver_auditoria(request):
     
     if tipo_filtro:
         logs = logs.filter(tipo_accion=tipo_filtro)
-    
     if usuario_filtro:
         logs = logs.filter(usuario__username__icontains=usuario_filtro)
     
     logs = logs[:limite]
-    
-    # Estadísticas
     stats = AuditoriaService.estadisticas_actividad()
     
     context = {

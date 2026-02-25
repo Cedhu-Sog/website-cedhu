@@ -1,4 +1,6 @@
+
 from django.urls import path
+from django.views.generic import RedirectView
 from . import views
 from .views import home, noticias
 
@@ -6,8 +8,7 @@ from .views import home, noticias
 urlpatterns = [
     path('', views.home, name='home'),
 
-    path('login/', views.login_view, name='login'),
-    path('logout/', views.logout_view, name='logout'),
+    path('login/', RedirectView.as_view(pattern_name='plataforma_login'), name='login'),
 
     path('nosotros/', views.nosotros_view, name='nosotros'),
     path('historia/', views.historia_view, name='historia'),
@@ -29,7 +30,3 @@ urlpatterns = [
     path('panel/delete-user/<int:user_id>/', views.delete_user, name='delete_user'),
     path('panel/gestionar-inicio/', views.gestionar_inicio, name='gestionar_inicio'),
 ]
-
-
-
-
