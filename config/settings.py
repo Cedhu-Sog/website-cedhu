@@ -1,21 +1,33 @@
 from pathlib import Path
+from dotenv import load_dotenv
+from django.contrib.auth import get_user_model
 import os
 import dj_database_url
-from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Carga las variables del archivo .env
-load_dotenv(BASE_DIR / '.env')
+load_dotenv()
 
 SECRET_KEY = os.environ.get(
     'SECRET_KEY',
-    'django-insecure-clave-temporal-para-desarrollo'
 )
 
-DEBUG = True
+DEBUG = os.environ.get("DEBUG", "True") == "True"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'www.cedhu.edu.co',
+    'cedhu.edu.co',
+    'website-cedhu.onrender.com',
+    '127.0.0.1',
+    'localhost'
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://website-cedhu-production.up.railway.app',
+    'https://www.cedhu.edu.co',
+    'https://cedhu.edu.co',
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -24,9 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'django_browser_reload',
-
     'core',
     'plataforma',
     'padres',
@@ -35,6 +45,10 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+
+    # WhiteNoise solo necesario en producción
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -111,6 +125,8 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
@@ -121,3 +137,15 @@ MEDIA_ROOT = BASE_DIR / 'media'
 LOGIN_URL = '/plataforma/login/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+if os.environ.get("RENDER") == "true":
+    try:
+        User = get_user_model()
+        if not User.objects.filter(username=os.environ.get("DJANGO_SUPERUSER_USERNAME")).exists():
+            User.objects.create_superuser(
+                os.environ.get("DJANGO_SUPERUSER_USERNAME"),
+                os.environ.get("DJANGO_SUPERUSER_EMAIL"),
+                os.environ.get("DJANGO_SUPERUSER_PASSWORD")
+            )
+    except Exception as e:
+        print(f"Error creating superuser: {e}")
