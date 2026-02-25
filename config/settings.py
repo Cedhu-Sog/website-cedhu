@@ -1,6 +1,5 @@
 from pathlib import Path
 from dotenv import load_dotenv
-from django.contrib.auth import get_user_model
 import os
 import dj_database_url
 
