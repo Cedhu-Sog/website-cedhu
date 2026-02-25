@@ -25,4 +25,7 @@ urlpatterns = [
     
     # Auditoría
     path('auditoria/', views.ver_auditoria, name='ver_auditoria'),
+
+    # Ludicas
+    path('ludicas/', views.ludicas, name='ludicas')
 ]

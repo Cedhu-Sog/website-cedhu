@@ -1,0 +1,184 @@
+{% extends 'plataforma/base_plataforma.html' %}
+
+{% block title %}Gestionar Parámetros - CEDHU{% endblock %}
+
+{% block page_title %}Formulario de inscripción de Ludicas {% endblock %}
+{% block page_subtitle %}Llena el formulario para inscripción de ludicas{% endblock %}
+
+{% block content %}
+
+<style>
+  body {
+    font-family: 'Roboto', Arial, sans-serif;
+    background: #f4f7fa;
+    padding: 20px;
+  }
+
+  form {
+    background: #ffffff;
+    padding: 30px 35px;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 25px;
+    font-weight: 500;
+  }
+
+  label {
+    display: block;
+    margin-top: 15px;
+    font-weight: 500;
+    color: #555;
+  }
+
+  input, select {
+    margin-top: 5px;
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: all 0.2s;
+  }
+
+  input:focus, select:focus {
+    outline: none;
+    border-color: #5c9ded;
+    box-shadow: 0 0 8px rgba(92, 157, 237, 0.3);
+  }
+
+  button {
+    margin-top: 25px;
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background: #5c9ded;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  button:hover {
+    background: #4a8ad4;
+  }
+
+  .hidden { display: none; }
+
+  input[type="file"] {
+    padding: 5px;
+  }
+
+  @media(max-width: 640px){
+    form {
+      padding: 20px;
+    }
+    input, select {
+      font-size: 13px;
+    }
+    button {
+      font-size: 15px;
+    }
+  }
+</style>
+
+<form id="formLudicas">
+
+  <h1>Inscripción Lúdicas</h1>
+
+  <label>Tipo de inscripción *</label>
+  <select id="tipoInscripcion" required>
+    <option value="">--Seleccione--</option>
+    <option value="1">Inscripción Lúdicas Prejardín - Jardín y Transición 2026</option>
+    <option value="2">Inscripción Lúdicas 1° y 2° 2026</option>
+    <option value="3">Inscripción Lúdicas 3°, 4° y 5° 2026</option>
+    <option value="4">Inscripción Lúdicas Bachillerato 2026</option>
+  </select>
+
+  <div id="camposDinamicos" class="hidden">
+    
+    <label>Nombre educando *</label>
+    <input type="text" name="nombreEducando" required>
+
+    <label>Grado *</label>
+    <select id="grado" name="grado" required></select>
+
+    <label>Elige lúdica *</label>
+    <select id="ludica" name="ludica" required></select>
+
+    <label>Talla Camiseta *</label>
+    <input type="text" name="talla" placeholder="Ej: S, M, L, XL" required>
+
+    <label>Recomendaciones médicas</label>
+    <input type="file" name="recomendaciones" accept=".pdf,.doc,.docx,.jpg,.png">
+
+    <label>Teléfono de contacto *</label>
+    <input type="tel" name="telefono" placeholder="Ej: 3001234567" required>
+
+    <label>Autoriza (Nombre Padres y/o Acudientes) *</label>
+    <input type="text" name="autoriza" required>
+
+  </div>
+
+  <button type="submit">Enviar Inscripción</button>
+
+</form>
+
+<script>
+const tipoInscripcion = document.getElementById('tipoInscripcion');
+const camposDinamicos = document.getElementById('camposDinamicos');
+const grado = document.getElementById('grado');
+const ludica = document.getElementById('ludica');
+
+const opciones = {
+  1: {
+    grados: ['Prejardín', 'Jardín', 'Transición'],
+    ludicas: ['Patinaje', 'Gimnasia', 'Taekwondo', 'Fútbol', 'Danzas', 'Karate-do', 'Futuros Científicos', 'Natación']
+  },
+  2: {
+    grados: ['Primero', 'Segundo'],
+    ludicas: ['Artes', 'Natación', 'Danzas', 'Música', 'Fútbol', 'Gimnasia', 'Taekwondo', 'Patinaje', 'Karate-do', 'Futuros Científicos', 'Ajedrez']
+  },
+  3: {
+    grados: ['Tercero', 'Cuarto', 'Quinto'],
+    ludicas: ['Natación', 'Artes', 'Danzas', 'Música', 'Fútbol', 'Gimnasia', 'Taekwondo', 'Patinaje', 'Karate-do', 'Futuros Científicos', 'Mini Baloncesto', 'Tenis de Campo', 'Tenis de Mesa', 'Ultimate Frisbee', 'Mini Voleibol', 'Ajedrez', 'Judo']
+  },
+  4: {
+    grados: ['Sexto', 'Séptimo', 'Octavo', 'Noveno',],
+    ludicas: ['Artes', 'Natación', 'Danzas', 'Música', 'Fútbol', 'Gimnasia', 'Taekwondo', 'Patinaje', 'Karate-do', 'Tenis de Campo', 'Tenis de Mesa', 'Ultimate Frisbee', 'Voleibol', 'Baloncesto', 'Ajedrez', 'Judo', 'Boxeo']
+  }
+};
+
+tipoInscripcion.addEventListener('change', () => {
+  const valor = tipoInscripcion.value;
+  if(valor) {
+    camposDinamicos.classList.remove('hidden');
+    grado.innerHTML = '<option value="">--Seleccione--</option>';
+    ludica.innerHTML = '<option value="">--Seleccione--</option>';
+    opciones[valor].grados.forEach(g => {
+      const opt = document.createElement('option');
+      opt.value = g;
+      opt.textContent = g;
+      grado.appendChild(opt);
+    });
+    opciones[valor].ludicas.forEach(l => {
+      const opt = document.createElement('option');
+      opt.value = l;
+      opt.textContent = l;
+      ludica.appendChild(opt);
+    });
+  } else {
+    camposDinamicos.classList.add('hidden');
+  }
+});
+</script>
+
+{% endblock %}

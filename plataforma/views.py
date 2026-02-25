@@ -307,13 +307,18 @@ def gestionar_modulos(request):
         return redirect('gestionar_modulos')
     
     modulos = Modulo.objects.all().order_by('orden')
-    
+
+    for modulo in modulos:
+        if modulo.roles_permitidos:
+            modulo.roles_lista = modulo.roles_permitidos.split(',')
+        else:
+            modulo.roles_lista = []
+
     context = {
         'modulos': modulos,
     }
     
     return render(request, 'plataforma/gestionar_modulos.html', context)
-
 
 # ============================================
 # GESTIÓN DE USUARIOS
@@ -430,3 +435,12 @@ def ver_auditoria(request):
     }
     
     return render(request, 'plataforma/ver_auditoria.html', context)
+
+# ============================================
+# Ludicas
+# ============================================
+
+from django.shortcuts import render
+
+def ludicas(request):
+    return render(request, 'plataforma/Ludicas.html')

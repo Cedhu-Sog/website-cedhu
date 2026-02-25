@@ -113,15 +113,15 @@ if DATABASE_URL:
 else:
     # Usa configuración local (pgAdmin)
     DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': os.getenv('DB_NAME'),
-            'USER': os.getenv('DB_USER'),
-            'PASSWORD': os.getenv('DB_PASSWORD'),
-            'HOST': os.getenv('DB_HOST'),
-            'PORT': os.getenv('DB_PORT'),
-        }
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'cedhu_db',
+        'USER': 'cedhu_user',
+        'PASSWORD': 'cotamo321',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
     }
+}
 
 # ===============================
 # VALIDADORES
