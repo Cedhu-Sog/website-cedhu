@@ -11,6 +11,7 @@
   height: calc(100vh - var(--navbar-height));
   margin-top: 0;
   overflow: hidden;
+  z-index: 1;
 }
 
 .hero-track {

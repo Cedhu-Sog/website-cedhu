@@ -111,6 +111,7 @@ button, .btn {
   background: #e8f7ef;
   padding: 40px 0px 60px;    /* espacio para el SVG */
   overflow: hidden;
+  margin-top: -20px;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   z-index: 9;
