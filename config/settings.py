@@ -20,8 +20,9 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
-
+    'cloudinary_storage',
+    'django.contrib.staticfiles',  # ← ANTES de staticfiles
+    'cloudinary',
     'django_browser_reload',
 
     'core',
@@ -118,3 +119,11 @@ MEDIA_ROOT = BASE_DIR / 'media'
 LOGIN_URL = '/plataforma/login/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': os.environ.get('dqodle8mg'),
+    'API_KEY': os.environ.get('946859269553534'),
+    'API_SECRET': os.environ.get('nszYgYoUZdkZ5LxpGUQCqMHoJLM'),
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
