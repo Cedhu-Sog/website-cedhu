@@ -1,4 +1,5 @@
 from django.db import models
+from cloudinary.models import CloudinaryField
 
 
 class ContenidoInicio(models.Model):
@@ -6,8 +7,8 @@ class ContenidoInicio(models.Model):
     url_manual = models.URLField(blank=True)
     texto_direccion = models.TextField(blank=True)
     iframe_mapa = models.TextField(blank=True)
-    logo = models.ImageField(upload_to='logos/', blank=True, null=True)
-    imagen_manual = models.ImageField(upload_to='manuales/', blank=True, null=True)
+    logo = CloudinaryField('image', folder='logos', blank=True, null=True)
+    imagen_manual = CloudinaryField('image', folder='manuales', blank=True, null=True)
 
 
 class GalleryImage(models.Model):
@@ -16,7 +17,7 @@ class GalleryImage(models.Model):
         related_name='gallery_images',
         on_delete=models.CASCADE
     )
-    image = models.ImageField(upload_to='gallery/')
+    image = CloudinaryField('image', folder='gallery')
     descripcion = models.TextField(blank=True)
     orden = models.PositiveIntegerField()
 
@@ -29,7 +30,16 @@ class Evento(models.Model):
     descripcion = models.TextField(blank=True, null=True)
     fecha = models.DateField()
     hora = models.TimeField()
-    portada = models.ImageField(upload_to='eventos/')
+    portada = CloudinaryField(
+        'image',
+        folder='eventos',
+        transformation={
+            'width': 800, 'height': 1000,  # proporción 4:5
+            'crop': 'fill',
+            'quality': 'auto',
+            'fetch_format': 'auto',
+        }
+    )
 
     def __str__(self):
         return self.nombre
@@ -40,7 +50,16 @@ class Evento(models.Model):
 
 
 class Noticia(models.Model):
-    imagen = models.ImageField(upload_to='noticias/')
+    imagen = CloudinaryField(
+        'image',
+        folder='noticias',
+        transformation={
+            'height': 1000,
+    'crop': 'limit',
+    'quality': 'auto:good',
+    'fetch_format': 'auto',
+        }
+    )
     url = models.URLField(
         blank=True,
         null=True,

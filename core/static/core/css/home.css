@@ -90,7 +90,7 @@
   bottom: 36px;
   left: 50%;
   transform: translateX(-50%);
-  display: flex; /*Cambiar de none a flex para mostrarlos*/
+  display: flex;
   gap: 14px;
   z-index: 0;
 }
@@ -202,7 +202,6 @@
   outline-offset: 2px;
 }
 
-/* ocultarlo en mobile si quieres */
 @media (max-width: 768px) {
   .hero-control {
     bottom: 60px;
@@ -232,11 +231,6 @@
   border-top-right-radius: 20px;
   z-index: 3;
   pointer-events: none;
-
-  /* -------------------------
-  Ciclo completo 30s, pero animación cartoon solo al inicio 
-  ----------------------------*/
-
   animation: bounceResorte 30s ease-out infinite;
 }
 
@@ -244,27 +238,18 @@
   0% {
     transform: translateY(30px);
   }
-
-  /* Estiramiento abrupto (salto fuerte) */
   0.5% {
     transform: translateY(-5px);
   }
-
-  /* Compresión fuerte (caída brusca) */
   1% {
     transform: translateY(5px);
   }
-
-  /* 1er rebote pequeño */
   1.5% {
     transform: translateY(-5px);
   }
-
   6% {
     transform: translateY(30px);
   }
-
-  /* Descanso largo hasta que pasen los 30s */
   100% {
     transform: translateY(30px);
   }
@@ -284,8 +269,8 @@
   font-size: 1.3em;
   max-width: 1200px;
   margin: 0 auto 2rem;
-  line-height: 1.8; /* interlineado */
-  letter-spacing: 0.03em; /* espaciado entre letras */
+  line-height: 1.8;
+  letter-spacing: 0.03em;
 }
 
 .bienvenida-link {
@@ -320,7 +305,6 @@
   overflow: hidden;
 }
 
-/* Encabezado */
 .niveles-educativos h2 {
   font-size: 2rem;
   margin-bottom: 10px;
@@ -337,7 +321,6 @@
   color: #f9f9f9;
 }
 
-/* Contenedor principal */
 .niveles-container {
   display: flex;
   justify-content: center;
@@ -346,7 +329,6 @@
   align-items: flex-start;
 }
 
-/* Tarjeta de nivel */
 .nivel-card {
   background: rgba(255, 255, 255, 0.15);
   border-radius: 15px;
@@ -364,7 +346,6 @@
   background: rgba(255, 255, 255, 0.25);
 }
 
-/* Imagen y título */
 .nivel-content img {
   width: 100%;
   height: 220px;
@@ -387,7 +368,6 @@
   letter-spacing: 1px;
 }
 
-/* Información oculta */
 .nivel-info {
   max-height: 0;
   opacity: 0.01;
@@ -404,14 +384,12 @@
   margin: 15px 0;
 }
 
-/* Información visible */
 .nivel-info.show {
   max-height: 220px;
   opacity: 1;
   padding: 15px;
 }
 
-/* Efecto expansión */
 .nivel-card.expanded {
   transform: translateY(-5px) scale(1.03);
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
@@ -430,7 +408,6 @@
   position: relative;
 }
 
-/* Título */
 .educacion-humanista h2 {
   font-size: 2rem;
   margin-bottom: 1.2em;
@@ -439,7 +416,6 @@
   text-align: center;
 }
 
-/* Texto descriptivo */
 .educacion-humanista p {
   max-width: 700px;
   margin: 0 auto 50px;
@@ -448,7 +424,6 @@
   line-height: 1.6;
 }
 
-/* Contenedor de tarjetas */
 .features-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -456,7 +431,6 @@
   justify-items: center;
 }
 
-/* Tarjeta */
 .feature-card {
   background: #fff;
   border-radius: 20px;
@@ -468,7 +442,6 @@
   overflow: hidden;
 }
 
-/* Línea roja superior en hover */
 .feature-card::before {
   content: "";
   position: absolute;
@@ -484,7 +457,6 @@
   width: 100%;
 }
 
-/* Imagen */
 .feature-card img {
   width: 100%;
   height: 200px;
@@ -495,7 +467,6 @@
   transition: transform 0.3s ease;
 }
 
-/* Título de tarjeta */
 .feature-card h3 {
   font-size: 1.35rem;
   margin-bottom: 12px;
@@ -504,14 +475,12 @@
   letter-spacing: -0.5px;
 }
 
-/* Texto de tarjeta */
 .feature-card p {
   font-size: 1rem;
   color: #000;
   line-height: 1.55;
 }
 
-/* Hover */
 .feature-card:hover {
   transform: translateY(-10px);
   box-shadow: 0 15px 32px rgba(0, 0, 0, 0.15);
@@ -522,7 +491,6 @@
   transform: scale(1.08);
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .educacion-humanista {
     padding: 40px 16px;
@@ -614,7 +582,6 @@
   line-height: 1.6;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .faq {
     padding: 50px 16px;
@@ -633,100 +600,6 @@
 }
 
 /* ===============================
-   CTA INSTITUCIONAL - CEDHU
-================================ */
-
-.cta-institucional {
-  background-color: #f4fbf7; /* verde muy suave institucional */
-  padding: 4rem 1.5rem;
-  display: flex;
-  justify-content: center;
-}
-
-.cta-contenido {
-  max-width: 900px;
-  text-align: center;
-  padding: 3rem 2rem;
-  background-color: #ffffff;
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-}
-
-/* Título */
-.cta-contenido h2 {
-  font-weight: 700;
-  color: #1f3d2b; /* verde oscuro elegante */
-  margin-bottom: 1rem;
-}
-
-/* Texto */
-.cta-contenido p {
-  font-size: 1.05rem;
-  line-height: 1.6;
-  margin-bottom: 2.5rem;
-}
-
-/* Contenedor de botones */
-.cta-botones {
-  display: flex;
-  justify-content: center;
-  gap: 1.5rem;
-  flex-wrap: wrap;
-}
-
-/* Botones base */
-.btn-cta {
-  padding: 0.9rem 2rem;
-  font-size: 0.95rem;
-  font-weight: 600;
-  border-radius: 999px;
-  text-decoration: none;
-  transition: all 0.25s ease;
-  letter-spacing: 0.4px;
-}
-
-/* Botón principal */
-.btn-cta.principal {
-  background-color: #10b65c; /* verde institucional */
-  color: #ffffff;
-  box-shadow: 0 6px 16px rgba(16, 182, 92, 0.3);
-}
-
-.btn-cta.principal:hover {
-  background-color: #0e9f51;
-  transform: translateY(-2px);
-}
-
-/* Botón secundario */
-.btn-cta.secundario {
-  background-color: transparent;
-  color: #1f3d2b;
-  border: 2px solid #cfe8db;
-}
-
-.btn-cta.secundario:hover {
-  background-color: #e8f7ef;
-  border-color: #10b65c;
-}
-
-/* ===============================
-   RESPONSIVE
-================================ */
-
-@media (max-width: 768px) {
-  .cta-contenido {
-    padding: 2.5rem 1.5rem;
-  }
-
-  .cta-contenido h2 {
-    font-size: 1.6rem;
-  }
-
-  .cta-contenido p {
-    font-size: 1rem;
-  }
-}
-/* ===============================
    CTA INSTITUCIONAL – BLOQUE DESTACADO
 ================================ */
 
@@ -737,7 +610,6 @@
   overflow: hidden;
 }
 
-/* Elemento decorativo sutil */
 .cta-institucional::before {
   content: "";
   position: absolute;
@@ -748,7 +620,6 @@
   border-radius: 50%;
 }
 
-/* Contenido */
 .cta-contenido {
   position: relative;
   max-width: 900px;
@@ -757,7 +628,6 @@
   color: #ffffff;
 }
 
-/* Título */
 .cta-contenido h2 {
   font-size: 2.2rem;
   font-weight: 700;
@@ -765,7 +635,6 @@
   letter-spacing: 0.5px;
 }
 
-/* Texto */
 .cta-contenido p {
   font-size: 1.1rem;
   line-height: 1.6;
@@ -774,7 +643,6 @@
   opacity: 0.95;
 }
 
-/* Botones */
 .cta-botones {
   display: flex;
   justify-content: center;
@@ -782,7 +650,6 @@
   flex-wrap: wrap;
 }
 
-/* Botón base */
 .btn-cta {
   padding: 1rem 2.2rem;
   font-size: 0.95rem;
@@ -792,7 +659,6 @@
   transition: all 0.25s ease;
 }
 
-/* Principal */
 .btn-cta.principal {
   background-color: #ffffff;
   color: #0e9f51;
@@ -804,11 +670,9 @@
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
 }
 
-/* Secundario */
 .btn-cta.secundario {
   border: 2px solid rgba(255, 255, 255, 0.8);
   color: #ffffff;
-  
   background: transparent;
 }
 
@@ -816,15 +680,10 @@
   background-color: rgba(255, 255, 255, 0.15);
 }
 
-/* ===============================
-   RESPONSIVE
-================================ */
-
 @media (max-width: 768px) {
   .cta-contenido h2 {
     font-size: 1.7rem;
   }
-
   .cta-contenido p {
     font-size: 1rem;
   }
@@ -847,21 +706,18 @@
   color: #1f2933;
 }
 
-/* Wrapper del carrusel */
 .news-carousel-wrapper {
   overflow-x: auto;
   overflow-y: hidden;
   padding-bottom: 1rem;
 }
 
-/* Carrusel horizontal */
 .news-carousel {
   display: flex;
   gap: 1.5rem;
   scroll-behavior: smooth;
 }
 
-/* Ocultar scrollbar (Chrome, Edge, Safari) */
 .news-carousel-wrapper::-webkit-scrollbar {
   height: 8px;
 }
@@ -871,58 +727,9 @@
   border-radius: 10px;
 }
 
-/* Firefox */
 .news-carousel-wrapper {
   scrollbar-width: thin;
   scrollbar-color: #cfd8e3 transparent;
-}
-
-/* ==========================
-   TARJETAS DE NOTICIAS
-========================== */
-
-.news-card {
-  min-width: 280px;
-  max-width: 280px;
-  background: #ffffff;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-}
-
-.news-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.15);
-}
-
-/* Imagen */
-.news-card img {
-  width: 100%;
-  aspect-ratio: 4 / 5;
-  object-fit: cover;
-  display: block;
-}
-
-/* Contenido */
-.news-card .content {
-  padding: 1rem;
-}
-
-.news-card h3 {
-  font-size: 1.1rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-  color: #111827;
-}
-
-.news-card p {
-  font-size: 0.9rem;
-  color: #4b5563;
-  line-height: 1.4;
 }
 
 /* ==========================
@@ -951,7 +758,6 @@
   transform: translateY(-6px) scale(1.03);
 }
 
-
 /* -------- MODAL -------- */
 
 .modal {
@@ -962,14 +768,16 @@
   top: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.85);
+  background: rgba(0, 0, 0, 0.85);
   justify-content: center;
   align-items: center;
 }
 
 .modal-content {
-  max-width: 90%;
-  max-height: 90%;
+  max-width: 90vw;
+  max-height: 90vh;
+  width: auto;
+  height: auto;
   object-fit: contain;
   border-radius: 12px;
 }
@@ -983,7 +791,6 @@
   font-weight: bold;
   cursor: pointer;
 }
-
 
 /* =====================================
    UBICACIÓN
@@ -1001,8 +808,8 @@
 }
 .container-ubicación {
   display: grid;
-  grid-template-columns: 1fr 1fr; /* 50% y 50% */
-  gap: 0; /* SIN gutter */
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
   overflow: hidden;
   border-radius: var(--radius-xl);
 }
@@ -1016,22 +823,19 @@
   width: 100%;
   height: 100%;
   border: 0;
-  display: block; /* elimina espacios fantasmas */
+  display: block;
 }
 
-/* --- BLOQUEO STREET VIEW HASTA CLICK --- */
 .streetview {
   position: relative;
   overflow: hidden;
-  touch-action: pan-y; /* permite scroll vertical */
+  touch-action: pan-y;
 }
 
-/* Bloquea interacción */
 .streetview iframe {
   pointer-events: none;
 }
 
-/* Overlay siempre presente pero invisible */
 .map-overlay {
   position: absolute;
   inset: 0;
@@ -1043,7 +847,6 @@
   z-index: 2;
 }
 
-/* El texto NO visible por defecto */
 .map-overlay span {
   opacity: 0.01;
   transform: translateY(6px);
@@ -1059,26 +862,17 @@
   content: attr(data-desktop);
 }
 
-/* En móvil */
 @media (hover: none) and (pointer: coarse) {
   .map-overlay span::before {
     content: attr(data-mobile);
   }
 }
 
-
-/* Mostrar texto solo al pasar el puntero */
 .streetview:hover .map-overlay span {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* Bloqueo de interacción */
-.streetview iframe {
-  pointer-events: none;
-}
-
-/* Activado */
 .streetview.active iframe {
   pointer-events: auto;
 }
@@ -1088,7 +882,6 @@
   pointer-events: none;
 }
 
-
 /* =====================================
    ESPACIO ENTRE SECCIONES
 ===================================== */
@@ -1096,9 +889,8 @@ section:not(:last-of-type) {
   margin-bottom: 60px;
 }
 
-
 /* ===============================
-   NOTICIAS TEMPORAL
+   NOTICIAS TEMPORAL ← FIX APLICADO
 ================================ */
 
 .news-section {
@@ -1106,6 +898,14 @@ section:not(:last-of-type) {
   padding-bottom: 0;
   max-width: 1200px;
   margin: auto;
+}
+
+.news-section h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  color: #1f2933;
 }
 
 .news-grid {
@@ -1116,30 +916,34 @@ section:not(:last-of-type) {
 }
 
 .news-grid:has(.news-card:nth-child(1):last-child) {
-  grid-template-columns: 1fr;
+  grid-template-columns: 280px;
+  justify-content: center;
 }
 
 .news-grid:has(.news-card:nth-child(2):last-child) {
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, 280px);
+  justify-content: center;
 }
 
+/* ✅ FIX: sin height fijo, max-width limita el tamaño */
 .news-card {
-  height: 280px;               /* ALTURA PREDEFINIDA */
+  width: 100%;
+  max-width: 280px;
+  aspect-ratio: 4 / 5;
   border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   background: #fff;
-  aspect-ratio: 4 / 5;
-  
 }
 
+/* ✅ FIX: object-fit cover para que llene sin espacios blancos */
 .news-card img {
   width: 100%;
   height: 100%;
-  object-fit: contain;        /* No recorta texto */
-  transition: transform .3s;
-  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s;
 }
 
 .news-card:hover img {
@@ -1149,20 +953,12 @@ section:not(:last-of-type) {
 /* Responsive */
 @media (max-width: 900px) {
   .news-grid {
-    grid-template-columns: repeat(2, 2fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 600px) {
   .news-grid {
-    grid-template-columns: repeat(2, 2fr);
-  }
-
-  .news-card {
-    height: auto; /* Más grande en móvil */
-  }
-
-  .news-card img {
-    height: auto;
+    grid-template-columns: repeat(2, 1fr);
   }
 }
