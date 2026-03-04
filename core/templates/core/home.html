@@ -48,8 +48,26 @@ CEDHU{% endblock %} {% block content %}
   <section class="news-section">
   <h2>NOTICIAS CEDHU</h2>
 
-
   <div class="news-grid">
+
+    <article class="news-card">
+        <img
+          src="{% static 'core/img/convivencia-primero.jpeg' %}"
+          alt="Convivencia grado primero"
+          onclick="openModal(this)"
+        />
+    </article>
+
+    <article class="news-card">
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSdEVdpTgWFdx-ICnPzgyR1dAfPsUy4mV8nv6RLz5ZOcPXi3Ng/viewform"
+        target="blank"
+      >
+        <img
+          src="{% static 'core/img/comuniones-y-confirmaciones.jpeg' %}"
+          alt="Comuniones y Confirmaciones"
+        />
+      </a>
+    </article>
 
     <article class="news-card">
       <img
