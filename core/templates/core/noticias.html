@@ -1,27 +1,50 @@
-{% extends 'core/base.html' %} {% block title %}Noticias - CEDHU{% endblock %}
-{%load static %} {% block content %}
+{% extends 'core/base.html' %}
+{% load static %}
 
+{% block title %}Noticias - CEDHU{% endblock %}
 
-<link rel="stylesheet" href="{% static 'core/css/noticias.css' %}" />
+{% block content %}
 <div class="contenido">
-    <section class=".news-section">
-        <h2>NOTICIAS CEDHU</h2>
-
-        <div class="news-grid">
-            {% for noticia in noticias %}
-            <article class="news-card">
-                {% if noticia.imagen %}
-                <img src="{{ noticia.imagen.url }}" alt="{{ noticia.titulo }}">
-                {% endif %}
-                <h3>{{ noticia.titulo }}</h3>
-                <small>{{ noticia.fecha_publicacion|date:"d M Y" }}</small>
-                <p>{{ noticia.contenido }}</p>
-            </article>
-            {% empty %}
-            <p>No hay noticias publicadas.</p>
-            {% endfor %}
-        </div>
-    </section>
+  <section class="news-section">
+    <h2>NOTICIAS CEDHU</h2>
+    <div class="news-grid">
+      {% for noticia in noticias %}
+        <article class="news-card">
+          {% if noticia.url %}
+            <a href="{{ noticia.url }}" target="_blank" rel="noopener noreferrer">
+              <img
+                src="{{ noticia.imagen.url }}"
+                alt="{% if noticia.titulo %}{{ noticia.titulo }}{% else %}Noticia CEDHU{% endif %}"
+                loading="lazy"
+              />
+            </a>
+          {% else %}
+            <img
+              src="{{ noticia.imagen.url }}"
+              alt="{% if noticia.titulo %}{{ noticia.titulo }}{% else %}Noticia CEDHU{% endif %}"
+              loading="lazy"
+              onclick="openModal(this)"
+              style="cursor: zoom-in;"
+            />
+          {% endif %}
+          {% if noticia.titulo %}
+            <p class="news-card-titulo">{{ noticia.titulo }}</p>
+          {% endif %}
+        </article>
+      {% empty %}
+        <p class="news-empty">No hay noticias disponibles por el momento.</p>
+      {% endfor %}
+    </div>
+  </section>
 </div>
 
+<div id="imgModal" class="modal" onclick="closeModal()">
+  <span class="close">&times;</span>
+  <img class="modal-content" id="modalImg">
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'core/js/noticias.js' %}"></script>
 {% endblock %}

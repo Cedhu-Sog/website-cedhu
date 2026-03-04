@@ -7,8 +7,8 @@ class ContenidoInicio(models.Model):
     url_manual = models.URLField(blank=True)
     texto_direccion = models.TextField(blank=True)
     iframe_mapa = models.TextField(blank=True)
-    logo = CloudinaryField('image', folder='logos', blank=True, null=True)
-    imagen_manual = CloudinaryField('image', folder='manuales', blank=True, null=True)
+    logo = models.ImageField(upload_to='logos/', blank=True, null=True)
+    imagen_manual = models.ImageField(upload_to='manuales/', blank=True, null=True)
 
 
 class GalleryImage(models.Model):
@@ -17,7 +17,7 @@ class GalleryImage(models.Model):
         related_name='gallery_images',
         on_delete=models.CASCADE
     )
-    image = CloudinaryField('image', folder='gallery')
+    image = models.ImageField(upload_to='gallery/')
     descripcion = models.TextField(blank=True)
     orden = models.PositiveIntegerField()
 
@@ -30,16 +30,7 @@ class Evento(models.Model):
     descripcion = models.TextField(blank=True, null=True)
     fecha = models.DateField()
     hora = models.TimeField()
-    portada = CloudinaryField(
-        'image',
-        folder='eventos',
-        transformation={
-            'width': 800, 'height': 1000,  # proporción 4:5
-            'crop': 'fill',
-            'quality': 'auto',
-            'fetch_format': 'auto',
-        }
-    )
+    portada = models.ImageField(upload_to='eventos/')
 
     def __str__(self):
         return self.nombre
@@ -50,20 +41,25 @@ class Evento(models.Model):
 
 
 class Noticia(models.Model):
+    titulo = models.CharField(
+        max_length=200,
+        blank=True,
+        null=True,
+        verbose_name="Título",
+        help_text="Título opcional de la noticia."
+    )
     imagen = CloudinaryField(
-        'image',
-        folder='noticias',
-        transformation={
-            'height': 1000,
-    'crop': 'limit',
-    'quality': 'auto:good',
-    'fetch_format': 'auto',
-        }
+        'imagen',
+        folder='noticias/',
+        blank=True,
+        null=True,
+        transformation={'quality': 'auto', 'fetch_format': 'auto'}
     )
     url = models.URLField(
         blank=True,
         null=True,
-        help_text="URL externa de la noticia. Si se deja vacío, al hacer clic se abrirá la imagen directamente."
+        verbose_name="Link (opcional)",
+        help_text="Si añades un link, al hacer clic en la imagen se abrirá esa URL. Si lo dejas vacío, la imagen se ampliará."
     )
     fecha = models.DateTimeField(auto_now_add=True)
     activa = models.BooleanField(default=True)
@@ -74,4 +70,6 @@ class Noticia(models.Model):
         verbose_name_plural = "Noticias"
 
     def __str__(self):
+        if self.titulo:
+            return self.titulo
         return f"Noticia #{self.id} — {self.fecha.strftime('%d/%m/%Y')}"
