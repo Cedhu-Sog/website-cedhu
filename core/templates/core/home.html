@@ -2,19 +2,23 @@
 CEDHU{% endblock %} {% block content %}
 <div class="flow-invitation"></div>
 
-
 <!-- HERO -->
 <section class="hero">
   <div class="hero-track">
-
     <!-- SLIDE 1 -->
     <div class="hero-slide active" data-type="image">
-      <img src="{% static 'core/img/Banner-Cedhu-Destacado-1.jpg' %}" alt="Slide 1">
+      <img
+        src="{% static 'core/img/Banner-Cedhu-Destacado-1.jpg' %}"
+        alt="Slide 1"
+      />
     </div>
 
     <!-- SLIDE 2 -->
     <div class="hero-slide" data-type="image">
-      <img src="{% static 'core/img/Banner-Cedhu-Destacado-2.jpg' %}" alt="Slide 2">
+      <img
+        src="{% static 'core/img/Banner-Cedhu-Destacado-2.jpg' %}"
+        alt="Slide 2"
+      />
     </div>
 
     <!-- SLIDE 3 (VIDEO YOUTUBE) -->
@@ -26,12 +30,12 @@ CEDHU{% endblock %} {% block content %}
           referrerpolicy="strict-origin-when-cross-origin"
           frameborder="0"
           allow="autoplay; fullscreen"
-          allowfullscreen>
+          allowfullscreen
+        >
         </iframe>
         <div class="video-blocker"></div>
       </div>
     </div>
-
   </div>
 
   <!-- Flechas desktop -->
@@ -40,233 +44,246 @@ CEDHU{% endblock %} {% block content %}
 </section>
 
 <div class="contenido">
-
   <!-- ==========================
      SECCIÓN NOTICIAS (dinámica)
   ============================== -->
 
   <section class="news-section">
-  <h2>NOTICIAS CEDHU</h2>
+    <h2>NOTICIAS CEDHU</h2>
 
-  <div class="news-grid">
+    <div class="news-grid">
 
-    <article class="news-card">
+      <article class="news-card">
+        <img
+          src="{% static 'core/img/Escuela-de-padres-pr.jpeg' %}"
+          alt="Escuela de padres preescolar y primaria"
+          onclick="openModal(this)"
+        />
+      </article>
+
+      <article class="news-card">
+        <img
+          src="{% static 'core/img/Escuela-de-padres-bto.jpeg' %}"
+          alt="Escuela de padres bachillerato"
+          onclick="openModal(this)"
+        />
+      </article>
+
+      <article class="news-card">
         <img
           src="{% static 'core/img/Convivencia-7.png' %}"
           alt="Convivencia 7"
           onclick="openModal(this)"
         />
-    </article>
+      </article>
 
-    <article class="news-card">
+      <article class="news-card">
         <img
           src="{% static 'core/img/prueba-improve-(1).png' %}"
           alt="Prueba Improve"
           onclick="openModal(this)"
         />
-    </article>
+      </article>
 
-    <article class="news-card">
+      <article class="news-card">
         <img
           src="{% static 'core/img/DIA-SALUDABLE.png' %}"
           alt="Día Saludable"
           onclick="openModal(this)"
         />
-    </article>
+      </article>
 
-    <article class="news-card">
+      <article class="news-card">
         <img
           src="{% static 'core/img/convivencia-primero.jpeg' %}"
           alt="Convivencia grado primero"
           onclick="openModal(this)"
         />
-    </article>
+      </article>
 
-    <article class="news-card">
-      <a href="https://docs.google.com/forms/d/e/1FAIpQLSdEVdpTgWFdx-ICnPzgyR1dAfPsUy4mV8nv6RLz5ZOcPXi3Ng/viewform"
-        target="blank"
-      >
+      <article class="news-card">
+        <a
+          href="https://docs.google.com/forms/d/e/1FAIpQLSdEVdpTgWFdx-ICnPzgyR1dAfPsUy4mV8nv6RLz5ZOcPXi3Ng/viewform"
+          target="blank"
+        >
+          <img
+            src="{% static 'core/img/comuniones-y-confirmaciones.jpeg' %}"
+            alt="Comuniones y Confirmaciones"
+          />
+        </a>
+      </article>
+
+      <article class="news-card">
         <img
-          src="{% static 'core/img/comuniones-y-confirmaciones.jpeg' %}"
-          alt="Comuniones y Confirmaciones"
+          src="{% static 'core/img/Invitacion-padres-o-acudientes-(1).png' %}"
+          alt="invitacion padres cedhu"
+          onclick="openModal(this)"
         />
-      </a>
-    </article>
+      </article>
 
-    <article class="news-card">
-      <img
-        src="{% static 'core/img/Invitacion-padres-o-acudientes-(1).png' %}"
-        alt="invitacion padres cedhu"
-        onclick="openModal(this)"
-      />
-    </article>
-
-    <article class="news-card">
-      <img
-        src="{% static 'core/img/Picnic-de-las-emociones-10.png' %}"
-        alt="picnic grados 10"
-        onclick="openModal(this)"
-      />
-    </article>
-
-    <article class="news-card">
-      <img
-        src="{% static 'core/img/Horario-escuelas-de-formacion.png' %}"
-        alt="horario escuelas de formacion"
-        onclick="openModal(this)"
-      />
-    </article>
-
-    <article class="news-card">
-      <img
-        src="{% static 'core/img/Picnic-de-las-emociones-5.png' %}"
-        alt="picnic grados 5"
-        onclick="openModal(this)"
-      />
-    </article>
-
-    <article class="news-card">
-      <img
-        src="{% static 'core/img/Izada-de-bandera-bienvenida.png' %}"
-        alt="izada de bandera"
-        onclick="openModal(this)"
-      />
-    </article>
-    
-
-    <article class="news-card">
-      <img
-        src="{% static 'core/img/Calendario-ludicas.png' %}"
-        alt="calendario de ludicas cedhu"
-        onclick="openModal(this)"
-      />
-    </article>
-
-    <article class="news-card">
-      <a href="{% url 'ludicas' %}">
+      <article class="news-card">
         <img
-          src="{% static 'core/img/inscripcion-ludicas.png' %}"
-          alt="Útiles escolares"
+          src="{% static 'core/img/Picnic-de-las-emociones-10.png' %}"
+          alt="picnic grados 10"
+          onclick="openModal(this)"
         />
-      </a>
-    </article>
+      </article>
 
-    <article class="news-card">
-      <img
-        src="{% static 'core/img/La-tecnologia-llega-a-cada-salon-del-CEDHU.png' %}"
-        alt="Noticia tecnologia"
-        onclick="openModal(this)"
-      />
-    </article>
-
-    <article class="news-card">
-      <img
-        src="{% static 'core/img/Inicio-ludicas-2026.png' %}"
-        alt="Noticia inicio ludicas"
-        onclick="openModal(this)"
-      />
-    </article>
-
-    <article class="news-card">
-      <a
-        href="https://www.facebook.com/ccedhu/posts/pfbid033iRXDuFiFMV8YExkvZz2mfk2WXM6XRtUN431wVC6n8o8DpTSEYn1MyvNPmrNhSufl"
-        target="blank"
-      >
+      <article class="news-card">
         <img
-          src="{% static 'core/img/bienvenida-educandos-2026.png' %}"
-          alt="Noticia bienvenida"
+          src="{% static 'core/img/Horario-escuelas-de-formacion.png' %}"
+          alt="horario escuelas de formacion"
+          onclick="openModal(this)"
         />
-      </a>
-    </article>
+      </article>
 
-    <article class="news-card">
-      <img
-        src="{% static 'core/img/Reunion-bienvenida-e-informativa-1.png' %}"
-        alt="Noticia 1"
-        onclick="openModal(this)"
-      />
-    </article>
-
-    <article class="news-card">
-      <img
-        src="{% static 'core/img/Reunion-bienvenida-e-informativa-2.png' %}"
-        alt="Noticia 2"
-        onclick="openModal(this)"
-      />
-    </article>
-
-    <article class="news-card">
-      <img
-        src="{% static 'core/img/Inicio-de-clase.png' %}"
-        alt="Noticia 3"
-        onclick="openModal(this)"
-      />
-    </article>
-
-    <article class="news-card">
-      <img
-        src="{% static 'core/img/numeros-restaurante-cafeteria-cedhu.jpeg' %}"
-        alt="Noticia 4"
-        onclick="openModal(this)"
-      />
-    </article>
-
-    <article class="news-card">
-      <img
-        src="{% static 'core/img/uniformes-cedhu.jpeg' %}"
-        alt="Noticia 5"
-        onclick="openModal(this)"
-      />
-    </article>
-
-    <article class="news-card">
-      <a href="{% url 'utiles-escolares' %}">
+      <article class="news-card">
         <img
-          src="{% static 'core/img/utiles-escolares.png' %}"
-          alt="Útiles escolares"
+          src="{% static 'core/img/Picnic-de-las-emociones-5.png' %}"
+          alt="picnic grados 5"
+          onclick="openModal(this)"
         />
-      </a>
-    </article>
-  </div>
-</section>
+      </article>
 
+      <article class="news-card">
+        <img
+          src="{% static 'core/img/Izada-de-bandera-bienvenida.png' %}"
+          alt="izada de bandera"
+          onclick="openModal(this)"
+        />
+      </article>
 
+      <article class="news-card">
+        <img
+          src="{% static 'core/img/Calendario-ludicas.png' %}"
+          alt="calendario de ludicas cedhu"
+          onclick="openModal(this)"
+        />
+      </article>
 
-  {% comment %} <section class="news-section">
+      <article class="news-card">
+        <a href="{% url 'ludicas' %}">
+          <img
+            src="{% static 'core/img/inscripcion-ludicas.png' %}"
+            alt="Útiles escolares"
+          />
+        </a>
+      </article>
+
+      <article class="news-card">
+        <img
+          src="{% static 'core/img/La-tecnologia-llega-a-cada-salon-del-CEDHU.png' %}"
+          alt="Noticia tecnologia"
+          onclick="openModal(this)"
+        />
+      </article>
+
+      <article class="news-card">
+        <img
+          src="{% static 'core/img/Inicio-ludicas-2026.png' %}"
+          alt="Noticia inicio ludicas"
+          onclick="openModal(this)"
+        />
+      </article>
+
+      <article class="news-card">
+        <a
+          href="https://www.facebook.com/ccedhu/posts/pfbid033iRXDuFiFMV8YExkvZz2mfk2WXM6XRtUN431wVC6n8o8DpTSEYn1MyvNPmrNhSufl"
+          target="blank"
+        >
+          <img
+            src="{% static 'core/img/bienvenida-educandos-2026.png' %}"
+            alt="Noticia bienvenida"
+          />
+        </a>
+      </article>
+
+      <article class="news-card">
+        <img
+          src="{% static 'core/img/Reunion-bienvenida-e-informativa-1.png' %}"
+          alt="Noticia 1"
+          onclick="openModal(this)"
+        />
+      </article>
+
+      <article class="news-card">
+        <img
+          src="{% static 'core/img/Reunion-bienvenida-e-informativa-2.png' %}"
+          alt="Noticia 2"
+          onclick="openModal(this)"
+        />
+      </article>
+
+      <article class="news-card">
+        <img
+          src="{% static 'core/img/Inicio-de-clase.png' %}"
+          alt="Noticia 3"
+          onclick="openModal(this)"
+        />
+      </article>
+
+      <article class="news-card">
+        <img
+          src="{% static 'core/img/numeros-restaurante-cafeteria-cedhu.jpeg' %}"
+          alt="Noticia 4"
+          onclick="openModal(this)"
+        />
+      </article>
+
+      <article class="news-card">
+        <img
+          src="{% static 'core/img/uniformes-cedhu.jpeg' %}"
+          alt="Noticia 5"
+          onclick="openModal(this)"
+        />
+      </article>
+
+      <article class="news-card">
+        <a href="{% url 'utiles-escolares' %}">
+          <img
+            src="{% static 'core/img/utiles-escolares.png' %}"
+            alt="Útiles escolares"
+          />
+        </a>
+      </article>
+    </div>
+  </section>
+
+  {% comment %}
+  <section class="news-section">
     <h2>NOTICIAS CEDHU</h2>
 
     <div class="news-grid">
       {% for noticia in noticias_home %}
-        <article class="news-card">
-          {% if noticia.url %}
-            <!-- Tiene URL → redirige al link externo -->
-            <a href="{{ noticia.url }}" target="_blank" rel="noopener noreferrer">
-              <img
-                src="{{ noticia.imagen.url }}"
-                alt="Noticia CEDHU"
-                loading="lazy"
-              />
-            </a>
-          {% else %}
-            <!-- Sin URL → abre la imagen en el modal -->
-            <img
-              src="{{ noticia.imagen.url }}"
-              alt="Noticia CEDHU"
-              loading="lazy"
-              onclick="openModal(this)"
-              style="cursor: pointer;"
-            />
-          {% endif %}
-        </article>
+      <article class="news-card">
+        {% if noticia.url %}
+        <!-- Tiene URL → redirige al link externo -->
+        <a href="{{ noticia.url }}" target="_blank" rel="noopener noreferrer">
+          <img
+            src="{{ noticia.imagen.url }}"
+            alt="Noticia CEDHU"
+            loading="lazy"
+          />
+        </a>
+        {% else %}
+        <!-- Sin URL → abre la imagen en el modal -->
+        <img
+          src="{{ noticia.imagen.url }}"
+          alt="Noticia CEDHU"
+          loading="lazy"
+          onclick="openModal(this)"
+          style="cursor: pointer"
+        />
+        {% endif %}
+      </article>
       {% empty %}
-        <p style="text-align:center; color:#666; grid-column: 1 / -1;">
-          No hay noticias disponibles por el momento.
-        </p>
+      <p style="text-align: center; color: #666; grid-column: 1 / -1">
+        No hay noticias disponibles por el momento.
+      </p>
       {% endfor %}
     </div>
-  </section> {% endcomment %}
-
-
+  </section>
+  {% endcomment %}
 
   <!-- ==========================
      SECCIÓN NIVELES EDUCATIVOS
@@ -287,7 +304,6 @@ CEDHU{% endblock %} {% block content %}
     </div>
   </section>
 
-  
   <!-- ==========================
      SECCIÓN NIVELES EDUCATIVOS
   ============================== -->
@@ -453,7 +469,6 @@ CEDHU{% endblock %} {% block content %}
     </div>
   </section>
 
-
   <!-- Sección Ubicación -->
   <section class="ubicacion">
     <h2>¿DÓNDE ESTAMOS UBICADOS?</h2>
@@ -470,12 +485,14 @@ CEDHU{% endblock %} {% block content %}
         ></iframe>
       </div>
       <div class="mapa-responsive">
-        {% comment %} <div class="map-overlay">
+        {% comment %}
+        <div class="map-overlay">
           <span
             data-desktop="Haz doble clic para explorar Street View"
             data-mobile="Mantén presionado para explorar Street View"
           ></span>
-        </div> {% endcomment %}
+        </div>
+        {% endcomment %}
 
         <iframe
           src="https://www.google.com/maps/embed?pb=!4v1755708493503!6m8!1m7!1saSQjlOZeDjmZ0HaFBSwViA!2m2!1d5.727254717227505!2d-72.91765621114655!3f30.646103925190662!4f5.536479257674657!5f0.4000000000000002"
@@ -490,15 +507,12 @@ CEDHU{% endblock %} {% block content %}
 <!-- Modal -->
 <div id="imgModal" class="modal" onclick="closeModal()">
   <span class="close">&times;</span>
-  <img class="modal-content" id="modalImg">
+  <img class="modal-content" id="modalImg" />
 </div>
-
 
 <!-- Scripts -->
 {% block extra_js %}
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="{% static 'core/js/home.js' %}?v=3"></script>
 <script src="https://www.youtube.com/iframe_api"></script>
-{% endblock %}
-
-{% endblock %}
+{% endblock %} {% endblock %}
