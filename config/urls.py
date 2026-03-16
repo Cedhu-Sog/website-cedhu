@@ -8,6 +8,7 @@ urlpatterns = [
     path('', include('core.urls')),
     path('plataforma/', include('plataforma.urls')),  # ← ESTA LÍNEA
     path("__reload__/", include("django_browser_reload.urls")),
+    path('ludicas/', include('ludicas.urls')), 
 ]
 
 if settings.DEBUG:

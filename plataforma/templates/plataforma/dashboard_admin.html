@@ -6,6 +6,7 @@
 {% block page_subtitle %}Panel de control y gestión del sistema{% endblock %}
 
 {% block content %}
+
 <!-- Estadísticas Rápidas -->
 <div class="row mb-4">
     <div class="col-md-3">
@@ -16,14 +17,14 @@
                         <h6 class="text-muted mb-1">Total Usuarios</h6>
                         <h3 class="mb-0">{{ stats_usuarios.total }}</h3>
                     </div>
-                    <div class="text-primary" style="font-size: 3rem; opacity: 0.3;">
+                    <div class="text-primary stat-icon-bg">
                         <i class="fas fa-users"></i>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
+
     <div class="col-md-3">
         <div class="card stat-card success">
             <div class="card-body">
@@ -32,14 +33,14 @@
                         <h6 class="text-muted mb-1">Padres</h6>
                         <h3 class="mb-0">{{ stats_usuarios.padres }}</h3>
                     </div>
-                    <div class="text-success" style="font-size: 3rem; opacity: 0.3;">
+                    <div class="text-success stat-icon-bg">
                         <i class="fas fa-user-friends"></i>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
+
     <div class="col-md-3">
         <div class="card stat-card warning">
             <div class="card-body">
@@ -48,14 +49,14 @@
                         <h6 class="text-muted mb-1">Administradores</h6>
                         <h3 class="mb-0">{{ stats_usuarios.administradores }}</h3>
                     </div>
-                    <div class="text-warning" style="font-size: 3rem; opacity: 0.3;">
+                    <div class="text-warning stat-icon-bg">
                         <i class="fas fa-user-shield"></i>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
+
     <div class="col-md-3">
         <div class="card stat-card danger">
             <div class="card-body">
@@ -64,7 +65,7 @@
                         <h6 class="text-muted mb-1">Módulos Activos</h6>
                         <h3 class="mb-0">{{ modulos_activos|length }}</h3>
                     </div>
-                    <div class="text-danger" style="font-size: 3rem; opacity: 0.3;">
+                    <div class="text-danger stat-icon-bg">
                         <i class="fas fa-th-large"></i>
                     </div>
                 </div>
@@ -82,41 +83,54 @@
             </div>
             <div class="card-body">
                 <div class="row g-3">
+
                     <div class="col-md-3">
                         <a href="{% url 'gestionar_usuarios' %}" class="text-decoration-none">
-                            <div class="p-3 border rounded text-center hover-effect">
+                            <div class="acceso-card text-center">
                                 <i class="fas fa-users fa-2x text-primary mb-2"></i>
                                 <p class="mb-0 fw-bold">Gestionar Usuarios</p>
                             </div>
                         </a>
                     </div>
-                    
+
                     <div class="col-md-3">
                         <a href="{% url 'gestionar_parametros' %}" class="text-decoration-none">
-                            <div class="p-3 border rounded text-center hover-effect">
+                            <div class="acceso-card text-center">
                                 <i class="fas fa-cog fa-2x text-success mb-2"></i>
                                 <p class="mb-0 fw-bold">Parámetros Globales</p>
                             </div>
                         </a>
                     </div>
-                    
+
                     <div class="col-md-3">
                         <a href="{% url 'gestionar_modulos' %}" class="text-decoration-none">
-                            <div class="p-3 border rounded text-center hover-effect">
+                            <div class="acceso-card text-center">
                                 <i class="fas fa-th-large fa-2x text-warning mb-2"></i>
                                 <p class="mb-0 fw-bold">Gestionar Módulos</p>
                             </div>
                         </a>
                     </div>
-                    
+
                     <div class="col-md-3">
                         <a href="{% url 'ver_auditoria' %}" class="text-decoration-none">
-                            <div class="p-3 border rounded text-center hover-effect">
+                            <div class="acceso-card text-center">
                                 <i class="fas fa-history fa-2x text-danger mb-2"></i>
                                 <p class="mb-0 fw-bold">Ver Auditoría</p>
                             </div>
                         </a>
                     </div>
+
+                    <!-- ── LÚDICAS ── -->
+                    <div class="col-md-3">
+                        <a href="{% url 'admin_dashboard_ludicas' %}" class="text-decoration-none">
+                            <div class="acceso-card acceso-card-ludicas text-center">
+                                <i class="fas fa-puzzle-piece fa-2x mb-2"></i>
+                                <p class="mb-0 fw-bold">Módulo Lúdicas</p>
+                                <small class="text-muted">Gestionar actividades</small>
+                            </div>
+                        </a>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -142,7 +156,7 @@
                     </a>
                 </div>
                 {% endif %}
-                
+
                 {% for parametro in parametros|slice:":5" %}
                 <div class="mb-2 pb-2 border-bottom">
                     <strong>{{ parametro.nombre }}</strong>
@@ -151,7 +165,7 @@
                 {% empty %}
                 <p class="text-muted">No hay parámetros configurados</p>
                 {% endfor %}
-                
+
                 <div class="text-center mt-3">
                     <a href="{% url 'gestionar_parametros' %}" class="btn btn-outline-primary btn-sm">
                         Ver todos los parámetros
@@ -160,7 +174,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Actividad Reciente -->
     <div class="col-md-6">
         <div class="card">
@@ -180,7 +194,7 @@
                 {% empty %}
                 <p class="text-muted">No hay actividad reciente</p>
                 {% endfor %}
-                
+
                 <div class="text-center mt-3">
                     <a href="{% url 'ver_auditoria' %}" class="btn btn-outline-primary btn-sm">
                         Ver toda la auditoría
@@ -220,18 +234,56 @@
         </div>
     </div>
 </div>
+
 {% endblock %}
 
 {% block extra_css %}
 <style>
-    .hover-effect {
-        transition: all 0.3s;
-        cursor: pointer;
+    .stat-icon-bg {
+        font-size: 3rem;
+        opacity: 0.3;
     }
-    
-    .hover-effect:hover {
+
+    /* Accesos rápidos */
+    .acceso-card {
+        padding: 16px 12px;
+        border: 1px solid #dee2e6;
+        border-radius: 10px;
+        transition: all 0.25s ease;
+        cursor: pointer;
+        background: #fff;
+        color: #2c3e50;
+    }
+
+    .acceso-card:hover {
         transform: translateY(-5px);
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+        border-color: #3498db;
+    }
+
+    /* Card especial para Lúdicas */
+    .acceso-card-ludicas {
+        background: linear-gradient(135deg, #1e2333 0%, #2d3561 100%);
+        border-color: #6c63ff;
+        color: #fff !important;
+    }
+
+    .acceso-card-ludicas i {
+        color: #6c63ff !important;
+    }
+
+    .acceso-card-ludicas p {
+        color: #e8eaf0 !important;
+    }
+
+    .acceso-card-ludicas small {
+        color: #7b82a0 !important;
+    }
+
+    .acceso-card-ludicas:hover {
+        border-color: #6c63ff;
+        box-shadow: 0 6px 20px rgba(108, 99, 255, 0.35);
+        transform: translateY(-5px);
     }
 </style>
 {% endblock %}

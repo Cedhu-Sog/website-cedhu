@@ -1,0 +1,221 @@
+{% extends 'ludicas/base.html' %}
+{% block title %}Mi Lúdica{% endblock %}
+
+{% block sidebar_nav %}
+<span class="nav-section-label">Mi espacio</span>
+<a href="{% url 'estudiante_dashboard_ludicas' %}" class="nav-link active">
+    <i class="fa-solid fa-house"></i> Inicio
+</a>
+{% if inscripcion %}
+<a href="#mi-ludica" class="nav-link">
+    <i class="fa-solid fa-star"></i> Mi Lúdica actual
+</a>
+{% endif %}
+<span class="nav-section-label">Explorar</span>
+<a href="#todas" class="nav-link">
+    <i class="fa-solid fa-compass"></i> Lúdicas disponibles
+</a>
+{% endblock %}
+
+{% block page_title %}¡Hola, {{ perfil.estudiante.nombres }}! 👋{% endblock %}
+{% block page_subtitle %}Grado: {{ perfil.grado }} · Elige tu lúdica{% endblock %}
+
+{% block content %}
+
+<!-- ── LÚDICA ACTUAL ─────────────────────────────────────── -->
+{% if inscripcion %}
+<div id="mi-ludica" style="margin-bottom:32px;">
+    <h2 style="font-family:'Sora',sans-serif;font-size:15px;font-weight:600;
+               color:var(--lud-muted);text-transform:uppercase;letter-spacing:.8px;
+               margin-bottom:14px;">
+        <i class="fa-solid fa-circle-check" style="color:var(--lud-accent3);margin-right:6px;"></i>
+        Tu lúdica actual
+    </h2>
+
+    <div class="card" style="border:2px solid {{ inscripcion.ludica.color }};
+         background:{{ inscripcion.ludica.color }}08;position:relative;overflow:hidden;">
+
+        <!-- Decoración de fondo -->
+        <div style="position:absolute;top:-20px;right:-20px;width:120px;height:120px;
+             border-radius:50%;background:{{ inscripcion.ludica.color }}15;"></div>
+        <div style="position:absolute;top:20px;right:30px;width:60px;height:60px;
+             border-radius:50%;background:{{ inscripcion.ludica.color }}10;"></div>
+
+        <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
+            <div style="width:72px;height:72px;border-radius:20px;flex-shrink:0;
+                  background:{{ inscripcion.ludica.color }}25;color:{{ inscripcion.ludica.color }};
+                  display:flex;align-items:center;justify-content:center;font-size:32px;">
+                <i class="fa-solid {{ inscripcion.ludica.icono }}"></i>
+            </div>
+
+            <div style="flex:1;">
+                <h3 style="font-family:'Sora',sans-serif;font-size:22px;font-weight:700;
+                           margin-bottom:4px;">
+                    {{ inscripcion.ludica.nombre }}
+                </h3>
+                {% if inscripcion.ludica.descripcion %}
+                <p style="color:var(--lud-muted);font-size:13px;margin-bottom:10px;line-height:1.5;">
+                    {{ inscripcion.ludica.descripcion }}
+                </p>
+                {% endif %}
+                <div style="display:flex;flex-wrap:wrap;gap:12px;font-size:13px;">
+                    {% if inscripcion.ludica.profesor %}
+                    <span style="color:var(--lud-muted);">
+                        <i class="fa-solid fa-chalkboard-user" style="margin-right:4px;"></i>
+                        {{ inscripcion.ludica.profesor.nombre_completo }}
+                    </span>
+                    {% endif %}
+                    {% if inscripcion.ludica.horario %}
+                    <span style="color:var(--lud-muted);">
+                        <i class="fa-solid fa-clock" style="margin-right:4px;"></i>
+                        {{ inscripcion.ludica.horario }}
+                    </span>
+                    {% endif %}
+                    {% if inscripcion.ludica.lugar %}
+                    <span style="color:var(--lud-muted);">
+                        <i class="fa-solid fa-location-dot" style="margin-right:4px;"></i>
+                        {{ inscripcion.ludica.lugar }}
+                    </span>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div style="text-align:right;flex-shrink:0;">
+                <div style="font-size:11px;color:var(--lud-muted);margin-bottom:4px;">Inscrito desde</div>
+                <div style="font-size:13px;font-weight:600;">
+                    {{ inscripcion.fecha_inscripcion|date:"d/m/Y" }}
+                </div>
+                <form method="post" action="{% url 'estudiante_cancelar_inscripcion' %}"
+                      onsubmit="return confirm('¿Seguro que quieres salir de esta lúdica?')"
+                      style="margin-top:10px;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger btn-sm">
+                        <i class="fa-solid fa-right-from-bracket"></i> Salir
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+<!-- Sin lúdica — banner de aviso -->
+<div style="margin-bottom:24px;padding:16px 20px;
+     background:rgba(255,193,7,.08);border:1px solid rgba(255,193,7,.2);
+     border-radius:12px;display:flex;align-items:center;gap:12px;">
+    <i class="fa-solid fa-triangle-exclamation" style="color:#ffc107;font-size:20px;"></i>
+    <div>
+        <strong style="font-size:14px;">Aún no tienes una lúdica seleccionada</strong>
+        <p style="font-size:12px;color:var(--lud-muted);margin-top:2px;">
+            Escoge una de las actividades disponibles para tu grado.
+        </p>
+    </div>
+</div>
+{% endif %}
+
+<!-- ── LÚDICAS DISPONIBLES ───────────────────────────────── -->
+<div id="todas">
+    <h2 style="font-family:'Sora',sans-serif;font-size:15px;font-weight:600;
+               color:var(--lud-muted);text-transform:uppercase;letter-spacing:.8px;
+               margin-bottom:16px;">
+        <i class="fa-solid fa-compass" style="color:var(--lud-accent);margin-right:6px;"></i>
+        Lúdicas disponibles para tu grado
+    </h2>
+
+    {% if ludicas_grado %}
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px;">
+        {% for l in ludicas_grado %}
+        {% with es_actual=inscripcion.ludica_id == l.id %}
+        <div class="card" style="border-top:3px solid {{ l.color }};
+             {% if es_actual %}border:2px solid {{ l.color }};{% endif %}
+             position:relative;transition:transform .2s,box-shadow .2s;"
+             onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 8px 24px rgba(0,0,0,.3)';"
+             onmouseout="this.style.transform='';this.style.boxShadow='';">
+
+            {% if es_actual %}
+            <div style="position:absolute;top:12px;right:12px;">
+                <span class="badge badge-activa">
+                    <i class="fa-solid fa-circle-check"></i> Mi lúdica
+                </span>
+            </div>
+            {% endif %}
+
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+                <span style="width:48px;height:48px;border-radius:14px;
+                      background:{{ l.color }}22;color:{{ l.color }};
+                      display:flex;align-items:center;justify-content:center;font-size:22px;">
+                    <i class="fa-solid {{ l.icono }}"></i>
+                </span>
+                <div>
+                    <h3 style="font-family:'Sora',sans-serif;font-size:15px;font-weight:700;">
+                        {{ l.nombre }}
+                    </h3>
+                    <span class="badge badge-{{ l.estado|lower }}">{{ l.get_estado_display }}</span>
+                </div>
+            </div>
+
+            {% if l.descripcion %}
+            <p style="font-size:13px;color:var(--lud-muted);margin-bottom:12px;
+                      line-height:1.5;min-height:40px;">
+                {{ l.descripcion|truncatewords:18 }}
+            </p>
+            {% endif %}
+
+            <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:14px;">
+                {% if l.profesor %}
+                <div style="font-size:12px;color:var(--lud-muted);">
+                    <i class="fa-solid fa-chalkboard-user" style="width:16px;"></i>
+                    {{ l.profesor.nombre_completo }}
+                </div>
+                {% endif %}
+                {% if l.horario %}
+                <div style="font-size:12px;color:var(--lud-muted);">
+                    <i class="fa-solid fa-clock" style="width:16px;"></i> {{ l.horario }}
+                </div>
+                {% endif %}
+                {% if l.lugar %}
+                <div style="font-size:12px;color:var(--lud-muted);">
+                    <i class="fa-solid fa-location-dot" style="width:16px;"></i> {{ l.lugar }}
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Cupo -->
+            <div style="margin-bottom:14px;">
+                <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px;">
+                    <span style="color:var(--lud-muted);">Cupo</span>
+                    <span>{{ l.total_inscritos }} / {{ l.cupo_maximo }}</span>
+                </div>
+                <div class="cupo-bar">
+                    <div class="cupo-fill"
+                         style="width:{% widthratio l.total_inscritos l.cupo_maximo 100 %}%;
+                                background:{{ l.color }};"></div>
+                </div>
+            </div>
+
+            {% if es_actual %}
+            <button class="btn btn-ghost" disabled style="width:100%;justify-content:center;opacity:.6;">
+                <i class="fa-solid fa-circle-check"></i> Inscrito
+            </button>
+            {% elif l.estado == 'ACTIVA' %}
+            <a href="{% url 'estudiante_escoger_ludica' l.id %}"
+               class="btn btn-primary" style="width:100%;justify-content:center;">
+                <i class="fa-solid fa-arrow-right"></i> Escoger esta lúdica
+            </a>
+            {% else %}
+            <button class="btn btn-ghost" disabled style="width:100%;justify-content:center;opacity:.5;">
+                <i class="fa-solid fa-lock"></i> Sin cupo disponible
+            </button>
+            {% endif %}
+        </div>
+        {% endwith %}
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+        <i class="fa-solid fa-compass"></i>
+        <h3>No hay lúdicas disponibles para tu grado</h3>
+        <p>El administrador aún no ha habilitado lúdicas para el grado {{ perfil.grado }}.</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,138 @@
+{% extends 'ludicas/base.html' %}
+{% block title %}Dashboard - Lúdicas{% endblock %}
+
+{% block sidebar_nav %}
+<span class="nav-label">General</span>
+<a href="{% url 'admin_dashboard_ludicas' %}" class="nav-link active">
+    <i class="fa-solid fa-gauge-high"></i> Dashboard
+</a>
+<span class="nav-label">Gestión</span>
+<a href="{% url 'admin_lista_ludicas' %}" class="nav-link">
+    <i class="fa-solid fa-puzzle-piece"></i> Lúdicas
+</a>
+<a href="{% url 'admin_lista_profesores' %}" class="nav-link">
+    <i class="fa-solid fa-chalkboard-user"></i> Profesores
+</a>
+<a href="{% url 'admin_lista_estudiantes_ludica' %}" class="nav-link">
+    <i class="fa-solid fa-user-graduate"></i> Estudiantes
+</a>
+{% endblock %}
+
+{% block page_title %}Dashboard de Lúdicas{% endblock %}
+{% block page_subtitle %}Resumen general del módulo{% endblock %}
+
+{% block topbar_actions %}
+<a href="{% url 'admin_crear_ludica' %}" class="btn btn-primary">
+    <i class="fa-solid fa-plus"></i> Nueva Lúdica
+</a>
+{% endblock %}
+
+{% block content %}
+
+<div class="stat-grid">
+    <div class="stat-card">
+        <div class="stat-icon stat-icon-purple">
+            <i class="fa-solid fa-puzzle-piece"></i>
+        </div>
+        <div>
+            <div class="stat-num">{{ total_ludicas }}</div>
+            <div class="stat-label">Lúdicas registradas</div>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon stat-icon-green">
+            <i class="fa-solid fa-user-check"></i>
+        </div>
+        <div>
+            <div class="stat-num">{{ total_inscritos }}</div>
+            <div class="stat-label">Estudiantes inscritos</div>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon stat-icon-pink">
+            <i class="fa-solid fa-chalkboard-user"></i>
+        </div>
+        <div>
+            <div class="stat-num">{{ total_profes }}</div>
+            <div class="stat-label">Profesores activos</div>
+        </div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon stat-icon-yellow">
+            <i class="fa-solid fa-user-graduate"></i>
+        </div>
+        <div>
+            <div class="stat-num">{{ total_estudiantes }}</div>
+            <div class="stat-label">Estudiantes habilitados</div>
+        </div>
+    </div>
+</div>
+
+<div class="table-wrap">
+    <div class="table-header">
+        <h3><i class="fa-solid fa-list"></i> Estado de Lúdicas</h3>
+        <a href="{% url 'admin_lista_ludicas' %}" class="btn btn-ghost btn-sm">Ver todas</a>
+    </div>
+
+    {% if ludicas %}
+    <table>
+        <thead>
+            <tr>
+                <th>Lúdica</th>
+                <th>Profesor</th>
+                <th>Inscritos / Cupo</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for l in ludicas %}
+            <tr>
+                <td>
+                    <div class="user-row">
+                        <div class="ludica-icon ludica-icon-sm"
+                             style="background:{{ l.color }}22; color:{{ l.color }};">
+                            <i class="fa-solid {{ l.icono }}"></i>
+                        </div>
+                        <strong>{{ l.nombre }}</strong>
+                    </div>
+                </td>
+                <td class="td-muted">{{ l.profesor|default:"Sin asignar" }}</td>
+                <td>
+                    <div class="cupo-info">
+                        <span class="cupo-info-label">Inscritos</span>
+                        <span><strong>{{ l.total_inscritos }}</strong> / {{ l.cupo_maximo }}</span>
+                    </div>
+                    <div class="cupo-bar">
+                        <div class="cupo-fill"
+                             style="width:{% widthratio l.total_inscritos l.cupo_maximo 100 %}"></div>
+                    </div>
+                </td>
+                <td>
+                    <span class="badge badge-{{ l.estado|lower }}">{{ l.get_estado_display }}</span>
+                </td>
+                <td>
+                    <a href="{% url 'admin_detalle_ludica' l.id %}" class="btn btn-ghost btn-sm">
+                        <i class="fa-solid fa-eye"></i>
+                    </a>
+                    <a href="{% url 'admin_editar_ludica' l.id %}" class="btn btn-ghost btn-sm">
+                        <i class="fa-solid fa-pen"></i>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="empty-state">
+        <i class="fa-solid fa-puzzle-piece"></i>
+        <h3>No hay lúdicas creadas</h3>
+        <p>Comienza creando la primera lúdica.</p>
+        <a href="{% url 'admin_crear_ludica' %}" class="btn btn-primary">
+            <i class="fa-solid fa-plus"></i> Crear Lúdica
+        </a>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}

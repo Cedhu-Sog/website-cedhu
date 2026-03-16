@@ -1,0 +1,147 @@
+{% extends 'ludicas/base.html' %}
+{% block title %}{{ accion }} Lúdica{% endblock %}
+
+{% block sidebar_nav %}
+<span class="nav-section-label">General</span>
+<a href="{% url 'admin_dashboard_ludicas' %}" class="nav-link">
+    <i class="fa-solid fa-gauge-high"></i> Dashboard
+</a>
+<span class="nav-section-label">Gestión</span>
+<a href="{% url 'admin_lista_ludicas' %}" class="nav-link active">
+    <i class="fa-solid fa-puzzle-piece"></i> Lúdicas
+</a>
+<a href="{% url 'admin_lista_profesores' %}" class="nav-link">
+    <i class="fa-solid fa-chalkboard-user"></i> Profesores
+</a>
+<a href="{% url 'admin_lista_estudiantes_ludica' %}" class="nav-link">
+    <i class="fa-solid fa-user-graduate"></i> Estudiantes
+</a>
+{% endblock %}
+
+{% block page_title %}{{ accion }} Lúdica{% endblock %}
+{% block page_subtitle %}{% if ludica %}Editando: {{ ludica.nombre }}{% else %}Nueva actividad lúdica{% endif %}{% endblock %}
+
+{% block topbar_actions %}
+<a href="{% url 'admin_lista_ludicas' %}" class="btn btn-ghost">
+    <i class="fa-solid fa-arrow-left"></i> Volver
+</a>
+{% endblock %}
+
+{% block content %}
+<div style="max-width:760px;">
+<form method="post" class="card">
+    {% csrf_token %}
+
+    <div class="form-grid-2">
+        <div class="form-group">
+            <label>Nombre de la lúdica *</label>
+            <input type="text" name="nombre" value="{{ ludica.nombre|default:'' }}" required placeholder="Ej: Fútbol, Danza, Robótica">
+        </div>
+        <div class="form-group">
+            <label>Estado</label>
+            <select name="estado">
+                {% for val, lbl in ludica.ESTADOS|default:"" %}
+                <option value="{{ val }}" {% if ludica.estado == val %}selected{% endif %}>{{ lbl }}</option>
+                {% empty %}
+                <option value="ACTIVA" selected>Activa</option>
+                <option value="INACTIVA">Inactiva</option>
+                <option value="COMPLETA">Cupo completo</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>Descripción</label>
+        <textarea name="descripcion" placeholder="Describe brevemente la actividad...">{{ ludica.descripcion|default:'' }}</textarea>
+    </div>
+
+    <div class="form-grid-2">
+        <div class="form-group">
+            <label>Profesor asignado</label>
+            <select name="profesor">
+                <option value="">— Sin asignar —</option>
+                {% for p in profesores %}
+                <option value="{{ p.id }}"
+                    {% if ludica.profesor_id == p.id %}selected{% endif %}>
+                    {{ p.nombre_completo }}
+                </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Cupo máximo</label>
+            <input type="number" name="cupo_maximo" value="{{ ludica.cupo_maximo|default:30 }}" min="1" max="200">
+        </div>
+    </div>
+
+    <div class="form-grid-2">
+        <div class="form-group">
+            <label>Horario</label>
+            <input type="text" name="horario" value="{{ ludica.horario|default:'' }}"
+                   placeholder="Ej: Lunes y Miércoles 2:00 - 4:00 PM">
+        </div>
+        <div class="form-group">
+            <label>Lugar</label>
+            <input type="text" name="lugar" value="{{ ludica.lugar|default:'' }}"
+                   placeholder="Ej: Aula 201, Cancha principal">
+        </div>
+    </div>
+
+    <div class="form-grid-2">
+        <div class="form-group">
+            <label>Icono (Font Awesome)</label>
+            <input type="text" name="icono" id="icono-input"
+                   value="{{ ludica.icono|default:'fa-star' }}"
+                   placeholder="fa-music, fa-futbol, fa-palette...">
+            <div style="margin-top:8px;font-size:13px;color:var(--lud-muted);">
+                Vista previa: <i id="icono-preview" class="fa-solid {{ ludica.icono|default:'fa-star' }}"
+                                style="color:var(--lud-accent);margin-left:6px;font-size:18px;"></i>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Color de tarjeta</label>
+            <div style="display:flex;gap:10px;align-items:center;">
+                <input type="color" name="color" id="color-input"
+                       value="{{ ludica.color|default:'#4f46e5' }}">
+                <span id="color-hex" style="font-size:13px;color:var(--lud-muted);">
+                    {{ ludica.color|default:'#4f46e5' }}
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Grados permitidos -->
+    <div class="form-group">
+        <label>Grados permitidos</label>
+        <div class="grados-grid">
+            {% for val, lbl in grados_choices %}
+            <label class="grado-check">
+                <input type="checkbox" name="grados_permitidos" value="{{ val }}"
+                    {% if ludica and val in ludica.grados_permitidos %}checked{% endif %}>
+                {{ lbl }}
+            </label>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div style="display:flex;gap:12px;margin-top:8px;">
+        <button type="submit" class="btn btn-primary">
+            <i class="fa-solid fa-floppy-disk"></i> {{ accion }} Lúdica
+        </button>
+        <a href="{% url 'admin_lista_ludicas' %}" class="btn btn-ghost">Cancelar</a>
+    </div>
+</form>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.getElementById('icono-input').addEventListener('input', function(){
+    document.getElementById('icono-preview').className = 'fa-solid ' + this.value;
+});
+document.getElementById('color-input').addEventListener('input', function(){
+    document.getElementById('color-hex').textContent = this.value;
+});
+</script>
+{% endblock %}

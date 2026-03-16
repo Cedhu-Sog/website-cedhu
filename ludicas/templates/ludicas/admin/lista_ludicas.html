@@ -1,0 +1,128 @@
+{% extends 'ludicas/base.html' %}
+{% block title %}Lúdicas{% endblock %}
+
+{% block sidebar_nav %}
+<span class="nav-section-label">General</span>
+<a href="{% url 'admin_dashboard_ludicas' %}" class="nav-link">
+    <i class="fa-solid fa-gauge-high"></i> Dashboard
+</a>
+<span class="nav-section-label">Gestión</span>
+<a href="{% url 'admin_lista_ludicas' %}" class="nav-link active">
+    <i class="fa-solid fa-puzzle-piece"></i> Lúdicas
+</a>
+<a href="{% url 'admin_lista_profesores' %}" class="nav-link">
+    <i class="fa-solid fa-chalkboard-user"></i> Profesores
+</a>
+<a href="{% url 'admin_lista_estudiantes_ludica' %}" class="nav-link">
+    <i class="fa-solid fa-user-graduate"></i> Estudiantes
+</a>
+{% endblock %}
+
+{% block page_title %}Lúdicas{% endblock %}
+{% block page_subtitle %}Administra todas las actividades lúdicas{% endblock %}
+{% block topbar_actions %}
+<a href="{% url 'admin_crear_ludica' %}" class="btn btn-primary">
+    <i class="fa-solid fa-plus"></i> Nueva Lúdica
+</a>
+{% endblock %}
+
+{% block content %}
+{% if ludicas %}
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;">
+    {% for l in ludicas %}
+    <div class="card" style="border-top:3px solid {{ l.color }}; position:relative;">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px;">
+            <div style="display:flex;align-items:center;gap:12px;">
+                <span style="width:46px;height:46px;border-radius:12px;
+                      background:{{ l.color }}22;color:{{ l.color }};
+                      display:flex;align-items:center;justify-content:center;font-size:22px;">
+                    <i class="fa-solid {{ l.icono }}"></i>
+                </span>
+                <div>
+                    <h3 style="font-family:'Sora',sans-serif;font-size:15px;font-weight:700;">
+                        {{ l.nombre }}
+                    </h3>
+                    <span class="badge badge-{{ l.estado|lower }}">{{ l.get_estado_display }}</span>
+                </div>
+            </div>
+        </div>
+
+        {% if l.descripcion %}
+        <p style="font-size:13px;color:var(--lud-muted);margin-bottom:12px;line-height:1.5;">
+            {{ l.descripcion|truncatewords:15 }}
+        </p>
+        {% endif %}
+
+        <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:16px;">
+            {% if l.profesor %}
+            <div style="font-size:12px;color:var(--lud-muted);">
+                <i class="fa-solid fa-chalkboard-user" style="width:16px;"></i>
+                {{ l.profesor.nombre_completo }}
+            </div>
+            {% endif %}
+            {% if l.horario %}
+            <div style="font-size:12px;color:var(--lud-muted);">
+                <i class="fa-solid fa-clock" style="width:16px;"></i> {{ l.horario }}
+            </div>
+            {% endif %}
+            {% if l.lugar %}
+            <div style="font-size:12px;color:var(--lud-muted);">
+                <i class="fa-solid fa-location-dot" style="width:16px;"></i> {{ l.lugar }}
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Cupo -->
+        <div style="margin-bottom:16px;">
+            <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px;">
+                <span style="color:var(--lud-muted);">Inscritos</span>
+                <span><strong>{{ l.total_inscritos }}</strong> / {{ l.cupo_maximo }}</span>
+            </div>
+            <div class="cupo-bar">
+                <div class="cupo-fill"
+                     style="width:{% widthratio l.total_inscritos l.cupo_maximo 100 %}%"></div>
+            </div>
+        </div>
+
+        <!-- Grados -->
+        {% if l.grados_permitidos %}
+        <div style="margin-bottom:16px;display:flex;flex-wrap:wrap;gap:4px;">
+            {% for g in l.grados_display %}
+            <span style="background:rgba(108,99,255,.1);color:var(--lud-accent);
+                  border-radius:4px;padding:2px 8px;font-size:11px;font-weight:600;">
+                {{ g }}
+            </span>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <div style="display:flex;gap:8px;">
+            <a href="{% url 'admin_detalle_ludica' l.id %}" class="btn btn-ghost btn-sm" style="flex:1;justify-content:center;">
+                <i class="fa-solid fa-users"></i> Inscritos
+            </a>
+            <a href="{% url 'admin_editar_ludica' l.id %}" class="btn btn-ghost btn-sm">
+                <i class="fa-solid fa-pen"></i>
+            </a>
+            <form method="post" action="{% url 'admin_eliminar_ludica' l.id %}"
+                  onsubmit="return confirm('¿Eliminar la lúdica {{ l.nombre }}?')">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger btn-sm">
+                    <i class="fa-solid fa-trash"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="empty-state">
+    <i class="fa-solid fa-puzzle-piece"></i>
+    <h3>No hay lúdicas registradas</h3>
+    <p>Crea la primera actividad lúdica para comenzar.</p>
+    <br>
+    <a href="{% url 'admin_crear_ludica' %}" class="btn btn-primary">
+        <i class="fa-solid fa-plus"></i> Crear Lúdica
+    </a>
+</div>
+{% endif %}
+{% endblock %}

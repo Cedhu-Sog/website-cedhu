@@ -1,0 +1,88 @@
+{% extends 'ludicas/base.html' %}
+{% block title %}Confirmar Inscripción{% endblock %}
+
+{% block sidebar_nav %}
+<a href="{% url 'estudiante_dashboard_ludicas' %}" class="nav-link">
+    <i class="fa-solid fa-arrow-left"></i> Volver al inicio
+</a>
+{% endblock %}
+
+{% block page_title %}Confirmar inscripción{% endblock %}
+{% block page_subtitle %}Revisa los detalles antes de confirmar{% endblock %}
+
+{% block content %}
+<div style="max-width:520px;margin:0 auto;">
+
+    <!-- Card de la lúdica -->
+    <div class="card" style="border-top:4px solid {{ ludica.color }};margin-bottom:24px;text-align:center;">
+        <div style="width:80px;height:80px;border-radius:24px;
+              background:{{ ludica.color }}22;color:{{ ludica.color }};
+              display:flex;align-items:center;justify-content:center;
+              font-size:36px;margin:0 auto 16px;">
+            <i class="fa-solid {{ ludica.icono }}"></i>
+        </div>
+        <h2 style="font-family:'Sora',sans-serif;font-size:24px;font-weight:700;margin-bottom:8px;">
+            {{ ludica.nombre }}
+        </h2>
+        <span class="badge badge-{{ ludica.estado|lower }}">{{ ludica.get_estado_display }}</span>
+
+        {% if ludica.descripcion %}
+        <p style="margin-top:14px;font-size:14px;color:var(--lud-muted);line-height:1.6;">
+            {{ ludica.descripcion }}
+        </p>
+        {% endif %}
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px;text-align:left;">
+            {% if ludica.profesor %}
+            <div style="background:var(--lud-surface);border-radius:8px;padding:12px;">
+                <div style="font-size:11px;color:var(--lud-muted);margin-bottom:4px;">Profesor</div>
+                <div style="font-size:13px;font-weight:600;">{{ ludica.profesor.nombre_completo }}</div>
+            </div>
+            {% endif %}
+            {% if ludica.horario %}
+            <div style="background:var(--lud-surface);border-radius:8px;padding:12px;">
+                <div style="font-size:11px;color:var(--lud-muted);margin-bottom:4px;">Horario</div>
+                <div style="font-size:13px;font-weight:600;">{{ ludica.horario }}</div>
+            </div>
+            {% endif %}
+            {% if ludica.lugar %}
+            <div style="background:var(--lud-surface);border-radius:8px;padding:12px;">
+                <div style="font-size:11px;color:var(--lud-muted);margin-bottom:4px;">Lugar</div>
+                <div style="font-size:13px;font-weight:600;">{{ ludica.lugar }}</div>
+            </div>
+            {% endif %}
+            <div style="background:var(--lud-surface);border-radius:8px;padding:12px;">
+                <div style="font-size:11px;color:var(--lud-muted);margin-bottom:4px;">Cupo disponible</div>
+                <div style="font-size:13px;font-weight:600;">
+                    {{ ludica.cupos_disponibles }} lugar(es)
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Aviso si ya tiene lúdica -->
+    {% if perfil.tiene_ludica %}
+    <div style="padding:14px 16px;background:rgba(255,193,7,.08);
+         border:1px solid rgba(255,193,7,.25);border-radius:10px;margin-bottom:20px;
+         font-size:13px;display:flex;gap:10px;">
+        <i class="fa-solid fa-triangle-exclamation" style="color:#ffc107;margin-top:1px;"></i>
+        <span>
+            <strong>Atención:</strong> Ya estás inscrito en otra lúdica.
+            Al confirmar, <strong>tu inscripción anterior será reemplazada</strong>.
+        </span>
+    </div>
+    {% endif %}
+
+    <div style="display:flex;gap:12px;">
+        <form method="post" style="flex:1;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;font-size:15px;padding:12px;">
+                <i class="fa-solid fa-circle-check"></i> Confirmar inscripción
+            </button>
+        </form>
+        <a href="{% url 'estudiante_dashboard_ludicas' %}" class="btn btn-ghost" style="padding:12px 20px;">
+            Cancelar
+        </a>
+    </div>
+</div>
+{% endblock %}
