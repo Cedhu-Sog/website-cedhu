@@ -28,5 +28,5 @@ urlpatterns = [
     path('panel/', views.panel_admin, name='panel_admin'),
     path('panel/toggle-user/<int:user_id>/', views.toggle_user, name='toggle_user'),
     path('panel/delete-user/<int:user_id>/', views.delete_user, name='delete_user'),
-    path('panel/gestionar-inicio/', views.gestionar_inicio, name='gestionar_inicio'),
+    
 ]

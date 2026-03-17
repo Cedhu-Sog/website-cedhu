@@ -45,34 +45,19 @@
 
 
 const track = document.querySelector('.hero-track');
-const slides = document.querySelectorAll('.hero-slide');
+const slides = track ? track.querySelectorAll('.hero-slide') : [];
 const leftArrow = document.querySelector('.hero-arrow.left');
 const rightArrow = document.querySelector('.hero-arrow.right');
 
 let currentIndex = 0;
 let autoplayInterval;
-let player;
+
 let isPaused = false;
 let startX = 0;
 let isDragging = false;
 const imageDuration = 5000;
 
-// ----------------
-// YOUTUBE API
-// ----------------
-function onYouTubeIframeAPIReady() {
-  player = new YT.Player('heroVideo', {
-    events: {
-      'onStateChange': onPlayerStateChange
-    }
-  });
-}
 
-function onPlayerStateChange(event) {
-  if (event.data === YT.PlayerState.ENDED) {
-    goToSlide(0);
-  }
-}
 
 // ----------------
 // SLIDE CONTROL
@@ -88,12 +73,31 @@ function goToSlide(index) {
 
   const type = slides[currentIndex].dataset.type;
 
-  if (type === "video") {
-    player.playVideo();
-  } else {
-    if (player) player.pauseVideo();
-    startAutoplay();
+if (type === "video") {
+  stopAutoplay();
+  playVideoIfExists();
+} else {
+  startAutoplay();
+}
+}
+function playVideoIfExists() {
+
+  const slide = slides[currentIndex];
+  if (!slide) return;
+
+  const iframe = slide.querySelector("iframe");
+
+  if (iframe) {
+    let src = iframe.src;
+
+    if (!src.includes("autoplay=1")) {
+      src += "&autoplay=1&mute=1";
+    }
+
+    iframe.src = "";
+    iframe.src = src;
   }
+
 }
 
 function nextSlide() {
@@ -125,74 +129,88 @@ function stopAutoplay() {
 function pauseAll() {
   isPaused = true;
   stopAutoplay();
-  if (player) player.pauseVideo();
 }
 
 function resumeAll() {
   if (!isPaused) return;
   isPaused = false;
 
-  if (slides[currentIndex].dataset.type === "video") {
-    player.playVideo();
-  } else {
+  if (slides[currentIndex].dataset.type !== "video") {
     startAutoplay();
   }
 }
 
-document.querySelector('.hero').addEventListener('mousedown', pauseAll);
-document.querySelector('.hero').addEventListener('mouseup', resumeAll);
-document.querySelector('.hero').addEventListener('touchstart', pauseAll);
-document.querySelector('.hero').addEventListener('touchend', resumeAll);
+const hero = document.querySelector('.hero');
 
+if (hero) {
+  hero.addEventListener('mousedown', pauseAll);
+  hero.addEventListener('mouseup', resumeAll);
+  hero.addEventListener('touchstart', pauseAll);
+  hero.addEventListener('touchend', resumeAll);
+}
 // ----------------
 // FLECHAS
 // ----------------
-rightArrow.addEventListener('click', nextSlide);
-leftArrow.addEventListener('click', prevSlide);
+if (rightArrow && leftArrow) {
+  rightArrow.addEventListener('click', nextSlide);
+  leftArrow.addEventListener('click', prevSlide);
+}
 
 // ----------------
 // SWIPE MOBILE
 // ----------------
-document.querySelector('.hero').addEventListener('touchstart', e => {
-  startX = e.touches[0].clientX;
-});
+if (hero) {
 
-document.querySelector('.hero').addEventListener('touchend', e => {
-  let endX = e.changedTouches[0].clientX;
-  let diff = startX - endX;
+  hero.addEventListener('touchstart', e => {
+    startX = e.touches[0].clientX;
+  });
 
-  if (Math.abs(diff) > 50) {
-    if (diff > 0) nextSlide();
-    else prevSlide();
-  }
-});
+  hero.addEventListener('touchend', e => {
+    let endX = e.changedTouches[0].clientX;
+    let diff = startX - endX;
+
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) nextSlide();
+      else prevSlide();
+    }
+  });
+
+}
 
 // INICIAR
-startAutoplay();
+if (track && slides.length > 0) {
+  goToSlide(0);
+}
 
 
 /* ============================================
    BOTONES DE SECCIONES INTERACTIVAS
    ============================================ */
-document.addEventListener("DOMContentLoaded", () => {
-  const buttons = document.querySelectorAll(".hub-buttons button");
-  const boxes = document.querySelectorAll(".contenido-box");
 
-  if (!buttons.length || !boxes.length) return;
+const buttons = document.querySelectorAll(".hub-buttons button");
+const boxes = document.querySelectorAll(".contenido-box");
+
+if (buttons.length && boxes.length) {
 
   buttons.forEach((btn) => {
     btn.addEventListener("click", () => {
-      // Quitar "active" de todo
+
       buttons.forEach((b) => b.classList.remove("active"));
       boxes.forEach((box) => box.classList.remove("active"));
 
-      // Activar el actual
       btn.classList.add("active");
+
       const target = btn.getAttribute("data-target");
-      document.getElementById(target).classList.add("active");
+      const targetBox = document.getElementById(target);
+
+      if (targetBox) {
+        targetBox.classList.add("active");
+      }
+
     });
   });
-});
+
+}
 
 /* himno */
 
@@ -221,23 +239,7 @@ document.addEventListener("DOMContentLoaded", () => {
 //     });
 // });
 
-document.addEventListener("DOMContentLoaded", () => {
-  const buttons = document.querySelectorAll(".hub-buttons button");
-  const boxes = document.querySelectorAll(".contenido-box");
 
-  buttons.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      // Remover clase active de todos los botones y contenidos
-      buttons.forEach((b) => b.classList.remove("active"));
-      boxes.forEach((box) => box.classList.remove("active"));
-
-      // Activar el botón actual y su contenido relacionado
-      btn.classList.add("active");
-      const target = btn.getAttribute("data-target");
-      document.getElementById(target).classList.add("active");
-    });
-  });
-});
 
 // niveles educativos
 function toggleInfo(card) {

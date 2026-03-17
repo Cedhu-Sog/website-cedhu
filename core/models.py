@@ -3,25 +3,39 @@ from django.db import models
 
 class ContenidoInicio(models.Model):
     titulo_galeria = models.CharField(max_length=255, blank=True)
+
     url_manual = models.URLField(blank=True)
     texto_direccion = models.TextField(blank=True)
     iframe_mapa = models.TextField(blank=True)
+
     logo = models.ImageField(upload_to='logos/', blank=True, null=True)
     imagen_manual = models.ImageField(upload_to='manuales/', blank=True, null=True)
 
+    hero_imagen1 = models.ImageField(upload_to='home/', blank=True, null=True)
+    hero_imagen2 = models.ImageField(upload_to='home/', blank=True, null=True)
+    hero_video = models.URLField(blank=True, null=True)
+
+    def __str__(self):
+        return "Contenido del Inicio"
+
 
 class GalleryImage(models.Model):
+
     contenido = models.ForeignKey(
         ContenidoInicio,
         related_name='gallery_images',
         on_delete=models.CASCADE
     )
+
     image = models.ImageField(upload_to='gallery/')
-    descripcion = models.TextField(blank=True)
+    descripcion = models.CharField(max_length=255, blank=True)
     orden = models.PositiveIntegerField()
 
     class Meta:
         unique_together = ('contenido', 'orden')
+
+    def __str__(self):
+        return f"Imagen {self.orden}"
 
 
 class Evento(models.Model):
@@ -44,7 +58,7 @@ class Noticia(models.Model):
     url = models.URLField(
         blank=True,
         null=True,
-        help_text="URL externa de la noticia. Si se deja vacío, al hacer clic se abrirá la imagen directamente."
+        help_text="URL externa de la noticia. Si se deja vacío, al hacer clic se abrirá la imagen."
     )
     fecha = models.DateTimeField(auto_now_add=True)
     activa = models.BooleanField(default=True)

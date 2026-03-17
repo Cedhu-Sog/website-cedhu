@@ -13,8 +13,7 @@ class NoticiaAdmin(admin.ModelAdmin):
 
 @admin.register(ContenidoInicio)
 class ContenidoInicioAdmin(admin.ModelAdmin):
-    list_display = ('id', 'titulo_galeria')
-
+    list_display = ('id', 'hero_video')
 
 @admin.register(GalleryImage)
 class GalleryImageAdmin(admin.ModelAdmin):

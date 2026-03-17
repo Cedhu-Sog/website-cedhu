@@ -1,18 +1,40 @@
+import re
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.http import HttpResponseForbidden
 from datetime import datetime
-
-from .models import Perfil, ParametroGlobal, Modulo, LogAccion
+from .models import Perfil, ParametroGlobal, Modulo, LogAccion, Staff
 from .decorators import rol_requerido, solo_administrador, registrar_accion, get_client_ip
-from .services import (
-    ParametroService, ModuloService, 
-    UsuarioService, AuditoriaService
-)
+from .services import ParametroService, ModuloService, UsuarioService, AuditoriaService
+from core.models import ContenidoInicio, Noticia
+from .forms import StaffForm
+import cloudinary
+import cloudinary.uploader
+import os
+from django.core.validators import URLValidator
+from django.core.exceptions import ValidationError
 
+# ============================================
+# FUNCIONES AUXILIARES
+# ============================================
+
+def extract_youtube_id(url):
+    regex = r"(?:v=|youtu\.be\/|embed\/)([A-Za-z0-9_-]{11})"
+    match = re.search(regex, url)
+    return match.group(1) if match else None
+
+# Función para subir archivos a Cloudinary de forma unsigned
+def upload_unsigned(file, preset, folder):
+    # Subida unsigned normal, sin tocar api_secret
+    result = cloudinary.uploader.upload(
+        file,
+        upload_preset=preset,
+        folder=folder,
+        unsigned=True  # importante para preset unsigned
+    )
+    return result
 
 # ============================================
 # AUTENTICACIÓN
@@ -25,7 +47,6 @@ def login_view(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
-        
         user = authenticate(request, username=username, password=password)
         
         if user is not None:
@@ -38,7 +59,6 @@ def login_view(request):
                 return render(request, 'plataforma/login.html')
             
             login(request, user)
-            
             LogAccion.registrar(
                 usuario=user,
                 accion='Inicio de sesión exitoso',
@@ -46,12 +66,10 @@ def login_view(request):
                 modulo='plataforma',
                 ip=get_client_ip(request)
             )
-            
             messages.success(request, f'Bienvenido, {user.first_name or user.username}')
             return redirect('dashboard_redirect')
         else:
             messages.error(request, 'Usuario o contraseña incorrectos')
-            
             LogAccion.objects.create(
                 usuario=None,
                 accion=f'Intento de login fallido: {username}',
@@ -63,7 +81,6 @@ def login_view(request):
     
     return render(request, 'plataforma/login.html')
 
-
 def logout_view(request):
     if request.user.is_authenticated:
         LogAccion.registrar(
@@ -73,28 +90,24 @@ def logout_view(request):
             modulo='plataforma',
             ip=get_client_ip(request)
         )
-    
     logout(request)
     messages.success(request, 'Has cerrado sesión correctamente')
     return redirect('home')
-
 
 @login_required
 def dashboard_redirect(request):
     if not hasattr(request.user, 'perfil'):
         messages.error(request, 'Tu cuenta no tiene un perfil asignado.')
-        return redirect('plataforma_login')  # ← CAMBIADO
+        return redirect('plataforma_login')
     
     rol = request.user.perfil.rol
-    
     if rol == 'ADMINISTRADOR':
         return redirect('dashboard_admin')
     elif rol == 'PADRE':
         return redirect('dashboard_padre')
     else:
         messages.error(request, 'Rol no reconocido.')
-        return redirect('plataforma_login')  # ← CAMBIADO
-
+        return redirect('plataforma_login')
 
 # ============================================
 # DASHBOARDS
@@ -116,9 +129,7 @@ def dashboard_admin(request):
         'logs_recientes': logs_recientes,
         'fecha_corte_ludicas': fecha_corte_ludicas,
     }
-    
     return render(request, 'plataforma/dashboard_admin.html', context)
-
 
 @rol_requerido('PADRE')
 @registrar_accion('VER', 'Accedió al dashboard de padre', modulo='plataforma')
@@ -126,18 +137,14 @@ def dashboard_padre(request):
     modulos_disponibles = ModuloService.obtener_modulos_por_rol('PADRE')
     perfil = request.user.perfil
     padre = perfil.padre
-    estudiantes = []
-    if padre:
-        estudiantes = padre.estudiantes.all()
+    estudiantes = padre.estudiantes.all() if padre else []
     
     context = {
         'modulos_disponibles': modulos_disponibles,
         'padre': padre,
         'estudiantes': estudiantes,
     }
-    
     return render(request, 'plataforma/dashboard_padre.html', context)
-
 
 # ============================================
 # GESTIÓN DE PARÁMETROS GLOBALES
@@ -185,13 +192,8 @@ def gestionar_parametros(request):
     parametros = ParametroService.obtener_todos()
     fecha_corte_ludicas = ParametroService.obtener_fecha_corte_ludicas()
     
-    context = {
-        'parametros': parametros,
-        'fecha_corte_ludicas': fecha_corte_ludicas,
-    }
-    
+    context = {'parametros': parametros, 'fecha_corte_ludicas': fecha_corte_ludicas}
     return render(request, 'plataforma/gestionar_parametros.html', context)
-
 
 @solo_administrador
 def eliminar_parametro(request, parametro_id):
@@ -212,7 +214,6 @@ def eliminar_parametro(request, parametro_id):
             messages.error(request, f'Error al eliminar parámetro: {str(e)}')
     
     return redirect('gestionar_parametros')
-
 
 # ============================================
 # GESTIÓN DE MÓDULOS
@@ -253,9 +254,7 @@ def gestionar_modulos(request):
         return redirect('gestionar_modulos')
     
     modulos = Modulo.objects.all().order_by('orden')
-    context = {'modulos': modulos}
-    return render(request, 'plataforma/gestionar_modulos.html', context)
-
+    return render(request, 'plataforma/gestionar_modulos.html', {'modulos': modulos})
 
 # ============================================
 # GESTIÓN DE USUARIOS
@@ -265,12 +264,7 @@ def gestionar_modulos(request):
 def gestionar_usuarios(request):
     usuarios = User.objects.select_related('perfil').all()
     stats = UsuarioService.obtener_estadisticas()
-    context = {
-        'usuarios': usuarios,
-        'stats': stats,
-    }
-    return render(request, 'plataforma/gestionar_usuarios.html', context)
-
+    return render(request, 'plataforma/gestionar_usuarios.html', {'usuarios': usuarios, 'stats': stats})
 
 @solo_administrador
 def toggle_usuario(request, user_id):
@@ -291,19 +285,17 @@ def toggle_usuario(request, user_id):
             messages.success(request, f'Usuario {user.username} {estado}')
         except Exception as e:
             messages.error(request, f'Error al cambiar estado: {str(e)}')
-    
     return redirect('gestionar_usuarios')
-
 
 @solo_administrador
 def eliminar_usuario(request, user_id):
     if request.method == 'POST':
         try:
             user = get_object_or_404(User, id=user_id)
-            username = user.username
             if user == request.user:
                 messages.error(request, 'No puedes eliminar tu propia cuenta')
                 return redirect('gestionar_usuarios')
+            username = user.username
             user.delete()
             LogAccion.registrar(
                 usuario=request.user,
@@ -315,9 +307,7 @@ def eliminar_usuario(request, user_id):
             messages.success(request, f'Usuario {username} eliminado')
         except Exception as e:
             messages.error(request, f'Error al eliminar usuario: {str(e)}')
-    
     return redirect('gestionar_usuarios')
-
 
 # ============================================
 # AUDITORÍA
@@ -330,13 +320,12 @@ def ver_auditoria(request):
     limite = int(request.GET.get('limite', 50))
     
     logs = LogAccion.objects.all()
-    
     if tipo_filtro:
         logs = logs.filter(tipo_accion=tipo_filtro)
     if usuario_filtro:
         logs = logs.filter(usuario__username__icontains=usuario_filtro)
-    
     logs = logs[:limite]
+    
     stats = AuditoriaService.estadisticas_actividad()
     
     context = {
@@ -347,5 +336,124 @@ def ver_auditoria(request):
         'usuario_filtro': usuario_filtro,
         'limite': limite,
     }
-    
     return render(request, 'plataforma/ver_auditoria.html', context)
+
+# ============================================
+# GESTIÓN DE INICIO (HERO Y NOTICIAS)
+# ============================================
+
+def gestionar_inicio(request):
+    contenido, _ = ContenidoInicio.objects.get_or_create(id=1)
+    preset = os.getenv("CLOUDINARY_UPLOAD_PRESET", "preset_publico")  # preset unsigned
+
+    # ==== GUARDAR HERO ====
+    if request.method == "POST" and "guardar_hero" in request.POST:
+        for field in ["hero_imagen1", "hero_imagen2"]:
+            file = request.FILES.get(field)
+            if file:
+                upload_result = upload_unsigned(file, preset=preset, folder="cedhu/hero")
+                setattr(contenido, field, upload_result['secure_url'])
+
+        # Guardar video
+        video = request.POST.get("hero_video")
+        video_id = extract_youtube_id(video) if video else None
+        if video_id:
+            contenido.hero_video = video_id
+
+        contenido.save()
+        return redirect("gestionar_inicio")
+
+    # ==== CREAR NOTICIA ====
+    if request.method == "POST" and "crear_noticia" in request.POST:
+        imagen = request.FILES.get("imagen_noticia")
+        url = request.POST.get("url_noticia", "").strip()
+        if imagen:
+            upload_result = upload_unsigned(imagen, preset=preset, folder="cedhu/noticias")
+
+            # Validar URL antes de guardar
+            if url:
+                validate = URLValidator()
+                try:
+                    validate(url)
+                except ValidationError:
+                    url = None
+
+            Noticia.objects.create(
+                imagen=upload_result['secure_url'],
+                url=url
+            )
+        return redirect("gestionar_inicio")
+
+    noticias = Noticia.objects.filter(activa=True)
+    return render(request, "plataforma/gestionar_inicio.html", {
+        "contenido": contenido,
+        "noticias": noticias
+    })
+
+# ============================================
+# ELIMINAR NOTICIA
+# ============================================
+
+def eliminar_noticia(request, noticia_id):
+    noticia = get_object_or_404(Noticia, id=noticia_id)
+    noticia.delete()
+    return redirect("gestionar_inicio")
+
+# ============================================
+# GESTIÓN DE NOSOTROS
+# ============================================
+
+def gestionar_nosotros(request):
+    staff = Staff.objects.all().order_by('categoria', 'nombre')
+    form = StaffForm()
+    preset = os.getenv("CLOUDINARY_UPLOAD_PRESET", "preset_publico")
+    folder = "cedhu/staff"
+
+    if request.method == "POST":
+        if 'crear_staff' in request.POST:
+            form = StaffForm(request.POST, request.FILES)
+            if form.is_valid():
+                instance = form.save(commit=False)
+                if request.FILES.get('imagen'):
+                    result = upload_unsigned(request.FILES['imagen'], preset=preset, folder=folder)
+                    instance.imagen = result['secure_url']
+                instance.save()
+                return redirect('gestionar_nosotros')
+
+        elif 'editar_staff' in request.POST:
+            staff_id = request.POST.get('staff_id')
+            persona = get_object_or_404(Staff, id=staff_id)
+            form = StaffForm(request.POST, request.FILES, instance=persona)
+            if form.is_valid():
+                instance = form.save(commit=False)
+                if request.FILES.get('imagen'):
+                    result = upload_unsigned(request.FILES['imagen'], preset=preset, folder=folder)
+                    instance.imagen = result['secure_url']
+                instance.save()
+                return redirect('gestionar_nosotros')
+
+        elif 'eliminar_staff' in request.POST:
+            staff_id = request.POST.get('staff_id')
+            persona = get_object_or_404(Staff, id=staff_id)
+            persona.delete()
+            return redirect('gestionar_nosotros')
+
+    return render(request, 'plataforma/gestionar_nosotros.html', {
+        'staff': staff,
+        'form': form
+    })
+
+def nosotros_publico(request):
+    directivas = Staff.objects.filter(categoria='directivas').order_by('nombre')
+    coordinadores = Staff.objects.filter(categoria='coordinadores').order_by('nombre')
+    docentes = Staff.objects.filter(categoria='docentes').order_by('nombre')
+    administrativos = Staff.objects.filter(categoria='administrativos').order_by('nombre')
+    servicios = Staff.objects.filter(categoria='servicios').order_by('nombre')
+
+    return render(request, 'plataforma/nosotros.html', {
+        'directivas': directivas,
+        'coordinadores': coordinadores,
+        'docentes': docentes,
+        'administrativos': administrativos,
+        'servicios': servicios
+    })

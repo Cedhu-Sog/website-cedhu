@@ -279,3 +279,57 @@ class LogAccion(models.Model):
             detalles=detalles,
             ip_address=ip
         )
+
+# ============================================
+# Gestionar inicio 
+# ============================================    
+
+      # HERO
+class ContenidoInicio(models.Model):
+
+    titulo_galeria = models.CharField(max_length=255, blank=True)
+    url_manual = models.URLField(blank=True)
+    texto_direccion = models.TextField(blank=True)
+    iframe_mapa = models.TextField(blank=True)
+
+    logo = models.ImageField(upload_to='logos/', blank=True, null=True)
+    imagen_manual = models.ImageField(upload_to='manuales/', blank=True, null=True)
+
+    
+    hero_imagen1 = models.ImageField(upload_to='hero/', blank=True, null=True)
+    hero_imagen2 = models.ImageField(upload_to='hero/', blank=True, null=True)
+    hero_video = models.URLField(blank=True)
+       
+#=======================================================       
+       
+       # noticias 
+class Noticia(models.Model):
+    imagen = models.URLField(max_length=2000)
+    url = models.TextField(blank=True, null=True)
+    fecha = models.DateTimeField(auto_now_add=True)
+    activa = models.BooleanField(default=True)
+
+# ============================================
+# Gestionar nosotros
+# ============================================    
+# models.py
+from django.db import models
+from cloudinary.models import CloudinaryField
+
+class Staff(models.Model):
+    CATEGORIAS = [
+        ('directivas', 'Directivas'),
+        ('coordinadores', 'Coordinadores'),
+        ('docentes', 'Docentes'),
+        ('administrativos', 'Administrativos'),
+        ('servicios', 'Servicios Generales'),
+    ]
+
+    nombre = models.CharField(max_length=150)
+    cargo = models.CharField(max_length=150)
+    descripcion = models.TextField()
+    categoria = models.CharField(max_length=20, choices=CATEGORIAS)
+    imagen = CloudinaryField('imagen')
+
+    def __str__(self):
+        return self.nombre

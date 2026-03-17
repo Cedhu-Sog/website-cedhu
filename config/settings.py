@@ -14,7 +14,7 @@ SECRET_KEY = os.environ.get(
 
 DEBUG = os.environ.get("DEBUG", "True") == "True"
 
-ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(",")
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split(",")
 
 CSRF_TRUSTED_ORIGINS = [
     'https://website-cedhu.onrender.com',
@@ -33,6 +33,8 @@ INSTALLED_APPS = [
     'plataforma',
     'padres',
     'estudiantes',
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
 if DEBUG:
@@ -115,6 +117,7 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = '/static/'
+MEDIA_URL = "/media/"
 
 STATICFILES_DIRS = [
     BASE_DIR / 'core' / 'static',
@@ -124,8 +127,7 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+
 
 # ===============================
 # LOGIN
@@ -146,3 +148,49 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #             )
 #     except Exception as e:
 #         print(f"Error creating superuser: {e}")
+
+
+# ===============================
+# CLOUDINARY
+# ===============================
+import cloudinary
+
+# Configuración global normal (con api_secret)
+cloudinary.config(
+    cloud_name=os.environ.get("CLOUDINARY_CLOUD_NAME"),
+    api_key=os.environ.get("CLOUDINARY_API_KEY"),
+    api_secret=os.environ.get("CLOUDINARY_API_SECRET"),
+    secure=True
+)
+
+def upload_unsigned(file, preset, folder):
+    # Guardamos la configuración actual
+    config = cloudinary.config()
+    original_api_secret = config.api_secret
+
+    # Anulamos temporalmente api_secret para forzar unsigned
+    config.api_secret = None  # o '' también funciona, pero None es más claro
+
+    try:
+        result = cloudinary.uploader.upload(
+            file,
+            upload_preset=preset,
+            folder=folder
+        )
+    finally:
+        # Siempre restauramos la configuración original, incluso si hay error
+        config.api_secret = original_api_secret
+
+    return result
+
+# Storage para Django (para que los FileField se guarden en Cloudinary)
+DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
+
+
+# ===============================
+# SEGURIDAD PARA PRODUCCIÓN
+# ===============================
+
+if not DEBUG:
+    # Necesario cuando se usa Render u otros proxies HTTPS
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
