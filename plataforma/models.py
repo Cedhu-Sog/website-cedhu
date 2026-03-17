@@ -328,6 +328,7 @@ class Staff(models.Model):
     nombre = models.CharField(max_length=150)
     cargo = models.CharField(max_length=150)
     descripcion = models.TextField()
+    descripcion_back = models.TextField(blank=True, null=True)
     categoria = models.CharField(max_length=20, choices=CATEGORIAS)
     imagen = CloudinaryField('imagen')
 

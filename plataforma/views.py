@@ -1,4 +1,5 @@
 import re
+import logging
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -15,6 +16,8 @@ import cloudinary.uploader
 import os
 from django.core.validators import URLValidator
 from django.core.exceptions import ValidationError
+
+logger = logging.getLogger(__name__)
 
 # ============================================
 # FUNCIONES AUXILIARES
@@ -443,17 +446,31 @@ def gestionar_nosotros(request):
         'form': form
     })
 
-def nosotros_publico(request):
-    directivas = Staff.objects.filter(categoria='directivas').order_by('nombre')
-    coordinadores = Staff.objects.filter(categoria='coordinadores').order_by('nombre')
-    docentes = Staff.objects.filter(categoria='docentes').order_by('nombre')
-    administrativos = Staff.objects.filter(categoria='administrativos').order_by('nombre')
-    servicios = Staff.objects.filter(categoria='servicios').order_by('nombre')
+def _build_staff_context():
+    staff_qs = Staff.objects.all().order_by('nombre')
+    grouped = {key: [] for key, _ in Staff.CATEGORIAS}
+    extras = {}
 
-    return render(request, 'plataforma/nosotros.html', {
-        'directivas': directivas,
-        'coordinadores': coordinadores,
-        'docentes': docentes,
-        'administrativos': administrativos,
-        'servicios': servicios
-    })
+    for persona in staff_qs:
+        if persona.categoria in grouped:
+            grouped[persona.categoria].append(persona)
+        else:
+            extras.setdefault(persona.categoria, []).append(persona)
+
+    counts = {key: len(items) for key, items in grouped.items()}
+    logger.info("Staff counts (nosotros_publico): %s", counts)
+    if extras:
+        extras_counts = {key: len(items) for key, items in extras.items()}
+        logger.warning("Staff con categorias invalidas: %s", extras_counts)
+
+    return {
+        'directivas': grouped.get('directivas', []),
+        'coordinadores': grouped.get('coordinadores', []),
+        'docentes': grouped.get('docentes', []),
+        'administrativos': grouped.get('administrativos', []),
+        'servicios': grouped.get('servicios', []),
+    }
+
+def nosotros_publico(request):
+    context = _build_staff_context()
+    return render(request, 'core/nosotros.html', context)

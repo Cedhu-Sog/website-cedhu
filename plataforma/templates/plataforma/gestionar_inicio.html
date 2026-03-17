@@ -10,137 +10,126 @@
 
 <!-- HERO DEL INICIO -->
 <div class="card">
-
     <div class="card-header">
         <i class="fas fa-images"></i> Hero del Inicio
     </div>
-
     <div class="card-body">
-
         <form method="POST" enctype="multipart/form-data">
             {% csrf_token %}
 
-            <div class="row">
-
+            <div class="row g-3">
                 <!-- IMAGEN 1 -->
-                <div class="col-md-6 mb-4">
-                    <label><strong>Slide 1</strong></label>
-
+                <div class="col-md-6">
+                    <label class="form-label fw-bold">Slide 1</label>
                     {% if contenido.hero_imagen1 %}
-                        <div>
+                        <div class="mb-2">
                             <img src="{{ contenido.hero_imagen1 }}" style="width:100%; max-height:200px; object-fit:cover;">
                         </div>
                     {% else %}
-                        <img src="{% static 'core/img/Banner-Cedhu-Destacado-1.jpg' %}" style="width:100%; max-height:200px;">
+                        <div class="mb-2">
+                            <img src="{% static 'core/img/Banner-Cedhu-Destacado-1.jpg' %}" style="width:100%; max-height:200px; object-fit:cover;">
+                        </div>
                     {% endif %}
-
-                    <input type="file" name="hero_imagen1" class="form-control mt-2">
+                    <input type="file" name="hero_imagen1" class="form-control">
                 </div>
 
                 <!-- IMAGEN 2 -->
-                <div class="col-md-6 mb-4">
-                    <label><strong>Slide 2</strong></label>
-
+                <div class="col-md-6">
+                    <label class="form-label fw-bold">Slide 2</label>
                     {% if contenido.hero_imagen2 %}
-                        <div>
+                        <div class="mb-2">
                             <img src="{{ contenido.hero_imagen2 }}" style="width:100%; max-height:200px; object-fit:cover;">
                         </div>
                     {% else %}
-                        <img src="{% static 'core/img/Banner-Cedhu-Destacado-2.jpg' %}" style="width:100%; max-height:200px;">
+                        <div class="mb-2">
+                            <img src="{% static 'core/img/Banner-Cedhu-Destacado-2.jpg' %}" style="width:100%; max-height:200px; object-fit:cover;">
+                        </div>
                     {% endif %}
-
-                    <input type="file" name="hero_imagen2" class="form-control mt-2">
+                    <input type="file" name="hero_imagen2" class="form-control">
                 </div>
 
                 <!-- VIDEO -->
-                <div class="col-md-12 mb-4">
-                    <label><strong>Video YouTube</strong></label>
+                <div class="col-12">
+                    <label class="form-label fw-bold">Video YouTube</label>
                     <input
                         type="text"
                         name="hero_video"
                         value="{{ contenido.hero_video }}"
                         class="form-control"
                         placeholder="https://www.youtube.com/watch?v=VIDEO_ID">
-                    <small class="text-muted">
-                        Pega el link embed de YouTube
-                    </small>
+                    <small class="text-muted">Pega el link embed de YouTube</small>
                 </div>
-
             </div>
 
-            <button class="btn btn-primary" name="guardar_hero">
-                <i class="fas fa-save"></i> Guardar cambios
-            </button>
-
+            <div class="d-flex justify-content-end mt-3">
+                <button class="btn btn-primary" name="guardar_hero">
+                    <i class="fas fa-save"></i> Guardar cambios
+                </button>
+            </div>
         </form>
-
     </div>
-
 </div>
 
 <!-- NOTICIAS DEL HOME -->
 <div class="card mt-4">
-
     <div class="card-header">
         <i class="fas fa-newspaper"></i> Noticias del Home
     </div>
-
     <div class="card-body">
+        <div class="row g-4">
+            <div class="col-12">
+                <h5 class="mb-3">Agregar nueva noticia</h5>
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
 
-        <!-- FORMULARIO AGREGAR NOTICIA -->
-        <h5>Agregar nueva noticia</h5>
-
-        <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-
-            <div class="row">
-                <div class="col-md-6">
-                    <label>Imagen</label>
-                    <input type="file" name="imagen_noticia" class="form-control" required>
-                </div>
-
-                <div class="col-md-6">
-                    <label>Link (opcional)</label>
-                    <input type="text" name="url_noticia" class="form-control" placeholder="https://...">
-                </div>
-            </div>
-
-            <button class="btn btn-success mt-3" name="crear_noticia">
-                <i class="fas fa-plus"></i> Agregar noticia
-            </button>
-        </form>
-
-        <hr>
-
-        <!-- LISTA DE NOTICIAS -->
-        <h5>Noticias actuales</h5>
-
-        <div class="row">
-            {% for noticia in noticias %}
-            <div class="col-md-3 mb-4">
-                <div class="card">
-                    <img src="{{ noticia.imagen }}" style="height:150px; object-fit:cover;">
-
-                    <div class="card-body text-center">
-                        {% if noticia.url %}
-                        <a href="{{ noticia.url }}" target="_blank" class="btn btn-sm btn-info mb-2">
-                            <i class="fas fa-link"></i> Ver link
-                        </a>
-                        {% endif %}
-
-                        <a href="{% url 'eliminar_noticia' noticia.id %}" class="btn btn-sm btn-danger">
-                            <i class="fas fa-trash"></i>
-                        </a>
+                    <div class="row g-3 align-items-end">
+                        <div class="col-md-6">
+                            <label class="form-label">Imagen</label>
+                            <input type="file" name="imagen_noticia" class="form-control" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Link (opcional)</label>
+                            <input type="text" name="url_noticia" class="form-control" placeholder="https://...">
+                        </div>
                     </div>
+
+                    <div class="d-flex justify-content-end mt-3">
+                        <button class="btn btn-success" name="crear_noticia">
+                            <i class="fas fa-plus"></i> Agregar noticia
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="col-12">
+                <hr class="my-2">
+                <h5 class="mb-3">Noticias actuales</h5>
+                <div class="row">
+                    {% for noticia in noticias %}
+                    <div class="col-md-3 mb-4">
+                        <div class="card">
+                            <img src="{{ noticia.imagen }}" style="height:150px; object-fit:cover;">
+                            <div class="card-body text-center">
+                                {% if noticia.url %}
+                                <a href="{{ noticia.url }}" target="_blank" class="btn btn-sm btn-info mb-2">
+                                    <i class="fas fa-link"></i> Ver link
+                                </a>
+                                {% endif %}
+                                <a href="{% url 'eliminar_noticia' noticia.id %}" class="btn btn-sm btn-danger">
+                                    <i class="fas fa-trash"></i> Eliminar
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="col-12">
+                        <p class="text-muted mb-0">No hay noticias registradas.</p>
+                    </div>
+                    {% endfor %}
                 </div>
             </div>
-            {% empty %}
-            <p>No hay noticias registradas.</p>
-            {% endfor %}
         </div>
-
     </div>
-
 </div>
 
 {% endblock %}

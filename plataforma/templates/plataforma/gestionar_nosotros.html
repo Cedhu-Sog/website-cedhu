@@ -17,7 +17,38 @@
 <div id="crearForm" style="display:none; margin-top:20px;">
   <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form.as_p }}
+    <div class="row g-3">
+      <div class="col-md-6">
+        <label class="form-label">Nombre</label>
+        {{ form.nombre }}
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Cargo</label>
+        {{ form.cargo }}
+      </div>
+      <div class="col-md-12">
+        <label class="form-label">Descripcion</label>
+        {{ form.descripcion }}
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Categoria</label>
+        {{ form.categoria }}
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Imagen</label>
+        {{ form.imagen }}
+      </div>
+      <div class="col-md-12">
+        <label class="form-label">Texto en reverso de la tarjeta</label>
+        <textarea
+          name="descripcion_back"
+          class="form-control"
+          rows="3"
+          placeholder="Escribe el contenido que se verá al voltear la tarjeta"
+        >{{ form.descripcion_back.value|default_if_none:"" }}</textarea>
+        <small class="text-muted">Este texto se mostrara en la parte trasera de la tarjeta del staff.</small>
+      </div>
+    </div>
     <button type="submit" name="crear_staff" class="btn btn-success">Guardar</button>
     <button type="button" onclick="document.getElementById('crearForm').style.display='none'" class="btn btn-secondary">Cancelar</button>
   </form>

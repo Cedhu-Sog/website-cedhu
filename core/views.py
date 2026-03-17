@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+import logging
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.db import IntegrityError
@@ -6,6 +7,9 @@ from django.contrib.auth.decorators import login_required
 import datetime
 
 from .models import ContenidoInicio, GalleryImage, Noticia, Evento
+from plataforma.models import Staff
+
+logger = logging.getLogger(__name__)
 
 
 # ==============================
@@ -60,7 +64,29 @@ def logout_view(request):
 # ==============================
 
 def nosotros_view(request):
-    return render(request, 'core/nosotros.html')
+    staff_qs = Staff.objects.all().order_by('nombre')
+    grouped = {key: [] for key, _ in Staff.CATEGORIAS}
+    extras = {}
+
+    for persona in staff_qs:
+        if persona.categoria in grouped:
+            grouped[persona.categoria].append(persona)
+        else:
+            extras.setdefault(persona.categoria, []).append(persona)
+
+    counts = {key: len(items) for key, items in grouped.items()}
+    logger.info("Staff counts (core.nosotros_view): %s", counts)
+    if extras:
+        extras_counts = {key: len(items) for key, items in extras.items()}
+        logger.warning("Staff con categorias invalidas: %s", extras_counts)
+
+    return render(request, 'core/nosotros.html', {
+        'directivas': grouped.get('directivas', []),
+        'coordinadores': grouped.get('coordinadores', []),
+        'docentes': grouped.get('docentes', []),
+        'administrativos': grouped.get('administrativos', []),
+        'servicios': grouped.get('servicios', []),
+    })
 
 
 def historia_view(request):
