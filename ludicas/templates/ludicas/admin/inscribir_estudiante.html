@@ -1,0 +1,123 @@
+{% extends 'ludicas/base.html' %}
+{% block title %}Inscribir Estudiante{% endblock %}
+
+{% block sidebar_nav %}
+<span class="nav-section-label">General</span>
+<a href="{% url 'admin_dashboard_ludicas' %}" class="nav-link">
+    <i class="fa-solid fa-gauge-high"></i> Dashboard
+</a>
+<span class="nav-section-label">Gestión</span>
+<a href="{% url 'admin_lista_ludicas' %}" class="nav-link">
+    <i class="fa-solid fa-puzzle-piece"></i> Lúdicas
+</a>
+<a href="{% url 'admin_lista_profesores' %}" class="nav-link">
+    <i class="fa-solid fa-chalkboard-user"></i> Profesores
+</a>
+<a href="{% url 'admin_lista_estudiantes_ludica' %}" class="nav-link active">
+    <i class="fa-solid fa-user-graduate"></i> Estudiantes
+</a>
+{% endblock %}
+
+{% block page_title %}Inscribir Estudiante{% endblock %}
+{% block page_subtitle %}{{ perfil.nombre_completo }} — {{ perfil.grado }}{% endblock %}
+{% block topbar_actions %}
+<a href="{% url 'admin_lista_estudiantes_ludica' %}" class="btn btn-ghost">
+    <i class="fa-solid fa-arrow-left"></i> Volver
+</a>
+{% endblock %}
+
+{% block content %}
+<div style="max-width:700px;">
+    <div class="card" style="margin-bottom:20px;">
+        <div style="display:flex;align-items:center;gap:14px;">
+            <div style="width:52px;height:52px;border-radius:50%;
+                  background:linear-gradient(135deg,#43e97b,#6c63ff);
+                  display:flex;align-items:center;justify-content:center;
+                  font-weight:700;font-size:20px;color:#fff;">
+                {{ perfil.estudiante.nombres.0 }}{{ perfil.estudiante.apellidos.0 }}
+            </div>
+            <div>
+                <h3 style="font-family:'Sora',sans-serif;font-size:17px;font-weight:700;">
+                    {{ perfil.nombre_completo }}
+                </h3>
+                <p style="color:var(--lud-muted);font-size:13px;">
+                    Grado: {{ perfil.grado }} &nbsp;·&nbsp; Doc: {{ perfil.estudiante.documento }}
+                </p>
+            </div>
+            {% with insc=perfil.inscripcion_activa %}
+            {% if insc %}
+            <div style="margin-left:auto;padding:8px 14px;background:rgba(108,99,255,.1);
+                  border-radius:8px;font-size:12px;color:var(--lud-accent);">
+                <i class="fa-solid fa-circle-info"></i>
+                Actualmente en: <strong>{{ insc.ludica.nombre }}</strong>
+            </div>
+            {% endif %}
+            {% endwith %}
+        </div>
+    </div>
+
+    {% if ludicas %}
+    <form method="post">
+        {% csrf_token %}
+        <div style="display:flex;flex-direction:column;gap:12px;">
+            {% for l in ludicas %}
+            <label style="cursor:pointer;">
+                <input type="radio" name="ludica_id" value="{{ l.id }}"
+                       style="display:none;" class="ludica-radio"
+                       {% if perfil.inscripcion_activa.ludica_id == l.id %}checked{% endif %}>
+                <div class="ludica-card" style="border:2px solid var(--lud-border);border-radius:12px;
+                     padding:16px 20px;display:flex;align-items:center;gap:16px;
+                     transition:all .2s ease;{% if perfil.inscripcion_activa.ludica_id == l.id %}
+                     border-color:{{ l.color }};background:{{ l.color }}0a;{% endif %}">
+                    <span style="width:44px;height:44px;border-radius:10px;flex-shrink:0;
+                          background:{{ l.color }}22;color:{{ l.color }};
+                          display:flex;align-items:center;justify-content:center;font-size:20px;">
+                        <i class="fa-solid {{ l.icono }}"></i>
+                    </span>
+                    <div style="flex:1;">
+                        <strong style="font-size:15px;">{{ l.nombre }}</strong>
+                        <div style="font-size:12px;color:var(--lud-muted);margin-top:2px;">
+                            {% if l.horario %}{{ l.horario }} &nbsp;·&nbsp;{% endif %}
+                            {{ l.total_inscritos }}/{{ l.cupo_maximo }} inscritos
+                        </div>
+                    </div>
+                    <span class="badge badge-{{ l.estado|lower }}">{{ l.get_estado_display }}</span>
+                </div>
+            </label>
+            {% endfor %}
+        </div>
+
+        <div style="display:flex;gap:12px;margin-top:20px;">
+            <button type="submit" class="btn btn-primary">
+                <i class="fa-solid fa-user-check"></i> Confirmar Inscripción
+            </button>
+            <a href="{% url 'admin_lista_estudiantes_ludica' %}" class="btn btn-ghost">Cancelar</a>
+        </div>
+    </form>
+    {% else %}
+    <div class="empty-state">
+        <i class="fa-solid fa-puzzle-piece"></i>
+        <h3>No hay lúdicas disponibles para el grado {{ perfil.grado }}</h3>
+        <p>Crea lúdicas que incluyan este grado.</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.querySelectorAll('.ludica-radio').forEach(radio => {
+    radio.addEventListener('change', function(){
+        document.querySelectorAll('.ludica-card').forEach(c => {
+            c.style.borderColor = 'var(--lud-border)';
+            c.style.background = '';
+        });
+        if (this.checked) {
+            const card = this.nextElementSibling;
+            card.style.borderColor = 'var(--lud-accent)';
+            card.style.background = 'rgba(108,99,255,.07)';
+        }
+    });
+});
+</script>
+{% endblock %}

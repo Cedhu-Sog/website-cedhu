@@ -1,0 +1,118 @@
+{% extends 'ludicas/base.html' %}
+{% block title %}Registrar Estudiante en Lúdicas{% endblock %}
+
+{% block sidebar_nav %}
+<span class="nav-section-label">General</span>
+<a href="{% url 'admin_dashboard_ludicas' %}" class="nav-link">
+    <i class="fa-solid fa-gauge-high"></i> Dashboard
+</a>
+<span class="nav-section-label">Gestión</span>
+<a href="{% url 'admin_lista_ludicas' %}" class="nav-link">
+    <i class="fa-solid fa-puzzle-piece"></i> Lúdicas
+</a>
+<a href="{% url 'admin_lista_profesores' %}" class="nav-link">
+    <i class="fa-solid fa-chalkboard-user"></i> Profesores
+</a>
+<a href="{% url 'admin_lista_estudiantes_ludica' %}" class="nav-link active">
+    <i class="fa-solid fa-user-graduate"></i> Estudiantes
+</a>
+{% endblock %}
+
+{% block page_title %}Registrar Estudiante{% endblock %}
+{% block page_subtitle %}Habilitar acceso al módulo de lúdicas{% endblock %}
+{% block topbar_actions %}
+<a href="{% url 'admin_lista_estudiantes_ludica' %}" class="btn btn-ghost">
+    <i class="fa-solid fa-arrow-left"></i> Volver
+</a>
+{% endblock %}
+
+{% block content %}
+<div style="max-width:600px;">
+<form method="post" class="card">
+    {% csrf_token %}
+
+    <div class="form-group">
+        <label>Seleccionar estudiante *</label>
+        {% if estudiantes_disponibles %}
+        <select name="estudiante_id" required id="est-select">
+            <option value="">— Seleccione un estudiante —</option>
+            {% for e in estudiantes_disponibles %}
+            <option value="{{ e.id }}" data-grado="{{ e.grado }}" data-doc="{{ e.documento }}">
+                {{ e.nombres }} {{ e.apellidos }} — {{ e.grado }} (Doc: {{ e.documento }})
+            </option>
+            {% endfor %}
+        </select>
+        {% else %}
+        <div style="padding:12px;background:var(--lud-surface);border-radius:8px;
+              font-size:13px;color:var(--lud-muted);border:1px solid var(--lud-border);">
+            <i class="fa-solid fa-circle-info" style="margin-right:6px;"></i>
+            Todos los estudiantes ya están habilitados en lúdicas.
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Preview del estudiante seleccionado -->
+    <div id="est-preview" style="display:none;padding:12px;background:var(--lud-surface);
+         border-radius:8px;border:1px solid var(--lud-border);margin-bottom:16px;font-size:13px;">
+        <i class="fa-solid fa-user-graduate" style="color:var(--lud-accent);margin-right:6px;"></i>
+        <span id="est-nombre"></span> — Grado: <strong id="est-grado"></strong>
+    </div>
+
+    <div class="card" style="background:var(--lud-surface);border:1px dashed var(--lud-border);margin-bottom:4px;">
+        <h4 style="font-family:'Sora',sans-serif;font-size:13px;font-weight:600;margin-bottom:12px;">
+            <i class="fa-solid fa-key" style="color:var(--lud-accent);margin-right:6px;"></i>
+            Cuenta de acceso (opcional)
+        </h4>
+        <div class="form-group" style="margin-bottom:10px;">
+            <label class="checkbox-label">
+                <input type="checkbox" name="crear_usuario" id="crear-user-check">
+                Crear cuenta para que el estudiante acceda al sistema
+            </label>
+        </div>
+        <div id="pass-section" style="display:none;">
+            <div class="form-group">
+                <label>Contraseña</label>
+                <input type="password" name="password" placeholder="Contraseña de acceso">
+                <small style="color:var(--lud-muted);font-size:11px;">
+                    El usuario se creará como: <code>est_[documento]</code>
+                </small>
+            </div>
+        </div>
+    </div>
+
+    {% if estudiantes_disponibles %}
+    <div style="display:flex;gap:12px;margin-top:16px;">
+        <button type="submit" class="btn btn-primary">
+            <i class="fa-solid fa-user-plus"></i> Registrar en Lúdicas
+        </button>
+        <a href="{% url 'admin_lista_estudiantes_ludica' %}" class="btn btn-ghost">Cancelar</a>
+    </div>
+    {% endif %}
+</form>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+const sel = document.getElementById('est-select');
+if (sel) {
+    sel.addEventListener('change', function(){
+        const opt = this.options[this.selectedIndex];
+        const preview = document.getElementById('est-preview');
+        if (opt.value) {
+            document.getElementById('est-nombre').textContent = opt.text.split('—')[0].trim();
+            document.getElementById('est-grado').textContent = opt.dataset.grado;
+            preview.style.display = 'block';
+        } else {
+            preview.style.display = 'none';
+        }
+    });
+}
+const checkU = document.getElementById('crear-user-check');
+if (checkU) {
+    checkU.addEventListener('change', function(){
+        document.getElementById('pass-section').style.display = this.checked ? 'block' : 'none';
+    });
+}
+</script>
+{% endblock %}

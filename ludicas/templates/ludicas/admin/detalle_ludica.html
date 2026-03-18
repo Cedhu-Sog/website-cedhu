@@ -1,0 +1,152 @@
+{% extends 'ludicas/base.html' %}
+{% block title %}Detalle {{ ludica.nombre }}{% endblock %}
+
+{% block sidebar_nav %}
+<span class="nav-section-label">General</span>
+<a href="{% url 'admin_dashboard_ludicas' %}" class="nav-link">
+    <i class="fa-solid fa-gauge-high"></i> Dashboard
+</a>
+<span class="nav-section-label">Gestión</span>
+<a href="{% url 'admin_lista_ludicas' %}" class="nav-link active">
+    <i class="fa-solid fa-puzzle-piece"></i> Lúdicas
+</a>
+<a href="{% url 'admin_lista_profesores' %}" class="nav-link">
+    <i class="fa-solid fa-chalkboard-user"></i> Profesores
+</a>
+<a href="{% url 'admin_lista_estudiantes_ludica' %}" class="nav-link">
+    <i class="fa-solid fa-user-graduate"></i> Estudiantes
+</a>
+{% endblock %}
+
+{% block page_title %}{{ ludica.nombre }}{% endblock %}
+{% block page_subtitle %}{{ inscripciones.count }} estudiante(s) inscritos{% endblock %}
+
+{% block topbar_actions %}
+<a href="{% url 'admin_editar_ludica' ludica.id %}" class="btn btn-ghost">
+    <i class="fa-solid fa-pen"></i> Editar
+</a>
+<a href="{% url 'admin_lista_ludicas' %}" class="btn btn-ghost">
+    <i class="fa-solid fa-arrow-left"></i> Volver
+</a>
+{% endblock %}
+
+{% block content %}
+<div style="display:grid;grid-template-columns:280px 1fr;gap:24px;align-items:start;">
+
+    <!-- Info card -->
+    <div class="card" style="border-top:4px solid {{ ludica.color }};">
+        <div style="text-align:center;margin-bottom:20px;">
+            <div style="width:64px;height:64px;border-radius:16px;
+                  background:{{ ludica.color }}22;color:{{ ludica.color }};
+                  display:flex;align-items:center;justify-content:center;
+                  font-size:28px;margin:0 auto 12px;">
+                <i class="fa-solid {{ ludica.icono }}"></i>
+            </div>
+            <h2 style="font-family:'Sora',sans-serif;font-size:18px;font-weight:700;">
+                {{ ludica.nombre }}
+            </h2>
+            <span class="badge badge-{{ ludica.estado|lower }}">{{ ludica.get_estado_display }}</span>
+        </div>
+
+        {% if ludica.descripcion %}
+        <p style="font-size:13px;color:var(--lud-muted);line-height:1.6;margin-bottom:16px;">
+            {{ ludica.descripcion }}
+        </p>
+        {% endif %}
+
+        <div style="display:flex;flex-direction:column;gap:10px;font-size:13px;">
+            <div style="display:flex;justify-content:space-between;">
+                <span style="color:var(--lud-muted);">Profesor</span>
+                <span>{{ ludica.profesor|default:"—" }}</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;">
+                <span style="color:var(--lud-muted);">Horario</span>
+                <span>{{ ludica.horario|default:"—" }}</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;">
+                <span style="color:var(--lud-muted);">Lugar</span>
+                <span>{{ ludica.lugar|default:"—" }}</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;">
+                <span style="color:var(--lud-muted);">Cupo</span>
+                <span><strong>{{ ludica.total_inscritos }}</strong> / {{ ludica.cupo_maximo }}</span>
+            </div>
+        </div>
+
+        <div class="cupo-bar" style="margin-top:12px;">
+            <div class="cupo-fill"
+                 style="width:{% widthratio ludica.total_inscritos ludica.cupo_maximo 100 %}%;background:{{ ludica.color }};"></div>
+        </div>
+
+        {% if ludica.grados_display %}
+        <div style="margin-top:16px;">
+            <p style="font-size:11px;color:var(--lud-muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px;">
+                Grados permitidos
+            </p>
+            <div style="display:flex;flex-wrap:wrap;gap:4px;">
+                {% for g in ludica.grados_display %}
+                <span style="background:{{ ludica.color }}18;color:{{ ludica.color }};
+                      border-radius:4px;padding:2px 8px;font-size:11px;font-weight:600;">
+                    {{ g }}
+                </span>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Tabla inscritos -->
+    <div>
+        <div class="table-wrap">
+            <div style="padding:16px 20px;border-bottom:1px solid var(--lud-border);">
+                <h3 style="font-family:'Sora',sans-serif;font-size:15px;font-weight:600;">
+                    <i class="fa-solid fa-users" style="color:var(--lud-accent);margin-right:8px;"></i>
+                    Estudiantes inscritos
+                </h3>
+            </div>
+            {% if inscripciones %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Estudiante</th>
+                        <th>Documento</th>
+                        <th>Grado</th>
+                        <th>Fecha inscripción</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for insc in inscripciones %}
+                    <tr>
+                        <td>
+                            <strong>{{ insc.estudiante.nombre_completo }}</strong>
+                        </td>
+                        <td style="color:var(--lud-muted);">{{ insc.estudiante.estudiante.documento }}</td>
+                        <td>{{ insc.estudiante.grado }}</td>
+                        <td style="color:var(--lud-muted);font-size:12px;">
+                            {{ insc.fecha_inscripcion|date:"d/m/Y H:i" }}
+                        </td>
+                        <td>
+                            <form method="post" action="{% url 'admin_cancelar_inscripcion' insc.id %}"
+                                  onsubmit="return confirm('¿Cancelar inscripción de {{ insc.estudiante.nombre_completo }}?')">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger btn-sm">
+                                    <i class="fa-solid fa-user-minus"></i> Cancelar
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <div class="empty-state">
+                <i class="fa-solid fa-users"></i>
+                <h3>Sin estudiantes inscritos</h3>
+                <p>Aún no hay estudiantes en esta lúdica.</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

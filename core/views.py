@@ -1,3 +1,5 @@
+# views.py
+
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
@@ -10,9 +12,7 @@ import datetime
 def home(request):
     contenido = ContenidoInicio.objects.first()
     gallery_images = contenido.gallery_images.all() if contenido else []
-
-    noticias_home = Noticia.objects.filter(activa=True).only('imagen', 'url')[:12]
-
+    noticias_home = Noticia.objects.filter(activa=True)[:12]
     return render(request, 'core/home.html', {
         'contenido': contenido,
         'gallery_images': gallery_images,

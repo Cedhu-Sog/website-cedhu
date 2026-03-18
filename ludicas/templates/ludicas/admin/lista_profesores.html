@@ -1,0 +1,109 @@
+{% extends 'ludicas/base.html' %}
+{% block title %}Profesores de Lúdicas{% endblock %}
+
+{% block sidebar_nav %}
+<span class="nav-section-label">General</span>
+<a href="{% url 'admin_dashboard_ludicas' %}" class="nav-link">
+    <i class="fa-solid fa-gauge-high"></i> Dashboard
+</a>
+<span class="nav-section-label">Gestión</span>
+<a href="{% url 'admin_lista_ludicas' %}" class="nav-link">
+    <i class="fa-solid fa-puzzle-piece"></i> Lúdicas
+</a>
+<a href="{% url 'admin_lista_profesores' %}" class="nav-link active">
+    <i class="fa-solid fa-chalkboard-user"></i> Profesores
+</a>
+<a href="{% url 'admin_lista_estudiantes_ludica' %}" class="nav-link">
+    <i class="fa-solid fa-user-graduate"></i> Estudiantes
+</a>
+{% endblock %}
+
+{% block page_title %}Profesores de Lúdicas{% endblock %}
+{% block page_subtitle %}Gestión de docentes del módulo{% endblock %}
+{% block topbar_actions %}
+<a href="{% url 'admin_crear_profesor' %}" class="btn btn-primary">
+    <i class="fa-solid fa-plus"></i> Nuevo Profesor
+</a>
+{% endblock %}
+
+{% block content %}
+{% if profesores %}
+<div class="table-wrap">
+    <table>
+        <thead>
+            <tr>
+                <th>Profesor</th>
+                <th>Documento</th>
+                <th>Correo</th>
+                <th>Especialidad</th>
+                <th>Lúdicas</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in profesores %}
+            <tr>
+                <td>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                        <div style="width:36px;height:36px;border-radius:50%;
+                              background:linear-gradient(135deg,#6c63ff,#ff6584);
+                              display:flex;align-items:center;justify-content:center;
+                              font-weight:700;font-size:14px;color:#fff;">
+                            {{ p.nombres.0 }}{{ p.apellidos.0 }}
+                        </div>
+                        <div>
+                            <strong>{{ p.nombre_completo }}</strong>
+                            {% if p.user %}
+                            <div style="font-size:11px;color:var(--lud-accent);">
+                                <i class="fa-solid fa-circle-check"></i> con acceso
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </td>
+                <td style="color:var(--lud-muted);">{{ p.documento }}</td>
+                <td style="color:var(--lud-muted);">{{ p.correo }}</td>
+                <td>{{ p.especialidad|default:"—" }}</td>
+                <td>
+                    <span style="background:rgba(108,99,255,.12);color:var(--lud-accent);
+                          border-radius:20px;padding:3px 10px;font-size:12px;font-weight:600;">
+                        {{ p.ludicas.count }}
+                    </span>
+                </td>
+                <td>
+                    <span class="badge {% if p.activo %}badge-activa{% else %}badge-inactiva{% endif %}">
+                        {% if p.activo %}Activo{% else %}Inactivo{% endif %}
+                    </span>
+                </td>
+                <td>
+                    <div style="display:flex;gap:6px;">
+                        <a href="{% url 'admin_editar_profesor' p.id %}" class="btn btn-ghost btn-sm">
+                            <i class="fa-solid fa-pen"></i>
+                        </a>
+                        <form method="post" action="{% url 'admin_eliminar_profesor' p.id %}"
+                              onsubmit="return confirm('¿Eliminar a {{ p.nombre_completo }}?')">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger btn-sm">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% else %}
+<div class="empty-state">
+    <i class="fa-solid fa-chalkboard-user"></i>
+    <h3>No hay profesores registrados</h3>
+    <p>Registra el primer docente de lúdicas.</p>
+    <br>
+    <a href="{% url 'admin_crear_profesor' %}" class="btn btn-primary">
+        <i class="fa-solid fa-plus"></i> Nuevo Profesor
+    </a>
+</div>
+{% endif %}
+{% endblock %}

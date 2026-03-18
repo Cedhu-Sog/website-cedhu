@@ -68,38 +68,38 @@ CEDHU{% endblock %} {% block content %}
      SECCIÓN NOTICIAS (dinámica)
   ============================== -->
   <section class="news-section">
-    <h2>NOTICIAS CEDHU</h2>
-
-    <div class="news-grid">
-      {% for noticia in noticias_home %}
-        <article class="news-card">
-          {% if noticia.url %}
-            <!-- Tiene URL → redirige al link externo -->
-            <a href="{{ noticia.url }}" target="_blank" rel="noopener noreferrer">
-              <img
-                src="{{ noticia.imagen.url }}"
-                alt="Noticia CEDHU"
-                loading="lazy"
-              />
-            </a>
-          {% else %}
-            <!-- Sin URL → abre la imagen en el modal -->
+  <h2>NOTICIAS CEDHU</h2>
+  <div class="news-grid">
+    {% for noticia in noticias_home %}
+      <article class="news-card">
+        {% if noticia.url %}
+          <a href="{{ noticia.url }}" target="_blank" rel="noopener noreferrer">
             <img
               src="{{ noticia.imagen.url }}"
-              alt="Noticia CEDHU"
+              alt="{% if noticia.titulo %}{{ noticia.titulo }}{% else %}Noticia CEDHU{% endif %}"
               loading="lazy"
-              onclick="openModal(this)"
-              style="cursor: pointer;"
             />
-          {% endif %}
-        </article>
-      {% empty %}
-        <p style="text-align:center; color:#666; grid-column: 1 / -1;">
-          No hay noticias disponibles por el momento.
-        </p>
-      {% endfor %}
-    </div>
-  </section>
+          </a>
+        {% else %}
+          <img
+            src="{{ noticia.imagen.url }}"
+            alt="{% if noticia.titulo %}{{ noticia.titulo }}{% else %}Noticia CEDHU{% endif %}"
+            loading="lazy"
+            onclick="openModal(this)"
+            style="cursor: zoom-in;"
+          />
+        {% endif %}
+        {% if noticia.titulo %}
+          <p class="news-card-titulo">{{ noticia.titulo }}</p>
+        {% endif %}
+      </article>
+    {% empty %}
+      <p style="text-align:center; color:#666; grid-column: 1 / -1;">
+        No hay noticias disponibles por el momento.
+      </p>
+    {% endfor %}
+  </div>
+</section>
 
 
   <!-- ==========================

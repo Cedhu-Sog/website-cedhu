@@ -1,4 +1,5 @@
 from django.db import models
+from cloudinary.models import CloudinaryField
 
 
 class ContenidoInicio(models.Model):
@@ -40,11 +41,25 @@ class Evento(models.Model):
 
 
 class Noticia(models.Model):
-    imagen = models.ImageField(upload_to='noticias/')
+    titulo = models.CharField(
+        max_length=200,
+        blank=True,
+        null=True,
+        verbose_name="Título",
+        help_text="Título opcional de la noticia."
+    )
+    imagen = CloudinaryField(
+        'imagen',
+        folder='noticias/',
+        blank=True,
+        null=True,
+        transformation={'quality': 'auto', 'fetch_format': 'auto'}
+    )
     url = models.URLField(
         blank=True,
         null=True,
-        help_text="URL externa de la noticia. Si se deja vacío, al hacer clic se abrirá la imagen directamente."
+        verbose_name="Link (opcional)",
+        help_text="Si añades un link, al hacer clic en la imagen se abrirá esa URL. Si lo dejas vacío, la imagen se ampliará."
     )
     fecha = models.DateTimeField(auto_now_add=True)
     activa = models.BooleanField(default=True)
@@ -55,4 +70,6 @@ class Noticia(models.Model):
         verbose_name_plural = "Noticias"
 
     def __str__(self):
+        if self.titulo:
+            return self.titulo
         return f"Noticia #{self.id} — {self.fecha.strftime('%d/%m/%Y')}"
