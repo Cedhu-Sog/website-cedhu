@@ -23,13 +23,13 @@ def home(request):
     if contenido:
         gallery_images = contenido.gallery_images.all()
 
-    noticias = Noticia.objects.filter(activa=True)
+    noticias_home = Noticia.objects.filter(activa=True)
     eventos = Evento.objects.all()
 
     return render(request, "core/home.html", {
         "contenido": contenido,
         "gallery_images": gallery_images,
-        "noticias": noticias,
+        "noticias_home": noticias_home,
         "eventos": eventos
     })
 

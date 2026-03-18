@@ -48,6 +48,8 @@ const track = document.querySelector('.hero-track');
 const slides = track ? track.querySelectorAll('.hero-slide') : [];
 const leftArrow = document.querySelector('.hero-arrow.left');
 const rightArrow = document.querySelector('.hero-arrow.right');
+const indicatorsContainer = document.querySelector('.indicators');
+let dots = indicatorsContainer ? indicatorsContainer.querySelectorAll('.dot') : [];
 
 let currentIndex = 0;
 let autoplayInterval;
@@ -64,6 +66,7 @@ const imageDuration = 5000;
 // ----------------
 function updateSlidePosition() {
   track.style.transform = `translateX(-${currentIndex * 100}%)`;
+  updateDots();
 }
 
 function goToSlide(index) {
@@ -73,13 +76,37 @@ function goToSlide(index) {
 
   const type = slides[currentIndex].dataset.type;
 
-if (type === "video") {
-  stopAutoplay();
-  playVideoIfExists();
-} else {
-  startAutoplay();
+  if (type === "video") {
+    stopAutoplay();
+    playVideoIfExists();
+  } else {
+    startAutoplay();
+  }
 }
+
+function buildDots() {
+  if (!indicatorsContainer) return;
+  indicatorsContainer.innerHTML = '';
+  for (let i = 0; i < slides.length; i++) {
+    const dot = document.createElement('span');
+    dot.classList.add('dot');
+    if (i === currentIndex) dot.classList.add('active');
+    indicatorsContainer.appendChild(dot);
+  }
+  dots = indicatorsContainer.querySelectorAll('.dot');
 }
+
+function updateDots() {
+  if (!indicatorsContainer) return;
+  if (!dots || dots.length !== slides.length) {
+    buildDots();
+    return;
+  }
+  dots.forEach((dot, i) => {
+    dot.classList.toggle('active', i === currentIndex);
+  });
+}
+
 function playVideoIfExists() {
 
   const slide = slides[currentIndex];
@@ -179,9 +206,9 @@ if (hero) {
 
 // INICIAR
 if (track && slides.length > 0) {
+  buildDots();
   goToSlide(0);
 }
-
 
 /* ============================================
    BOTONES DE SECCIONES INTERACTIVAS
@@ -307,4 +334,6 @@ function openModal(img) {
 function closeModal() {
   document.getElementById("imgModal").style.display = "none";
 }
+
+
 
