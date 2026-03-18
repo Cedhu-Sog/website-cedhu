@@ -1,3 +1,5 @@
+# views.py
+
 from django.shortcuts import render, redirect
 import logging
 from django.contrib import messages
