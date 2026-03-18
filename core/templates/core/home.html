@@ -1,136 +1,193 @@
-{% extends 'core/base.html' %} {% load static %} {% block title %}Inicio -
+﻿{% extends 'core/base.html' %} {% load static %} {% block title %}Inicio -
 CEDHU{% endblock %} {% block content %}
 <div class="flow-invitation"></div>
 <!-- Hero estilo Harvard (sin header y sin flechas) -->
-<section class="hero-slide">
-  <!-- SLIDE 2 AGREGAR UNA IMAGEN POR CUESTIÓN DE SEO-->
-  <div class="slide active">
-    <img
-      src="{% static 'core/img/Banner-Cedhu-Destacado-1.jpg' %}"
-      alt="primer puesto prueba saber cedhu 2025"
-    />
-    <div class="overlay">
-      <h2 class="subtitle"><span></span></h2>
-      <h1 class="title"></h1>
+<section class="hero">
+  <div class="hero-track">
+    <!-- SLIDE 2 AGREGAR UNA IMAGEN POR CUESTION DE SEO -->
+    <div class="hero-slide slide" data-type="image">
+      {% if contenido and contenido.hero_imagen1 %}
+        <img
+          src="{{ contenido.hero_imagen1 }}"
+          alt="primer puesto prueba saber cedhu 2025"
+        />
+      {% else %}
+        <img
+          src="{% static 'core/img/Banner-Cedhu-Destacado-1.jpg' %}"
+          alt="primer puesto prueba saber cedhu 2025"
+        />
+      {% endif %}
+      <div class="overlay">
+        <h2 class="subtitle"><span></span></h2>
+        <h1 class="title"></h1>
+      </div>
     </div>
+
+    <!-- SLIDE 1 CON VIDEO -->
+    <div class="hero-slide slide" data-type="image">
+      {% if contenido and contenido.hero_imagen2 %}
+        <img
+          src="{{ contenido.hero_imagen2 }}"
+          alt="primer puesto prueba saber cedhu 2025"
+        />
+      {% else %}
+        <img
+          src="{% static 'core/img/Banner-Cedhu-Destacado-2.jpg' %}"
+          alt="primer puesto prueba saber cedhu 2025"
+        />
+      {% endif %}
+      <div class="overlay">
+        {% comment %}
+        <h2 class="subtitle">
+          SER FELICES EN EL<span> PROCESO</span>DE <br /><b>ENSENAR Y APRENDER</b>
+        </h2>
+        {% endcomment %}
+      </div>
+    </div>
+
+    {% if contenido and contenido.hero_video %}
+    <!-- SLIDE 3 -->
+    <div class="hero-slide slide" data-type="video">
+      <div class="video-wrapper">
+        <iframe
+          src="https://www.youtube.com/embed/{{ contenido.hero_video }}?autoplay=1&mute=1&loop=1&playlist={{ contenido.hero_video }}&controls=0&rel=0&playsinline=1"
+          title="Video de presentacion CEDHU"
+          loading="lazy"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allow="autoplay; encrypted-media; picture-in-picture"
+          allowfullscreen
+        ></iframe>
+      </div>
+      <div class="overlay">
+      </div>
+    </div>
+    {% endif %}
   </div>
 
-  <!-- SLIDE 1 CON VIDEO -->
-  <div class="slide">
-      <img
-      src="{% static 'core/img/Banner-Cedhu-Destacado-2.jpg' %}"
-      alt="primer puesto prueba saber cedhu 2025"
-    />
-    <div class="overlay">
-      {% comment %}
-      <h2 class="subtitle">
-        SER FELICES EN EL<span> PROCESO</span>DE <br /><b>ENSEÑAR Y APRENDER</b>
-      </h2>
-      {% endcomment %}
-    </div>
-  </div>
+  <button class="hero-arrow left" aria-label="Anterior">&#10094;</button>
+  <button class="hero-arrow right" aria-label="Siguiente">&#10095;</button>
 
-  <!-- SLIDE 3 -->
-
-  <div class="slide">
-    <video autoplay muted playsinline disablepictureinpicture>
-      <source
-        src="{% static 'core/videos/Presentacioncedhu.mp4' %}"
-        type="video/mp4"
-      />
-    <div class="overlay">
-      <h1 class="subtitle">
-        ELIGE TU <span>FUTURO,</span><br />ELIGE <strong>CEDHU</strong>
-      </h1>
-    </div>
-  </div>
-
-  <!-- PUNTOS -->
   <div class="indicators">
     <span class="dot active"></span>
     <span class="dot"></span>
-    <span class="dot"></span>
+    {% if contenido and contenido.hero_video %}
+      <span class="dot"></span>
+    {% endif %}
   </div>
 
   <button
     class="hero-control"
     id="heroToggle"
-    aria-label="Pausar animación"
+    aria-label="Pausar animacion"
     aria-pressed="false"
   >
-    ⏸
+    ||
   </button>
 </section>
 
 <div class="contenido">
 
   <!-- ==========================
-     SECCIÓN NOTICIAS (dinámica)
+     SECCION NOTICIAS (dinamica)
   ============================== -->
+
   <section class="news-section">
   <h2>NOTICIAS CEDHU</h2>
+
+
   <div class="news-grid">
+
     {% for noticia in noticias_home %}
-      <article class="news-card">
-        {% if noticia.url %}
-          <a href="{{ noticia.url }}" target="_blank" rel="noopener noreferrer">
-            <img
-              src="{{ noticia.imagen.url }}"
-              alt="{% if noticia.titulo %}{{ noticia.titulo }}{% else %}Noticia CEDHU{% endif %}"
-              loading="lazy"
-            />
-          </a>
-        {% else %}
-          <img
-            src="{{ noticia.imagen.url }}"
-            alt="{% if noticia.titulo %}{{ noticia.titulo }}{% else %}Noticia CEDHU{% endif %}"
-            loading="lazy"
-            onclick="openModal(this)"
-            style="cursor: zoom-in;"
-          />
-        {% endif %}
-        {% if noticia.titulo %}
-          <p class="news-card-titulo">{{ noticia.titulo }}</p>
-        {% endif %}
-      </article>
+    <article class="news-card">
+      {% if noticia.url %}
+      <a href="{{ noticia.url }}" target="_blank" rel="noopener noreferrer">
+        <img
+          src="{{ noticia.imagen }}"
+          alt="Noticia CEDHU"
+          loading="lazy"
+        />
+      </a>
+      {% else %}
+      <img
+        src="{{ noticia.imagen }}"
+        alt="Noticia CEDHU"
+        onclick="openModal(this)"
+      />
+      {% endif %}
+    </article>
     {% empty %}
-      <p style="text-align:center; color:#666; grid-column: 1 / -1;">
-        No hay noticias disponibles por el momento.
-      </p>
+    <p style="text-align:center; color:#666; grid-column: 1 / -1;">
+      No hay noticias disponibles por el momento.
+    </p>
     {% endfor %}
   </div>
 </section>
 
 
+
+  {% comment %} <section class="news-section">
+  <h2>NOTICIAS CEDHU</h2>
+
+
+  <div class="news-grid">
+
+    {% for noticia in noticias_home %}
+    <article class="news-card">
+      {% if noticia.url %}
+      <a href="{{ noticia.url }}" target="_blank" rel="noopener noreferrer">
+        <img
+          src="{{ noticia.imagen }}"
+          alt="Noticia CEDHU"
+          loading="lazy"
+        />
+      </a>
+      {% else %}
+      <img
+        src="{{ noticia.imagen }}"
+        alt="Noticia CEDHU"
+        onclick="openModal(this)"
+      />
+      {% endif %}
+    </article>
+    {% empty %}
+    <p style="text-align:center; color:#666; grid-column: 1 / -1;">
+      No hay noticias disponibles por el momento.
+    </p>
+    {% endfor %}
+  </div>
+</section> {% endcomment %}
+
+
+
   <!-- ==========================
-     SECCIÓN NIVELES EDUCATIVOS
+     SECCION NIVELES EDUCATIVOS
   ============================== -->
   <section class="reveal bienvenida">
     <div>
       <h2>IDENTIDAD INSTITUCIONAL</h2>
       <p class="bienvenida-text">
-        Formamos educandos con valores y excelencia académica, fundamentados en
-        el respeto por la dignidad humana, la convivencia armónica y la
-        corresponsabilidad entre familia, educando e institución, promoviendo
-        una formación integral que trasciende lo académico y fortalece el ser,
+        Formamos educandos con valores y excelencia academica, fundamentados en
+        el respeto por la dignidad humana, la convivencia armonica y la
+        corresponsabilidad entre familia, educando e institucion, promoviendo
+        una formacion integral que trasciende lo academico y fortalece el ser,
         el saber y el convivir.
       </p>
       <a href="{% url 'nosotros' %}" class="bienvenida-link">
-        Conoce nuestra filosofía, principios y horizonte institucional.
+        Conoce nuestra filosofia, principios y horizonte institucional.
       </a>
     </div>
   </section>
 
   
   <!-- ==========================
-     SECCIÓN NIVELES EDUCATIVOS
+     SECCION NIVELES EDUCATIVOS
   ============================== -->
   <section class="niveles-educativos">
     <h2>NIVELES EDUCATIVOS</h2>
     <p>
-      Una educación de calidad para la formación del educando en todos los
-      campos del conocimiento, basada en preparación humanista, científica y
-      artística.
+      Una educacion de calidad para la formacion del educando en todos los
+      campos del conocimiento, basada en preparacion humanista, cientifica y
+      artistica.
     </p>
 
     <div class="niveles-container">
@@ -145,8 +202,8 @@ CEDHU{% endblock %} {% block content %}
         </div>
         <div class="nivel-info">
           <p>
-            En este nivel, se fomenta el desarrollo integral de los niños a
-            través del juego, la exploración y el descubrimiento. Se fortalecen
+            En este nivel, se fomenta el desarrollo integral de los ninos a
+            traves del juego, la exploracion y el descubrimiento. Se fortalecen
             habilidades cognitivas, sociales y emocionales.
           </p>
         </div>
@@ -164,9 +221,9 @@ CEDHU{% endblock %} {% block content %}
         <div class="nivel-info">
           <p>
             En primaria, se consolidan los aprendizajes fundamentales y se
-            promueve el pensamiento crítico, la autonomía y la responsabilidad
-            personal en el proceso educativo fomentando nuestro énfasis en
-            inglés.
+            promueve el pensamiento critico, la autonomia y la responsabilidad
+            personal en el proceso educativo fomentando nuestro enfasis en
+            ingles.
           </p>
         </div>
       </div>
@@ -182,9 +239,9 @@ CEDHU{% endblock %} {% block content %}
         </div>
         <div class="nivel-info">
           <p>
-            En secundaria, se fortalecen las competencias académicas, sociales y
-            tecnológicas culminando su proceso formativo con la certificación
-            TOEFL Junior Standard, preparando a los educandos para los desafíos
+            En secundaria, se fortalecen las competencias academicas, sociales y
+            tecnologicas culminando su proceso formativo con la certificacion
+            TOEFL Junior Standard, preparando a los educandos para los desafios
             universitarios y profesionales.
           </p>
         </div>
@@ -193,10 +250,10 @@ CEDHU{% endblock %} {% block content %}
   </section>
 
   <!-- =====================================
-     SECCIÓN EDUCACIÓN HUMANISTA
+     SECCION EDUCACION HUMANISTA
   ===================================== -->
   <section class="educacion-humanista">
-    <h2>EDUCACIÓN CON CRITERIO CIENTÍFICO Y HUMANISTA</h2>
+    <h2>EDUCACION CON CRITERIO CIENTIFICO Y HUMANISTA</h2>
 
     <div class="features-container">
       <!-- 1 -->
@@ -204,12 +261,12 @@ CEDHU{% endblock %} {% block content %}
         <div class="icon-wrapper">
           <img
             src="{% static 'core/img/Valores.jpeg' %}"
-            alt="Formación con valores"
+            alt="Formacion con valores"
           />
         </div>
         <h3>Principios y Valores</h3>
         <p>
-          El desarrollo humano y la sana convivencia se fortalecen a través del
+          El desarrollo humano y la sana convivencia se fortalecen a traves del
           Student Emotional Support Room, sus talleres y la hora de valores.
         </p>
       </div>
@@ -222,11 +279,11 @@ CEDHU{% endblock %} {% block content %}
             alt="Crecimiento Integral"
           />
         </div>
-        <h3>Formación Integral</h3>
+        <h3>Formacion Integral</h3>
         <p>
-          El desarrollo de habilidades y talentos se potencia a través del salón
-          de danzas, English Adventure Room, dibujo técnico, sala de lectura y
-          un completo espacio a la Tuna y música.
+          El desarrollo de habilidades y talentos se potencia a traves del salon
+          de danzas, English Adventure Room, dibujo tecnico, sala de lectura y
+          un completo espacio a la Tuna y musica.
         </p>
       </div>
 
@@ -235,63 +292,63 @@ CEDHU{% endblock %} {% block content %}
         <div class="icon-wrapper">
           <img
             src="{% static 'core/img/Laboratorio-fisica.jpg' %}"
-            alt="Ciencia y Tecnología"
+            alt="Ciencia y Tecnologia"
           />
         </div>
-        <h3>Ciencia y Tecnología</h3>
+        <h3>Ciencia y Tecnologia</h3>
         <p>
-          El desarrollo de habilidades científicas y tecnológicas se potencia
-          mediante el STEAM Mathematics Classroom y los laboratorios de inglés,
-          robótica, física y química.
+          El desarrollo de habilidades cientificas y tecnologicas se potencia
+          mediante el STEAM Mathematics Classroom y los laboratorios de ingles,
+          robotica, fisica y quimica.
         </p>
       </div>
     </div>
   </section>
 
-  <!-- Sección Preguntas frecuentes -->
+  <!-- Seccion Preguntas frecuentes -->
   <section class="faq">
     <h2>PREGUNTAS FRECUENTES</h2>
     <div class="faq-container">
       <div class="faq-item">
-        <h3>¿Qué métodos de pago están disponibles para matrícula?</h3>
+        <h3>Que metodos de pago estan disponibles para matricula?</h3>
         <p>
-          Se acepta transferencia electrónica, consignación en sucursal o
-          corresponsal Banco Caja Social, transferencia electrónica o pago por
+          Se acepta transferencia electronica, consignacion en sucursal o
+          corresponsal Banco Caja Social, transferencia electronica o pago por
           PSE. <strong>No se recibe efectivo.</strong>
         </p>
       </div>
       <div class="faq-item">
-        <h3>¿Desde qué edad puede ingresar mi hijo al CEDHU?</h3>
-        <p>La edad mínima para pertenecer al Cedhu es de 2 años.</p>
+        <h3>Desde que edad puede ingresar mi hijo al CEDHU?</h3>
+        <p>La edad minima para pertenecer al Cedhu es de 2 anos.</p>
       </div>
       <div class="faq-item">
-        <h3>¿El CEDHU cuenta con transporte escolar?</h3>
+        <h3>El CEDHU cuenta con transporte escolar?</h3>
         <p>Los padres contratan directamente las rutas.</p>
       </div>
       <div class="faq-item">
-        <h3>¿Qué lúdicas están disponibles?</h3>
+        <h3>Que ludicas estan disponibles?</h3>
         <p>
-          Se dispone de actividades cómo baloncesto, voleibol, fútbol, tenis de
-          campo y de mesa, natación, patinaje, gimnasia, robótica, danzas,
-          futuros cientificos, ajedrez, música, judo, karate do, boxeo, ultimate
+          Se dispone de actividades como baloncesto, voleibol, futbol, tenis de
+          campo y de mesa, natacion, patinaje, gimnasia, robotica, danzas,
+          futuros cientificos, ajedrez, musica, judo, karate do, boxeo, ultimate
           frisbee.
         </p>
       </div>
       <div class="faq-item">
-        <h3>¿Cómo es el proceso de admisión?</h3>
+        <h3>Como es el proceso de admision?</h3>
         <p>
-          La familia (papa, mamá y educando) realizan un reconocimiento de las
-          instalaciones y en tesorería se instruye en los pasos a seguir.
+          La familia (papa, mama y educando) realizan un reconocimiento de las
+          instalaciones y en tesoreria se instruye en los pasos a seguir.
         </p>
       </div>
     </div>
   </section>
 
 
-  <!-- Sección Ubicación -->
+  <!-- Seccion Ubicacion -->
   <section class="ubicacion">
-    <h2>¿DÓNDE ESTAMOS UBICADOS?</h2>
-    <div class="container-ubicación">
+    <h2>DONDE ESTAMOS UBICADOS?</h2>
+    <div class="container-ubicacion">
       <div class="mapa-responsive">
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3969.901119698392!2d-72.9176252!3d5.727380699999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e6a460c16051373%3A0x40d231adfaa1a881!2sCentro%20de%20Desarrollo%20Humano%20CEDHU!5e0!3m2!1ses!2sco!4v1768505351805!5m2!1ses!2sco"
@@ -307,7 +364,7 @@ CEDHU{% endblock %} {% block content %}
         {% comment %} <div class="map-overlay">
           <span
             data-desktop="Haz doble clic para explorar Street View"
-            data-mobile="Mantén presionado para explorar Street View"
+            data-mobile="Manten presionado para explorar Street View"
           ></span>
         </div> {% endcomment %}
 

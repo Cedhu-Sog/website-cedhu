@@ -1,7 +1,8 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
-from .models import Perfil, ParametroGlobal, Modulo, LogAccion
+from .models import Perfil, ParametroGlobal, Modulo, LogAccion, Staff
+from .forms import StaffForm
 
 
 # ============================================
@@ -147,3 +148,13 @@ class LogAccionAdmin(admin.ModelAdmin):
 admin.site.site_header = "Administración CEDHU"
 admin.site.site_title = "CEDHU Admin"
 admin.site.index_title = "Panel de Administración"
+
+# ============================================
+# ADMIN: Staff
+# ============================================
+@admin.register(Staff)
+class StaffAdmin(admin.ModelAdmin):
+    form = StaffForm
+    list_display = ('nombre', 'cargo', 'categoria')
+    list_filter = ('categoria',)
+    search_fields = ('nombre', 'cargo', 'descripcion')

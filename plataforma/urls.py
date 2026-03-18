@@ -1,4 +1,7 @@
+from django.shortcuts import redirect
 from django.urls import path
+
+from plataforma.models import Noticia
 from . import views
 
 urlpatterns = [
@@ -25,4 +28,8 @@ urlpatterns = [
     
     # Auditoría
     path('auditoria/', views.ver_auditoria, name='ver_auditoria'),
+    path('gestionar-inicio/', views.gestionar_inicio, name='gestionar_inicio'),
+    path('noticias/eliminar/<int:noticia_id>/',views.eliminar_noticia,name='eliminar_noticia'),
+    path('nosotros/', views.gestionar_nosotros, name='gestionar_nosotros'),
+    path('nosotros-publico/', views.nosotros_publico, name='nosotros_publico'), 
 ]

@@ -1,0 +1,12 @@
+<div class="staff-card" role="button" tabindex="0" aria-label="Ver perfil de {{ persona.nombre }}">
+  <div class="staff-card-inner">
+    <div class="staff-card-front">
+      <img src="{{ persona.imagen }}" alt="Foto de {{ persona.nombre }}" loading="lazy" />
+      <h4>{{ persona.nombre }}</h4>
+      <p>{{ persona.cargo }}</p>
+    </div>
+    <div class="staff-card-back">
+      <p>{{ persona.descripcion_back|default:"Sin información adicional" }}</p>
+    </div>
+  </div>
+</div>

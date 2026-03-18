@@ -107,10 +107,11 @@ button, .btn {
 }
 /* Fondo para cubrir el contenido fixed */
 .contenido {
-  position: relative;          /* CLAVE */
+  position: relative;          /* CLAVE para modificar la ubicación sin interferir en el flujo*/
   background: #e8f7ef;
   padding: 40px 0px 60px;    /* espacio para el SVG */
   overflow: hidden;
+  margin-top: -20px;      /*Se usa para sobreponer el hero del home*/
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   z-index: 9;

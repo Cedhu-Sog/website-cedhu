@@ -1,37 +1,26 @@
 from pathlib import Path
+from dotenv import load_dotenv
 import os
 import dj_database_url
-from dotenv import load_dotenv
-import cloudinary
-import cloudinary.uploader
-import cloudinary.api
-
-    
-# ===============================
-# BASE DIR
-# ===============================
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# ===============================
-# LOAD .env
-# ===============================
+# Carga las variables del archivo .env
+load_dotenv()
 
-load_dotenv(BASE_DIR / '.env')
+SECRET_KEY = os.environ.get(
+    'SECRET_KEY'
+)
 
-# ===============================
-# SECURITY
-# ===============================
+DEBUG = os.environ.get("DEBUG", "True") == "True"
 
-SECRET_KEY = os.getenv('SECRET_KEY')
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "").split(",")
 
-DEBUG = os.getenv('DEBUG', 'True') == 'True'
-
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
-
-# ===============================
-# APPS
-# ===============================
+CSRF_TRUSTED_ORIGINS = [
+    'https://website-cedhu.onrender.com',
+    'https://www.cedhu.edu.co',
+    'https://cedhu.edu.co',
+]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -41,21 +30,23 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'cloudinary_storage',
     'django.contrib.staticfiles',
-    'cloudinary',
-    'django_browser_reload',
     'core',
     'plataforma',
     'padres',
     'estudiantes',
-    'ludicas',
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
-# ===============================
-# MIDDLEWARE
-# ===============================
+if DEBUG:
+    INSTALLED_APPS += ['django_browser_reload']
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+
+    # WhiteNoise solo necesario en producción
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -65,6 +56,9 @@ MIDDLEWARE = [
 
     'django_browser_reload.middleware.BrowserReloadMiddleware',
 ]
+
+if DEBUG:
+    MIDDLEWARE += ['django_browser_reload.middleware.BrowserReloadMiddleware']
 
 ROOT_URLCONF = 'config.urls'
 
@@ -164,6 +158,7 @@ USE_TZ = True
 # ===============================
 
 STATIC_URL = '/static/'
+MEDIA_URL = "/media/"
 
 STATICFILES_DIRS = [
     BASE_DIR / 'core' / 'static',
@@ -171,12 +166,9 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# ===============================
-# MEDIA FILES
-# ===============================
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+
 
 # ===============================
 # CLOUDINARY
@@ -196,14 +188,62 @@ DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 LOGIN_URL = '/plataforma/login/'
 
-# ===============================
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# if os.environ.get("RENDER") == "true":
+#     try:
+#         User = get_user_model()
+#         if not User.objects.filter(username=os.environ.get("DJANGO_SUPERUSER_USERNAME")).exists():
+#             User.objects.create_superuser(
+#                 os.environ.get("DJANGO_SUPERUSER_USERNAME"),
+#                 os.environ.get("DJANGO_SUPERUSER_EMAIL"),
+#                 os.environ.get("DJANGO_SUPERUSER_PASSWORD")
+#             )
+#     except Exception as e:
+#         print(f"Error creating superuser: {e}")
 
 
+# ===============================
+# CLOUDINARY
+# ===============================
+import cloudinary
+
+# Configuración global normal (con api_secret)
 cloudinary.config(
-    cloud_name=os.environ.get('CLOUDINARY_CLOUD_NAME'),
-    api_key=os.environ.get('CLOUDINARY_API_KEY'),
-    api_secret=os.environ.get('CLOUDINARY_API_SECRET'),
+    cloud_name=os.environ.get("CLOUDINARY_CLOUD_NAME"),
+    api_key=os.environ.get("CLOUDINARY_API_KEY"),
+    api_secret=os.environ.get("CLOUDINARY_API_SECRET"),
+    secure=True
 )
+
+def upload_unsigned(file, preset, folder):
+    # Guardamos la configuración actual
+    config = cloudinary.config()
+    original_api_secret = config.api_secret
+
+    # Anulamos temporalmente api_secret para forzar unsigned
+    config.api_secret = None  # o '' también funciona, pero None es más claro
+
+    try:
+        result = cloudinary.uploader.upload(
+            file,
+            upload_preset=preset,
+            folder=folder
+        )
+    finally:
+        # Siempre restauramos la configuración original, incluso si hay error
+        config.api_secret = original_api_secret
+
+    return result
+
+# Storage para Django (para que los FileField se guarden en Cloudinary)
+DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
+
+
+# ===============================
+# SEGURIDAD PARA PRODUCCIÓN
+# ===============================
+
+if not DEBUG:
+    # Necesario cuando se usa Render u otros proxies HTTPS
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")

@@ -43,186 +43,201 @@
  HERO SLIDER - AUTO Y CON VIDEOS SINCRONIZADOS 
 ============================================ */
 
-document.addEventListener("DOMContentLoaded", () => {
-  const heroSlides = Array.from(
-    document.querySelectorAll(".hero-slide .slide")
-  );
-  const heroDots = Array.from(document.querySelectorAll(".hero-slide .dot"));
-  const toggleBtn = document.getElementById("heroToggle");
 
-  let heroIndex = 0;
-  let autoplayTimer = null;
-  let isPaused = false;
+const track = document.querySelector('.hero-track');
+const slides = track ? track.querySelectorAll('.hero-slide') : [];
+const leftArrow = document.querySelector('.hero-arrow.left');
+const rightArrow = document.querySelector('.hero-arrow.right');
+const indicatorsContainer = document.querySelector('.indicators');
+let dots = indicatorsContainer ? indicatorsContainer.querySelectorAll('.dot') : [];
 
-  const AUTOPLAY_DELAY = 6000;
+let currentIndex = 0;
+let autoplayInterval;
 
-  if (!heroSlides.length || !heroDots.length) return;
+let isPaused = false;
+let startX = 0;
+let isDragging = false;
+const imageDuration = 5000;
 
-  /* ==========================
-     AUTOPLAY
-  ========================== */
 
-  function stopAutoplay() {
-    clearTimeout(autoplayTimer);
-    autoplayTimer = null;
-  }
 
-  function startAutoplay() {
-    if (isPaused) return;
+// ----------------
+// SLIDE CONTROL
+// ----------------
+function updateSlidePosition() {
+  track.style.transform = `translateX(-${currentIndex * 100}%)`;
+  updateDots();
+}
 
+function goToSlide(index) {
+  stopAutoplay();
+  currentIndex = index;
+  updateSlidePosition();
+
+  const type = slides[currentIndex].dataset.type;
+
+  if (type === "video") {
     stopAutoplay();
-    autoplayTimer = setTimeout(() => {
-      nextHeroSlide();
-    }, AUTOPLAY_DELAY);
+    playVideoIfExists();
+  } else {
+    startAutoplay();
   }
+}
 
-  function nextHeroSlide() {
-    const next = (heroIndex + 1) % heroSlides.length;
-    showHeroSlide(next);
+function buildDots() {
+  if (!indicatorsContainer) return;
+  indicatorsContainer.innerHTML = '';
+  for (let i = 0; i < slides.length; i++) {
+    const dot = document.createElement('span');
+    dot.classList.add('dot');
+    if (i === currentIndex) dot.classList.add('active');
+    indicatorsContainer.appendChild(dot);
   }
+  dots = indicatorsContainer.querySelectorAll('.dot');
+}
 
-  /* ==========================
-     SLIDES
-  ========================== */
+function updateDots() {
+  if (!indicatorsContainer) return;
+  if (!dots || dots.length !== slides.length) {
+    buildDots();
+    return;
+  }
+  dots.forEach((dot, i) => {
+    dot.classList.toggle('active', i === currentIndex);
+  });
+}
 
-  function showHeroSlide(n) {
-    heroSlides.forEach((slide, i) => {
-      const overlay = slide.querySelector(".overlay");
-      const video = slide.querySelector("video");
+function playVideoIfExists() {
 
-      slide.classList.toggle("active", i === n);
-      if (heroDots[i]) heroDots[i].classList.toggle("active", i === n);
+  const slide = slides[currentIndex];
+  if (!slide) return;
 
-      if (i === n) {
-        if (overlay) {
-          overlay.classList.remove("animate");
-          void overlay.offsetWidth;
-          overlay.classList.add("animate");
-        }
-        if (video && !isPaused) {
-          video.currentTime = 0;
-          video.play().catch(() => {});
-        }
-      } else {
-        if (overlay) overlay.classList.remove("animate");
-        if (video) {
-          video.pause();
-          video.onended = null;
-        }
-      }
-    });
+  const iframe = slide.querySelector("iframe");
 
-    heroIndex = n;
+  if (iframe) {
+    let src = iframe.src;
 
-    const currentVideo = heroSlides[n].querySelector("video");
-
-    if (currentVideo && !isPaused) {
-      currentVideo.onended = () => nextHeroSlide();
-    } else {
-      startAutoplay();
+    if (!src.includes("autoplay=1")) {
+      src += "&autoplay=1&mute=1";
     }
+
+    iframe.src = "";
+    iframe.src = src;
   }
 
-  /* ==========================
-     BOTÓN PLAY / PAUSE
-  ========================== */
+}
 
-  toggleBtn.addEventListener("click", () => {
-    isPaused = !isPaused;
+function nextSlide() {
+  currentIndex = (currentIndex + 1) % slides.length;
+  goToSlide(currentIndex);
+}
 
-    const video = heroSlides[heroIndex].querySelector("video");
-    if (video) isPaused ? video.pause() : video.play().catch(() => {});
+function prevSlide() {
+  currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+  goToSlide(currentIndex);
+}
 
-    toggleBtn.textContent = isPaused ? "▶" : "⏸";
+// ----------------
+// AUTOPLAY IMAGES
+// ----------------
+function startAutoplay() {
+  autoplayInterval = setInterval(() => {
+    nextSlide();
+  }, imageDuration);
+}
 
-    isPaused ? stopAutoplay() : startAutoplay();
-  });
+function stopAutoplay() {
+  clearInterval(autoplayInterval);
+}
 
-  /* ==========================
-     DOTS
-  ========================== */
-
-  heroDots.forEach((dot, i) => {
-    dot.addEventListener("click", () => showHeroSlide(i));
-  });
-
-  /* ==========================
-     VISIBILIDAD
-  ========================== */
-
-  document.addEventListener("visibilitychange", () => {
-    if (document.hidden) stopAutoplay();
-    else if (!isPaused) startAutoplay();
-  });
-
-  /* ==========================
-     INIT
-  ========================== */
-
-  showHeroSlide(0);
-});
-
-/* ==========================
-   CONTROL DE PAUSA / PLAY
-========================== */
-
-function pauseHero() {
+// ----------------
+// PAUSA AL MANTENER
+// ----------------
+function pauseAll() {
   isPaused = true;
   stopAutoplay();
-
-  const currentSlide = heroSlides[heroIndex];
-  const video = currentSlide.querySelector("video");
-
-  if (video) {
-    video.pause();
-  }
-
-  toggleBtn.textContent = "▶";
-  toggleBtn.setAttribute("aria-pressed", "true");
 }
 
-function playHero() {
+function resumeAll() {
+  if (!isPaused) return;
   isPaused = false;
 
-  const currentSlide = heroSlides[heroIndex];
-  const video = currentSlide.querySelector("video");
-
-  if (video) {
-    video.play().catch(() => {});
+  if (slides[currentIndex].dataset.type !== "video") {
+    startAutoplay();
   }
-
-  toggleBtn.textContent = "⏸";
-  toggleBtn.setAttribute("aria-pressed", "false");
-
-  startAutoplay();
 }
 
-toggleBtn.addEventListener("click", () => {
-  isPaused ? playHero() : pauseHero();
-});
+const hero = document.querySelector('.hero');
+
+if (hero) {
+  hero.addEventListener('mousedown', pauseAll);
+  hero.addEventListener('mouseup', resumeAll);
+  hero.addEventListener('touchstart', pauseAll);
+  hero.addEventListener('touchend', resumeAll);
+}
+// ----------------
+// FLECHAS
+// ----------------
+if (rightArrow && leftArrow) {
+  rightArrow.addEventListener('click', nextSlide);
+  leftArrow.addEventListener('click', prevSlide);
+}
+
+// ----------------
+// SWIPE MOBILE
+// ----------------
+if (hero) {
+
+  hero.addEventListener('touchstart', e => {
+    startX = e.touches[0].clientX;
+  });
+
+  hero.addEventListener('touchend', e => {
+    let endX = e.changedTouches[0].clientX;
+    let diff = startX - endX;
+
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) nextSlide();
+      else prevSlide();
+    }
+  });
+
+}
+
+// INICIAR
+if (track && slides.length > 0) {
+  buildDots();
+  goToSlide(0);
+}
 
 /* ============================================
    BOTONES DE SECCIONES INTERACTIVAS
    ============================================ */
-document.addEventListener("DOMContentLoaded", () => {
-  const buttons = document.querySelectorAll(".hub-buttons button");
-  const boxes = document.querySelectorAll(".contenido-box");
 
-  if (!buttons.length || !boxes.length) return;
+const buttons = document.querySelectorAll(".hub-buttons button");
+const boxes = document.querySelectorAll(".contenido-box");
+
+if (buttons.length && boxes.length) {
 
   buttons.forEach((btn) => {
     btn.addEventListener("click", () => {
-      // Quitar "active" de todo
+
       buttons.forEach((b) => b.classList.remove("active"));
       boxes.forEach((box) => box.classList.remove("active"));
 
-      // Activar el actual
       btn.classList.add("active");
+
       const target = btn.getAttribute("data-target");
-      document.getElementById(target).classList.add("active");
+      const targetBox = document.getElementById(target);
+
+      if (targetBox) {
+        targetBox.classList.add("active");
+      }
+
     });
   });
-});
+
+}
 
 /* himno */
 
@@ -251,23 +266,7 @@ document.addEventListener("DOMContentLoaded", () => {
 //     });
 // });
 
-document.addEventListener("DOMContentLoaded", () => {
-  const buttons = document.querySelectorAll(".hub-buttons button");
-  const boxes = document.querySelectorAll(".contenido-box");
 
-  buttons.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      // Remover clase active de todos los botones y contenidos
-      buttons.forEach((b) => b.classList.remove("active"));
-      boxes.forEach((box) => box.classList.remove("active"));
-
-      // Activar el botón actual y su contenido relacionado
-      btn.classList.add("active");
-      const target = btn.getAttribute("data-target");
-      document.getElementById(target).classList.add("active");
-    });
-  });
-});
 
 // niveles educativos
 function toggleInfo(card) {
@@ -336,4 +335,5 @@ function closeModal() {
   document.getElementById("imgModal").style.display = "none";
 }
 
-alert("JS cargado");
+
+
