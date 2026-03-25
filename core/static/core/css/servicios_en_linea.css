@@ -303,6 +303,69 @@
   flex-shrink: 0;
 }
 
+.cta-horario-padres {
+  margin-top: 36px;
+  padding: 24px;
+  border-radius: var(--border-radius-lg);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.92),
+    rgba(248, 249, 250, 0.88)
+  );
+  border: 1px solid rgba(14, 168, 82, 0.14);
+  box-shadow: 0 8px 22px rgba(14, 168, 82, 0.12);
+  text-align: center;
+}
+
+.texto-cta-horario {
+  margin: 0 0 16px;
+  color: var(--texto-oscuro);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.boton-horario-padres {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: min(100%, 420px);
+  padding: 15px 24px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--color-primario), var(--verde-oscuro));
+  color: var(--cedhu-blanco);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.4;
+  box-shadow: 0 10px 24px rgba(10, 131, 64, 0.18);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+}
+
+.boton-horario-padres:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 28px rgba(10, 131, 64, 0.24);
+  filter: saturate(1.03);
+}
+
+.boton-horario-padres:focus-visible {
+  outline: 3px solid rgba(255, 230, 0, 0.5);
+  outline-offset: 4px;
+}
+
+@media (max-width: 640px) {
+  .cta-horario-padres {
+    margin-top: 28px;
+    padding: 20px 16px;
+  }
+
+  .boton-horario-padres {
+    width: 100%;
+    padding: 14px 18px;
+    border-radius: var(--border-radius-md);
+    font-size: 0.98rem;
+  }
+}
+
 
 /* =====================================
    IMÁGENES DE FONDO POR ID
