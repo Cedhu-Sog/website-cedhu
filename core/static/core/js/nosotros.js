@@ -128,7 +128,7 @@ if (botonMusica && musicaFondo) {
       if(entry.isIntersecting){
         const el = entry.target;
         const index = Array.from(animados).indexOf(el);
-        const delay = index * 0.01; 
+        const delay = index * 0.03; 
         el.style.transitionDelay = `${delay}s`;
         el.classList.add('animado');
         el.classList.remove('animado-inicio');

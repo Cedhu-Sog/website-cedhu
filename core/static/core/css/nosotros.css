@@ -614,13 +614,13 @@
   justify-content: center;
   align-items: center;
 }
-.staff-card-front img {
+/* .staff-card-front img {
   width: 200px;
   height: 200px;
   border-radius: 10%;
   object-fit: cover;
   margin-bottom: 12px;
-}
+} */
 .staff-card-front h4 {
   margin: 8px 0 4px;
   color: var(--color-primary);
