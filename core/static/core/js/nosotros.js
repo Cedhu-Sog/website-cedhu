@@ -118,7 +118,7 @@ if (botonMusica && musicaFondo) {
 // --- Animaciones al scroll solo hacia abajo ---
 (function() {
   const animados = document.querySelectorAll(
-    ".section h2, .section.alt h2, .section.comunicacion h2, .section.filosofia h2, .bandera-box h2, .uniforme-box h2, .lema-text h2, .mision-vision h2, .timeline h2, .staff-card-front h4"
+    ".section h2, .section.alt h2, .section.comunicacion h2, .section.filosofia h2, .bandera-box h2, .uniforme-box h2, .lema-text h2, .mision-vision h2, .timeline h2, .staff-card-front"
   );
 
   animados.forEach(el => el.classList.add('animado-inicio'));
