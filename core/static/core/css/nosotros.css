@@ -1209,7 +1209,7 @@
 .animado {
   opacity: 1;
   transform: translateY(0);
-  transition: all 0.25s ease-out; /* animación más rápida */
+  transition: all 0.1s ease-out; /* animación más rápida */
 }
 
 /* === Líneas decorativas debajo de todos los títulos principales === */

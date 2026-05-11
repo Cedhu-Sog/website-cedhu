@@ -128,14 +128,14 @@ if (botonMusica && musicaFondo) {
       if(entry.isIntersecting){
         const el = entry.target;
         const index = Array.from(animados).indexOf(el);
-        const delay = index * 0.05; 
+        const delay = index * 0.01; 
         el.style.transitionDelay = `${delay}s`;
         el.classList.add('animado');
         el.classList.remove('animado-inicio');
         obs.unobserve(el);
       }
     });
-  }, { threshold: 0.15 });
+  }, { threshold: 0.12 });
 
   animados.forEach(el => observer.observe(el));
 })();
