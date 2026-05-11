@@ -463,7 +463,7 @@
 }
 .section img {
   border-radius: 16px;
-  margin: 28px auto 0;
+  margin: 2px auto 0;
   display: block;
   box-shadow: var(--shadow-strong);
   transition: var(--transition-base);
@@ -615,9 +615,9 @@
   align-items: center;
 }
 .staff-card-front img {
-  width: 110px;
-  height: 110px;
-  border-radius: 50%;
+  width: 200px;
+  height: 200px;
+  border-radius: 10%;
   object-fit: cover;
   margin-bottom: 12px;
 }
