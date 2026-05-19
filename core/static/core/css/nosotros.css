@@ -868,7 +868,7 @@
 }
 
 /* ========== SECCIÓN ESTRUCTURA ORGANIZACIONAL ========== */
-.section.alt {
+.section .alt {
   padding: 2rem 1rem;
   text-align: center;
 }
